@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Manager</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="javascript/main.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Property Manager</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="javascript/main.js" defer></script>
+    </head>
     <body>
         <div class="topBar">
             <div class="teamNumber">SFOD-A 2112</div>
@@ -16,6 +16,8 @@
                 <input type="text" placeholder="Search Equipment" name="search" class="search">
                 <button>
                     <img src="search-icon.svg" class="weatherIcons">
+                    <!-- I don't think we even need a search button, we can just filter
+                         the list as soon as they type as there are no network requests to slow things down -->
                 </button>
             </div>
             <div class="teamMembers">
@@ -29,15 +31,66 @@
             </div>
         </div>
 
-        <div class="sidebar">
-            <div class="propertyByMOS">All Property</div>
-            <div class="propertyByMOS">18B Property</div>
-            <div class="propertyByMOS">18C Property</div>
-            <div class="propertyByMOS">18D Property</div>
-            <div class="propertyByMOS">18E Property</div>
+        <div class="bodyWrapper">
+            <div class="sidebar">
+                <div class="propertyByMOS">All Property</div>
+                <div class="propertyByMOS">18B Property</div>
+                <div class="propertyByMOS">18C Property</div>
+                <div class="propertyByMOS">18D Property</div>
+                <div class="propertyByMOS">18E Property</div>
+            </div>
+            <div class="inventoryList">
+                <div class="item">
+                    <details>
+                        <summary class="itemHeader"><span>M4 <span class="lin">LIN NUMBER</span> <span class="name">REAL NAME</span></span></span>
+                            <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </summary>
+                        <div class="serialNumber">
+                            <div class="serial">4732180</div>
+                            <select id="" name="">
+                                <option value="">--</option>
+                                <option value="">E1</option>
+                                <option value="">E2</option>
+                            </select>
+                        </div>
+                        <div class="serialNumber">
+                            <div class="serial">4732180</div>
+                            <select id="" name="">
+                                <option value="">--</option>
+                                <option value="">E1</option>
+                                <option value="">E2</option>
+                            </select>
+                        </div>
+                    </details>
+                </div>
+                <div class="item">
+                    <details>
+                        <summary class="itemHeader"><span>Radio <span class="lin">LIN NUMBER</span> <span class="name">REAL NAME</span></span></span>
+                            <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </summary>
+                        <div class="serialNumber">
+                            <div class="serial">4732180</div>
+                            <select id="" name="">
+                                <option value="">--</option>
+                                <option value="">E1</option>
+                                <option value="">E2</option>
+                            </select>
+                        </div>
+                        <div class="serialNumber">
+                            <div class="serial">4732180</div>
+                            <select id="" name="">
+                                <option value="">--</option>
+                                <option value="">E1</option>
+                                <option value="">E2</option>
+                            </select>
+                        </div>
+                    </details>
+                </div>
+            </div>
         </div>
-        
     </body>
 </html>
-
-        
