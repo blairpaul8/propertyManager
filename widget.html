@@ -22,11 +22,7 @@
             </div>
             <div class="teamMembers">
                 <button class="membersDropDown">Team Members</button>
-                <div class="teamNames">
-                    <p>Tony</p>
-                    <p>Joel</p>
-                    <p>Hayden</p>
-                    <p>Paul</p>
+                <div id="teamNames" class="teamNames">
                 </div>
             </div>
         </div>
@@ -39,7 +35,7 @@
                 <div class="propertyByMOS">18D Property</div>
                 <div class="propertyByMOS">18E Property</div>
             </div>
-            <div class="inventoryList">
+            <div id="inventoryList" class="inventoryList">
                 <div class="item">
                     <details>
                         <summary class="itemHeader"><span>M4 <span class="lin">LIN NUMBER</span> <span class="name">REAL NAME</span></span></span>
@@ -90,7 +86,55 @@
                         </div>
                     </details>
                 </div>
+                <h1 style="color:white">Everything past this is dynamically inserted!</h1>
+                <h3 style="color:white">Try adding a new item in the 'items' array</h3>
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+     const items = [
+         {name: "M4", nsn_number: 431270, lin_number: 2317280, serial_numbers: [1, 2, 3, 4]},
+         {name: "Radio", nsn_number: 131270, lin_number: 7317280, serial_numbers: [42, 27, 72]},
+     ];
+     const roles = [
+         {name: "Tony", role: "C1"},
+         {name: "Joel", role: "C2"},
+         {name: "Hayden", role: "A1"},
+         {name: "Paul", role: "E1"}
+     ]
+
+     roles.forEach((person) => {
+        document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<p>${person.name}</p>`);
+     });
+
+     items.forEach((item) => {
+         const html =
+             `<div class="item">
+                    <details>
+                        <summary id="itemHeader${item.name}" class="itemHeader"><span>${item.name} <span class="lin">${item.lin_number}</span> <span class="name">${item.nsn_number}</span></span></span>
+                            <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </summary>
+                    </details>
+                </div>`;
+         document.getElementById("inventoryList").insertAdjacentHTML('beforeend', html);
+         item.serial_numbers.forEach((serial_number) => {
+             const serial_number_element =
+                 `<div class="serialNumber">
+                      <div class="serial">${serial_number}</div>
+                      <select id="serial${serial_number}" name="">
+                          <option value="">--</option>
+                      </select>
+                  </div>`;
+             document.getElementById(`itemHeader${item.name}`).insertAdjacentHTML('afterend', serial_number_element);
+
+             roles.forEach((person) => {
+                 const option_html =
+                     `<option value="">${person.role} (${person.name})</option>`;
+                 document.getElementById(`serial${serial_number}`).insertAdjacentHTML('beforeend', option_html);
+             });
+         });
+     });
+    </script>
 </html>
