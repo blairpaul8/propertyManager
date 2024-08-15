@@ -21,7 +21,7 @@
 
             input.addEventListener('change', function() {
                 readXlsxFile(input.files[0]).then(function(data) {
-                    console.table(data);
+                    console.log(data);
 
                     parseItems(data);
                 });
