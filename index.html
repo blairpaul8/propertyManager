@@ -15,12 +15,40 @@
 
         <script>
             var input = document.getElementById('input');
+            var data = [];
+            var items = [];
+            var currentItem = [];
 
             input.addEventListener('change', function() {
                 readXlsxFile(input.files[0]).then(function(data) {
-                    console.log(data);
+                    console.table(data);
+
+                    parseItems(data);
                 });
             });
+
+            function parseItems(data) {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i][0] === "MPO") {
+                        if (currentItem.length > 0) {
+                            items.push(currentItem);
+                        }
+                        currentItem = []; // Reset currentItem for the next MPO
+                    } else {
+                        currentItem.push(data[i]);
+                    }
+                }
+
+                if (currentItem.length > 0) {
+                    items.push(currentItem);
+                }
+
+                for (let i = 0; i < items.length; i++) {
+                    console.table(items[i]);
+                }
+            }
+
+
         </script>
     </body>
 
