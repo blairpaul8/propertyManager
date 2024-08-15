@@ -93,8 +93,9 @@
     </body>
     <script type="text/javascript">
      const items = [
-         {name: "M4", nsn_number: 431270, lin_number: 2317280, serial_numbers: [1, 2, 3, 4]},
+         {name: "PVS-31", mpo_description: "BINOCULAR NIGHT VISION SYSTEM: (BVNS)", lin_number: "A05014", serial_numbers: [052279, 060324, 10671, 10685, 10686, 17135, 17146, 17148, 17153, 17155]},
          {name: "Radio", nsn_number: 131270, lin_number: 7317280, serial_numbers: [42, 27, 72]},
+         {name: "152A", mpo_description: "RECIEVER-TRANSMITTER, RADIO", lin_number: "FA205N", serial_numbers: [513071, 513111, 513188, 513222, 513250, 513253, 513254, 513259, 513358, 513399, 513491, 518469, 523831]}
      ];
      const roles = [
          {name: "Tony", role: "Z"},
@@ -111,7 +112,7 @@
          const html =
              `<div class="item">
                     <details>
-                        <summary id="itemHeader${item.name}" class="itemHeader"><span>${item.name} <span class="lin">${item.lin_number}</span> <span class="name">${item.nsn_number}</span></span></span>
+                        <summary id="itemHeader${item.name}" class="itemHeader"><span>${item.lin_number} <span class="lin">${item.mpo_description}</span> <span class="name">${item.name}</span></span></span>
                             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
