@@ -1,55 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Property Manager</title>
-        <link rel="stylesheet" href="css/main.css">
-        <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Manager</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+  </head>
 
-    <body>
-        <input type="file" id="input">
-        <table id="data-table"></table>
+  <body>
+    <input type="file" id="input" />
+    <table id="data-table"></table>
 
-        <script>
-            var input = document.getElementById('input');
-            var data = [];
-            var items = [];
-            var currentItem = [];
+    <script>
+      var input = document.getElementById("input");
 
-            input.addEventListener('change', function() {
-                readXlsxFile(input.files[0]).then(function(data) {
-                    console.log(data);
+      input.addEventListener("change", function () {
+        readXlsxFile(input.files[0]).then(function (data) {
+          const items = parseItems(data);
+          items.forEach((item) => {});
+          const itemObjects = [];
+          items.forEach((item_as_rows) => {
+            itemObjects.push(new item(item_as_rows));
+          });
 
-                    parseItems(data);
-                });
-            });
+          itemObjects.forEach((item) => {
+            console.log(item);
+          });
+        });
+      });
 
-            function parseItems(data) {
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i][0] === "MPO") {
-                        if (currentItem.length > 0) {
-                            items.push(currentItem);
-                        }
-                        currentItem = []; // Reset currentItem for the next MPO
-                    } else {
-                        currentItem.push(data[i]);
-                    }
-                }
+      /**
+       * Parse `data` into individual items.
+       * @param {string{}{}} data - row-by-row view of the property book
+       */
+      function parseItems(data) {
+        var items = [];
+        var currentItem = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i][0] === "MPO") {
+            if (currentItem.length > 0) {
+              items.push(currentItem);
+            }
+            currentItem = []; // Reset currentItem for the next MPO
+            currentItem.push(data[i]);
+          } else {
+            currentItem.push(data[i]);
+          }
+        }
 
-                if (currentItem.length > 0) {
-                    items.push(currentItem);
-                }
+        if (currentItem.length > 0) {
+          items.push(currentItem);
+        }
 
-                for (let i = 0; i < items.length; i++) {
-                    console.table(items[i]);
-                }
+        return items;
+      }
+      class nsn_item {
+        nsn;
+        nsn_description;
+        ui;
+        ciic;
+        dla;
+        buom;
+        quantity;
+        serial_numbers = [];
+
+        constructor(nsn_item_row) {
+          this.nsn = nsn_item_row[1][0];
+          this.nsn_description = nsn_item_row[1][2];
+          this.ui = nsn_item_row[1][5];
+          this.ciic = nsn_item_row[1][7];
+          this.dla = nsn_item_row[1][8];
+          this.buom = nsn_item_row[1][9];
+          this.quantity = nsn_item_row[1][10];
+
+          for (let i = 3; i < nsn_item_row.length; i++) {
+            // The three possible spots for a serial number
+            // We need to check each for null/undefined so those don't up in the array
+            if (nsn_item_row[i][1]) {
+              this.serial_numbers.push(nsn_item_row[i][1]);
+            }
+            if (nsn_item_row[i][4]) {
+              this.serial_numbers.push(nsn_item_row[i][4]);
+            }
+            if (nsn_item_row[i][7]) {
+              this.serial_numbers.push(nsn_item_row[i][7]);
+            }
+          }
+
+          // Prevents new fields from being added in the future, acts more like a struct
+          Object.seal(this);
+        }
+      }
+
+      class item {
+        mpo;
+        mpo_description;
+        nsn_items = [];
+
+        constructor(item_rows) {
+          let header = []; // Just MPO and MPO Description
+          let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
+
+          let cursor = 0;
+
+          for (let i = 0; i < item_rows.length; i++) {
+            // We reached the end of the header
+            if (item_rows[i][0] === "NSN" && cursor === 0) {
+              header = item_rows.slice(0, i);
+              cursor = i;
+              continue;
             }
 
+            // Item has multiples NSNs
+            if (item_rows[i][0] === "NSN") {
+              nsns.push(item_rows.slice(cursor, i));
+              cursor = i;
+              continue;
+            }
 
-        </script>
-    </body>
+            // Last serial number block
+            if (i === item_rows.length - 1) {
+              nsns.push(item_rows.slice(cursor));
+            }
+          }
 
-        
+          if (header.length > 1) {
+            // Some items don't have an mpo description
+            this.mpo = header[1][0];
+            this.mpo_description = header[1][2];
+          }
+
+          // Add a new NSN for each serial number block
+          nsns.forEach((nsn_item_row) => {
+            this.nsn_items.push(new nsn_item(nsn_item_row));
+          });
+
+          // Prevents new fields from being added in the future, acts more like a struct
+          Object.seal(this);
+        }
+      }
+    </script>
+  </body>
+</html>
