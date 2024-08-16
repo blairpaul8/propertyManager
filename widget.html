@@ -1,239 +1,296 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Property Manager</title>
-        <link rel="stylesheet" href="main.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
-    </head>
-    <body>
-        <div id="startPage" class="startPage">
-            <div class="addExcelFile">
-                <svg class="excelIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5" />
-                </svg>
-                <div class="fileInput">
-                    <label for="input" class="btn">Choose excel file</label>
-                    <input id="input" style="visibility:hidden;" type="file">
-                </div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Manager</title>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+  </head>
+  <body>
+    <div id="startPage" class="startPage">
+      <div class="addExcelFile">
+        <svg
+          class="excelIcon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+          />
+        </svg>
+        <div class="fileInput">
+          <label for="input" class="btn">Choose excel file</label>
+          <input id="input" style="visibility: hidden" type="file" />
         </div>
-        <div id="mainPage" style="display:none">
-            <div class="topBar">
-                <div class="teamNumber">SFOD-A 2112</div>
-                <div class="searchBar">
-                    <input type="text" placeholder="Search Equipment" name="search" class="search">
-                    <button>
-                        <img src="search-icon.svg" class="weatherIcons">
-                        <!-- I don't think we even need a search button, we can just filter
+      </div>
+    </div>
+    <div id="mainPage" style="display: none">
+      <div class="topBar">
+        <div class="teamNumber">SFOD-A 2112</div>
+        <div class="searchBar">
+          <input
+            type="text"
+            placeholder="Search Equipment"
+            name="search"
+            class="search"
+          />
+          <button>
+            <img src="search-icon.svg" class="weatherIcons" />
+            <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
-                    </button>
-                </div>
-                <div class="teamMembers">
-                    <button class="membersDropDown">Team Members</button>
-                    <div id="teamNames" class="teamNames">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bodyWrapper">
-                <div class="sidebar">
-                    <div class="propertyByMOS">All Property</div>
-                    <div class="propertyByMOS">18B Property</div>
-                    <div class="propertyByMOS">18C Property</div>
-                    <div class="propertyByMOS">18D Property</div>
-                    <div class="propertyByMOS">18E Property</div>
-                </div>
-                <div id="inventoryList" class="inventoryList">
-                    <div class="item">
-                        <details>
-                            <summary class="itemHeader"><span>M4 <span class="lin">LIN NUMBER</span> <span class="name">REAL NAME</span></span></span>
-                                <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                            </summary>
-                            <div class="serialNumber">
-                                <div class="serial">4732180</div>
-                                <select id="" name="">
-                                    <option value="">--</option>
-                                    <option value="">E1</option>
-                                    <option value="">E2</option>
-                                </select>
-                            </div>
-                            <div class="serialNumber">
-                                <div class="serial">4732180</div>
-                                <select id="" name="">
-                                    <option value="">--</option>
-                                    <option value="">E1</option>
-                                    <option value="">E2</option>
-                                </select>
-                            </div>
-                        </details>
-                    </div>
-                    <div class="item">
-                        <details>
-                            <summary class="itemHeader"><span>Radio <span class="lin">LIN NUMBER</span> <span class="name">REAL NAME</span></span></span>
-                                <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                            </summary>
-                            <div class="serialNumber">
-                                <div class="serial">4732180</div>
-                                <select id="" name="">
-                                    <option value="">--</option>
-                                    <option value="">E1</option>
-                                    <option value="">E2</option>
-                                </select>
-                            </div>
-                            <div class="serialNumber">
-                                <div class="serial">4732180</div>
-                                <select id="" name="">
-                                    <option value="">--</option>
-                                    <option value="">E1</option>
-                                    <option value="">E2</option>
-                                </select>
-                            </div>
-                        </details>
-                    </div>
-                    <h1 style="color:white">Everything past this is dynamically inserted!</h1>
-                    <h3 style="color:white">Try adding a new item in the 'items' array</h3>
-                </div>
-            </div>
+          </button>
         </div>
-    </body>
-    <script type="text/javascript">
+        <div class="teamMembers">
+          <button class="membersDropDown">Team Members</button>
+          <div id="teamNames" class="teamNames"></div>
+        </div>
+      </div>
 
-     /**
-      * Parse `data` into individual items.
-      * @param {string{}{}} data - row-by-row view of the property book
-      */
-     function parseItems(data) {
-         var items = [];
-         var currentItem = [];
-         for (let i = 0; i < data.length; i++) {
-             if (data[i][0] === "MPO") {
-                 if (currentItem.length > 0) {
-                     items.push(currentItem);
-                 }
-                 currentItem = []; // Reset currentItem for the next MPO
-                 currentItem.push(data[i]);
-             } else {
-                 currentItem.push(data[i]);
-             }
-         }
+      <div class="bodyWrapper">
+        <div class="sidebar">
+          <div class="propertyByMOS">All Property</div>
+          <div class="propertyByMOS">18B Property</div>
+          <div class="propertyByMOS">18C Property</div>
+          <div class="propertyByMOS">18D Property</div>
+          <div class="propertyByMOS">18E Property</div>
+        </div>
+        <div id="inventoryList" class="inventoryList">
+          <div class="item">
+            <details>
+              <summary class="itemHeader">
+                <span
+                  >M4 <span class="lin">LIN NUMBER</span>
+                  <span class="name">REAL NAME</span></span
+                >
+                <svg
+                  class="icons"
+                  data-slot="icon"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </summary>
+              <div class="serialNumber">
+                <div class="serial">4732180</div>
+                <select id="" name="">
+                  <option value="">--</option>
+                  <option value="">E1</option>
+                  <option value="">E2</option>
+                </select>
+              </div>
+              <div class="serialNumber">
+                <div class="serial">4732180</div>
+                <select id="" name="">
+                  <option value="">--</option>
+                  <option value="">E1</option>
+                  <option value="">E2</option>
+                </select>
+              </div>
+            </details>
+          </div>
+          <div class="item">
+            <details>
+              <summary class="itemHeader">
+                <span
+                  >Radio <span class="lin">LIN NUMBER</span>
+                  <span class="name">REAL NAME</span></span
+                >
+                <svg
+                  class="icons"
+                  data-slot="icon"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </summary>
+              <div class="serialNumber">
+                <div class="serial">4732180</div>
+                <select id="" name="">
+                  <option value="">--</option>
+                  <option value="">E1</option>
+                  <option value="">E2</option>
+                </select>
+              </div>
+              <div class="serialNumber">
+                <div class="serial">4732180</div>
+                <select id="" name="">
+                  <option value="">--</option>
+                  <option value="">E1</option>
+                  <option value="">E2</option>
+                </select>
+              </div>
+            </details>
+          </div>
+          <h1 style="color: white">
+            Everything past this is dynamically inserted!
+          </h1>
+          <h3 style="color: white">
+            Try adding a new item in the 'items' array
+          </h3>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    /**
+     * Parse `data` into individual items.
+     * @param {string{}{}} data - row-by-row view of the property book
+     */
+    function parseItems(data) {
+      var items = [];
+      var currentItem = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i][0] === "MPO") {
+          if (currentItem.length > 0) {
+            items.push(currentItem);
+          }
+          currentItem = []; // Reset currentItem for the next MPO
+          currentItem.push(data[i]);
+        } else {
+          currentItem.push(data[i]);
+        }
+      }
 
-         if (currentItem.length > 0) {
-             items.push(currentItem);
-         }
+      if (currentItem.length > 0) {
+        items.push(currentItem);
+      }
 
-         return items;
-     }
+      return items;
+    }
 
-     class nsn_item {
-         nsn;
-         nsn_description;
-         ui;
-         ciic;
-         dla;
-         buom;
-         quantity;
-         serial_numbers = [];
+    class nsn_item {
+      nsn;
+      nsn_description;
+      ui;
+      ciic;
+      dla;
+      buom;
+      quantity;
+      serial_numbers = [];
 
-         constructor(nsn_item_row) {
-             this.nsn = nsn_item_row[1][0];
-             this.nsn_description = nsn_item_row[1][2];
-             this.ui = nsn_item_row[1][5];
-             this.ciic = nsn_item_row[1][7];
-             this.dla = nsn_item_row[1][8];
-             this.buom = nsn_item_row[1][9];
-             this.quantity = nsn_item_row[1][10];
+      constructor(nsn_item_row) {
+        this.nsn = nsn_item_row[1][0];
+        this.nsn_description = nsn_item_row[1][2];
+        this.ui = nsn_item_row[1][5];
+        this.ciic = nsn_item_row[1][7];
+        this.dla = nsn_item_row[1][8];
+        this.buom = nsn_item_row[1][9];
+        this.quantity = nsn_item_row[1][10];
 
-             console.table(nsn_item_row);
+        console.table(nsn_item_row);
 
-             for (let i = 3; i < nsn_item_row.length; i++) {
-                 if (nsn_item_row[i][0] === 'SysNo') { continue; }
-                 // The three possible spots for a serial number
-                 // We need to check each for null/undefined so those don't up in the array
-                 if (nsn_item_row[i][1]) {
-                     this.serial_numbers.push(nsn_item_row[i][1]);
-                 }
-                 if (nsn_item_row[i][5]) {
-                     this.serial_numbers.push(nsn_item_row[i][5]);
-                 }
-                 if (nsn_item_row[i][10]) {
-                     this.serial_numbers.push(nsn_item_row[i][10]);
-                 }
-             }
+        for (let i = 3; i < nsn_item_row.length; i++) {
+          if (nsn_item_row[i][0] === "SysNo") {
+            continue;
+          }
+          // The three possible spots for a serial number
+          // We need to check each for null/undefined so those don't up in the array
+          if (nsn_item_row[i][1]) {
+            this.serial_numbers.push(nsn_item_row[i][1]);
+          }
+          if (nsn_item_row[i][5]) {
+            this.serial_numbers.push(nsn_item_row[i][5]);
+          }
+          if (nsn_item_row[i][10]) {
+            this.serial_numbers.push(nsn_item_row[i][10]);
+          }
+        }
 
-             // Prevents new fields from being added in the future, acts more like a struct
-             Object.seal(this);
-         }
-     }
+        // Prevents new fields from being added in the future, acts more like a struct
+        Object.seal(this);
+      }
+    }
 
-     class item {
-         mpo;
-         mpo_description;
-         nsn_items = [];
+    class item {
+      mpo;
+      mpo_description;
+      nsn_items = [];
 
-         constructor(item_rows) {
-             let header = []; // Just MPO and MPO Description
-             let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
+      constructor(item_rows) {
+        let header = []; // Just MPO and MPO Description
+        let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
 
-             let cursor = 0;
+        let cursor = 0;
 
-             for (let i = 0; i < item_rows.length; i++) {
-                 // We reached the end of the header
-                 if (item_rows[i][0] === "NSN" && cursor === 0) {
-                     header = item_rows.slice(0, i);
-                     cursor = i;
-                     continue;
-                 }
+        for (let i = 0; i < item_rows.length; i++) {
+          // We reached the end of the header
+          if (item_rows[i][0] === "NSN" && cursor === 0) {
+            header = item_rows.slice(0, i);
+            cursor = i;
+            continue;
+          }
 
-                 // Item has multiples NSNs
-                 if (item_rows[i][0] === "NSN") {
-                     nsns.push(item_rows.slice(cursor, i));
-                     cursor = i;
-                     continue;
-                 }
+          // Item has multiples NSNs
+          if (item_rows[i][0] === "NSN") {
+            nsns.push(item_rows.slice(cursor, i));
+            cursor = i;
+            continue;
+          }
 
-                 // Last serial number block
-                 if (i === item_rows.length - 1) {
-                     nsns.push(item_rows.slice(cursor));
-                 }
-             }
+          // Last serial number block
+          if (i === item_rows.length - 1) {
+            nsns.push(item_rows.slice(cursor));
+          }
+        }
 
-             if (header.length > 1) {
-                 // Some items don't have an mpo description
-                 this.mpo = header[1][0];
-                 this.mpo_description = header[1][2];
-             }
+        if (header.length > 1) {
+          // Some items don't have an mpo description
+          this.mpo = header[1][0];
+          this.mpo_description = header[1][2];
+        }
 
-             // Add a new NSN for each serial number block
-             nsns.forEach((nsn_item_rows) => {
-                 this.nsn_items.push(new nsn_item(nsn_item_rows));
-             });
+        // Add a new NSN for each serial number block
+        nsns.forEach((nsn_item_rows) => {
+          this.nsn_items.push(new nsn_item(nsn_item_rows));
+        });
 
-             // Prevents new fields from being added in the future, acts more like a struct
-             Object.seal(this);
-         }
-     }
+        // Prevents new fields from being added in the future, acts more like a struct
+        Object.seal(this);
+      }
+    }
 
-     /**
-      * Render `items` as a list, inserted into the dom at `root`
-      * Will also clear the previous list
-      * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching
-      */
-     function render_list(root, items) {
-         root.innerHTML = '';
+    /**
+     * Render `items` as a list, inserted into the dom at `root`
+     * Will also clear the previous list
+     * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching
+     */
+    function render_list(root, items) {
+      root.innerHTML = "";
 
-         items.forEach((item) => {
-             const rand_item = Math.floor(Math.random() * 100000);
-             const html =
-                 `<div class="item">
+      items.forEach((item) => {
+        const rand_item = Math.floor(Math.random() * 100000);
+        const html = `<div class="item">
                     <details>
                         <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
                             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -242,72 +299,79 @@
                         </summary>
                     </details>
                 </div>`;
-             root.insertAdjacentHTML('beforeend', html);
+        root.insertAdjacentHTML("beforeend", html);
 
-             item.nsn_items.forEach((nsn_item) => {
-                 // Header for this NSN item
-                 const rand_header = Math.floor(Math.random() * 100000);
-                 const header = `<div id=header${rand_header}>${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}</div>`
-                 document.getElementById(`itemHeader${rand_item}`).insertAdjacentHTML('afterend', header);
+        item.nsn_items.forEach((nsn_item) => {
+          // Header for this NSN item
+          const rand_header = Math.floor(Math.random() * 100000);
+          const header = `<div id=header${rand_header}>${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}</div>`;
+          document
+            .getElementById(`itemHeader${rand_item}`)
+            .insertAdjacentHTML("afterend", header);
 
-                 // Insert the serial numbers for this NSN item
-                 nsn_item.serial_numbers.forEach((serial_number) => {
-                     const serial_number_element =
-                         `<div class="serialNumber">
+          // Insert the serial numbers for this NSN item
+          nsn_item.serial_numbers.forEach((serial_number) => {
+            const rand_serial = Math.floor(Math.random() * 100000);
+            const serial_number_element = `<div class="serialNumber">
                               <div class="serial">${serial_number}</div>
-                              <select id="serial${serial_number}" name="">
+                              <select id="serial${rand_serial}" name="">
                                   <option value="">--</option>
                               </select>
                           </div>`;
 
-                     document.getElementById(`header${rand_header}`).insertAdjacentHTML('afterend', serial_number_element);
+            document
+              .getElementById(`header${rand_header}`)
+              .insertAdjacentHTML("afterend", serial_number_element);
 
-                     roles.forEach((person) => {
-                         const option_html =
-                             `<option value="">${person.role} (${person.name})</option>`;
-                         document.getElementById(`serial${serial_number}`).insertAdjacentHTML('beforeend', option_html);
-                     });
-                 });
-             });
-         });
+            roles.forEach((person) => {
+              const option_html = `<option value="">${person.role} (${person.name})</option>`;
+              document
+                .getElementById(`serial${rand_serial}`)
+                .insertAdjacentHTML("beforeend", option_html);
+            });
+          });
+        });
+      });
 
-         document.getElementById("startPage").style.display = 'none';
-         document.getElementById("mainPage").style.display = 'block';
-     }
+      document.getElementById("startPage").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    }
 
-     // Pre-populate roles/names, this will come from the start screen later
-     const roles = [
-         {name: "Tony", role: "Z"},
-         {name: "Joel", role: "W"},
-         {name: "Hayden", role: "B2"},
-         {name: "Paul", role: "E1"}
-     ]
+    // Pre-populate roles/names, this will come from the start screen later
+    const roles = [
+      { name: "Tony", role: "Z" },
+      { name: "Joel", role: "W" },
+      { name: "Hayden", role: "B2" },
+      { name: "Paul", role: "E1" },
+    ];
 
-     roles.forEach((person) => {
-         document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<p>${person.name}</p>`);
-     });
+    roles.forEach((person) => {
+      document
+        .getElementById("teamNames")
+        .insertAdjacentHTML("beforeend", `<p>${person.name}</p>`);
+    });
 
-     // Setup out start screen
-     let input = document.getElementById("input");
-     var items = [];
+    // Setup out start screen
+    let input = document.getElementById("input");
+    var items = [];
 
-     input.addEventListener("change", function () {
-         readXlsxFile(input.files[0]).then(function (data) {
-             let parsedRows = parseItems(data);
-             const itemObjects = [];
-             parsedRows.forEach((item_as_rows) => {
-                 itemObjects.push(new item(item_as_rows));
-             });
+    input.addEventListener("change", function () {
+      readXlsxFile(input.files[0]).then(function (data) {
+        let parsedRows = parseItems(data);
+        const itemObjects = [];
+        parsedRows.forEach((item_as_rows) => {
+          itemObjects.push(new item(item_as_rows));
+        });
 
-             itemObjects.forEach((item) => {
-                 console.log(item);
-             });
+        itemObjects.forEach((item) => {
+          console.log(item);
+        });
 
-             items = itemObjects.slice();
+        items = itemObjects.slice();
 
-             console.log(items.length);
-             render_list(document.getElementById('inventoryList'), items);
-         });
-     });
-    </script>
+        console.log(items.length);
+        render_list(document.getElementById("inventoryList"), items);
+      });
+    });
+  </script>
 </html>
