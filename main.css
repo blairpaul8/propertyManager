@@ -184,6 +184,13 @@ details summary::-webkit-details-marker {
 .icons {
   height: 1rem;
   width: auto;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+details[open] summary .icons {
+  transform: rotate(180deg);
 }
 
 .serial {
