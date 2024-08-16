@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div id="mainPage" style="display: none">
+    <div class="mainPage" id="mainPage" style="display: none">
       <div class="topBar">
         <div class="teamNumber">SFOD-A 2112</div>
         <div class="searchBar">
@@ -348,7 +348,10 @@
     roles.forEach((person) => {
       document
         .getElementById("teamNames")
-        .insertAdjacentHTML("beforeend", `<p>${person.name}</p>`);
+        .insertAdjacentHTML(
+          "beforeend",
+          `<p>(${person.role}) ${person.name}</p>`,
+        );
     });
 
     // Setup out start screen
