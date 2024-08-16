@@ -1,7 +1,7 @@
 body {
-    background: #222222;
-    max-width: 100vw;
-    font-family: sans-serif;
+  background: #222222;
+  max-width: 100vw;
+  font-family: sans-serif;
 }
 
 .topBar {
@@ -10,7 +10,7 @@ body {
   justify-content: space-between;
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgb(0,0,0.25);
+  box-shadow: 0 0 10px rgb(0, 0, 0.25);
   margin-bottom: 1rem;
 }
 
@@ -19,7 +19,7 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 200px;
-  box-shadow: 0 0 5px rgb(0,0,0.25);
+  box-shadow: 0 0 5px rgb(0, 0, 0.25);
   padding-left: 5px;
   font-family: sans-serif;
   font-size: 1.5em;
@@ -72,9 +72,9 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 200px;
-  box-shadow: 0 0 5px rgb(0,0,0.25);
+  box-shadow: 0 0 5px rgb(0, 0, 0.25);
   font-family: sans-serif;
-  flex:1;
+  flex: 1;
 }
 
 .membersDropDown {
@@ -94,20 +94,16 @@ body {
   left: 0;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-.teamMembers:hover .teamNames {display: block;}
-.teamMembers:hover .membersDropDown {background-color: #666666;}
-
-
-
-
-
-
-
-
+.teamMembers:hover .teamNames {
+  display: block;
+}
+.teamMembers:hover .membersDropDown {
+  background-color: #666666;
+}
 
 .sidebar {
   display: flex;
@@ -116,18 +112,17 @@ body {
   width: 15%;
   height: 100%;
   font-family: sans-serif;
-
 }
 
-.propertyByMOS{
+.propertyByMOS {
   height: 10%;
   padding: 5%;
-  box-shadow: 0 0 7.5px rgb(0,0,0.25);
+  box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   font-size: 1.25em;
   color: #455d7a;
 }
 
-.bodyWrapper{
+.bodyWrapper {
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -135,19 +130,19 @@ body {
   padding-inline: 0.75rem;
 }
 
-.inventoryList{
+.inventoryList {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
 }
 
-.item{
+.item {
   border-radius: 0.25rem;
   color: #455d7a;
   width: 100%;
   padding: 0.25rem;
-  box-shadow: 0 0 7.5px rgb(0,0,0.25);
+  box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   background-color: #333333;
 }
 
@@ -157,15 +152,15 @@ details > summary {
 }
 
 details summary::-webkit-details-marker {
-  display:none;
+  display: none;
 }
 
-.serialNumber{
+.serialNumber {
   display: flex;
   justify-content: space-between;
 }
 
-.itemHeader{
+.itemHeader {
   font-size: 24px;
   text-decoration: bold;
   color: white;
@@ -174,23 +169,67 @@ details summary::-webkit-details-marker {
   align-items: center;
 }
 
-.itemHeader:hover{
+.itemHeader:hover {
   cursor: pointer;
 }
 
-.lin{
+.lin {
   font-size: 1rem;
 }
 
-.name{
+.name {
   font-size: 1rem;
 }
 
-.icons{
+.icons {
   height: 1rem;
   width: auto;
 }
 
-.serial{
+.serial {
   color: white;
+}
+
+.startPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.addExcelFile {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgb(0, 0, 0.25);
+  width: 50vh;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.excelIcon {
+  height: 5rem;
+  width: auto;
+  color: green;
+}
+
+.fileInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn {
+  width: max-content;
+}
+
+.fileInput label.btn {
+  border: 2px solid #000;
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  border-radius: 0.5rem;
 }
