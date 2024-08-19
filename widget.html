@@ -50,7 +50,27 @@
             <img src="search-icon.svg" class="weatherIcons" />
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
+
           </button>
+                    </button>
+                </div>
+                <div class="teamMembers">
+                    <button class="membersDropDown">Team Members</button>
+                    <div id="teamNames" class="teamNames"></div>
+                </div>
+            </div>
+
+            <div class="bodyWrapper">
+                <div class="sidebar">
+                    <div class="propertyByMOS">All Property</div>
+                    <div class="propertyByMOS">18B Property</div>
+                    <div class="propertyByMOS">18C Property</div>
+                    <div class="propertyByMOS">18D Property</div>
+                    <div class="propertyByMOS">18E Property</div>
+                </div>
+                <div id="inventoryList" class="inventoryList"></div></div>
+            </div>
+
         </div>
         <div class="teamMembers">
           <button class="membersDropDown">Team Members</button>
@@ -337,26 +357,30 @@
       document.getElementById("mainPage").style.display = "block";
     }
 
-    // Pre-populate roles/names, this will come from the start screen later
-    const roles = [
-      { name: "Tony", role: "Z" },
-      { name: "Joel", role: "W" },
-      { name: "Hayden", role: "B2" },
-      { name: "Paul", role: "E1" },
-    ];
+     // Pre-populate roles/names, this will come from the start screen later
+     const roles = [
+         {name: "Tony", role: "Z"},
+         {name: "Joel", role: "W"},
+         {name: "Chuck", role: "B1"},
+         {name: "Hayden", role: "B2"},
+         {name: "Forrest", role: "C1"},
+         {name: "Jordan", role: "C2"},
+         {name: "Eli", role: "D1"},
+         {name: "Tommy", role: "D2"},
+         {name: "Paul", role: "E1"},
+         {name: "Rhyan", role: "E2"},
+     ]
 
-    roles.forEach((person) => {
-      document
-        .getElementById("teamNames")
-        .insertAdjacentHTML(
-          "beforeend",
-          `<p>(${person.role}) ${person.name}</p>`,
-        );
-    });
+     roles.forEach((person) => {
+         document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
+     });
 
-    // Setup out start screen
-    let input = document.getElementById("input");
-    var items = [];
+     document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<button class="editTeamMembers">Edit Team</button>`);
+
+
+     // Setup out start screen
+     let input = document.getElementById("input");
+     var items = [];
 
     input.addEventListener("change", function () {
       readXlsxFile(input.files[0]).then(function (data) {

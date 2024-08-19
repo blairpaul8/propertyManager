@@ -85,6 +85,30 @@ body {
   flex: 1;
 }
 
+.namesAndRoles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 15px;
+}
+
+.editTeamMembers {
+  display: block; 
+    background-color: #666666;
+    color: #ffffff; 
+    min-width: 100%; 
+    padding: 10px; 
+    border: none; 
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; 
+    text-align: center;
+}
+
+.editTeamMembers:hover {
+  background-color: #333333;
+}
+
 .membersDropDown {
   background-color: #222222;
   font-size: 1.5em;
@@ -100,7 +124,8 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #f1f1f1;
+  background-color: #666666;
+  border-radius: 5px;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
