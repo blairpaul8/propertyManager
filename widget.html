@@ -13,6 +13,9 @@
     <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
   </head>
   <body>
+    <dialog id="editTeamModal" class="editTeam">
+        <button id='closeModal' class="closeModal">Save Team</button>
+    </dialog> 
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <svg
@@ -56,7 +59,9 @@
                 </div>
                 <div class="teamMembers">
                     <button class="membersDropDown">Team Members</button>
-                    <div id="teamNames" class="teamNames"></div>
+                    <div id="teamNames" class="teamNames">
+                      <button id="editTeam" class="editTeamMembers">Edit Team</button>
+                    </div>
                 </div>
             </div>
 
@@ -299,6 +304,8 @@
       }
     }
 
+    //Section Property Arrays insert here
+
     /**
      * Render `items` as a list, inserted into the dom at `root`
      * Will also clear the previous list
@@ -372,11 +379,28 @@
      ]
 
      roles.forEach((person) => {
-         document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
+         document.getElementById("teamNames").insertAdjacentHTML('afterbegin', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
      });
 
-     document.getElementById("teamNames").insertAdjacentHTML('beforeend', `<button class="editTeamMembers">Edit Team</button>`);
+     const modal = document.getElementById("editTeamModal");
+     const openModal = document.getElementById("editTeam");
+     const closeModal = document.getElementById("closeModal");
 
+     openModal.addEventListener('click', () => {
+      modal.showModal();
+     })
+
+    function render_edit_team_list(role_list) {
+      roles.forEach((person) => {
+         document.getElementById("editTeamModal").insertAdjacentHTML('afterbegin', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
+     });
+
+     closeModal.addEventListener('click', () => {
+      modal.close();
+     })
+    }
+
+    render_edit_team_list(roles);
 
      // Setup out start screen
      let input = document.getElementById("input");
