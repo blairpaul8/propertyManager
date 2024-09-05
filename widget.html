@@ -221,6 +221,7 @@
       dla;
       buom;
       quantity;
+      // Mapping of serial numbers to roles [{'serial_number': 431431, 'assignment': 'E1'}, ...]
       serial_numbers = [];
 
       constructor(nsn_item_row) {
@@ -241,13 +242,13 @@
           // The three possible spots for a serial number
           // We need to check each for null/undefined so those don't up in the array
           if (nsn_item_row[i][1]) {
-            this.serial_numbers.push(nsn_item_row[i][1]);
+            this.serial_numbers.push({'serial_number': nsn_item_row[i][1], 'assignment': null});
           }
           if (nsn_item_row[i][5]) {
-            this.serial_numbers.push(nsn_item_row[i][5]);
+            this.serial_numbers.push({'serial_number': nsn_item_row[i][5], 'assignment': null});
           }
           if (nsn_item_row[i][10]) {
-            this.serial_numbers.push(nsn_item_row[i][10]);
+            this.serial_numbers.push({'serial_number': nsn_item_row[i][10], 'assignment': null});
           }
         }
 
@@ -340,18 +341,20 @@
           nsn_item.serial_numbers.forEach((serial_number) => {
             const rand_serial = Math.floor(Math.random() * 100000);
             const serial_number_element = `<div class="serialNumber">
-                              <div class="serial">${serial_number}</div>
+                              <div class="serial">${serial_number.serial_number}</div>
                               <select id="serial${rand_serial}" name="">
                                   <option value="">--</option>
                               </select>
                           </div>`;
 
-            document
-              .getElementById(`header${rand_header}`)
-              .insertAdjacentHTML("afterend", serial_number_element);
+            const header_element = document.getElementById(`header${rand_header}`)
+            header_element.insertAdjacentHTML("afterend", serial_number_element);
+
+            const select_box = document.getElementById(`serial${rand_serial}`)
+            select_box.addEventListener("change", (event) => {serial_number.assignment = document.getElementById(`serial${rand_serial}`).value;});
 
             roles.forEach((person) => {
-              const option_html = `<option value="">${person.role} (${person.name})</option>`;
+              const option_html = `<option value="${person.role}">${person.role} (${person.name})</option>`;
               document
                 .getElementById(`serial${rand_serial}`)
                 .insertAdjacentHTML("beforeend", option_html);
