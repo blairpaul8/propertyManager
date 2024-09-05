@@ -147,6 +147,7 @@ body {
   width: 15%;
   height: 100%;
   font-family: sans-serif;
+  gap: 2rem;
 }
 
 .propertyByMOS {
@@ -159,6 +160,19 @@ body {
 }
 
 .propertyByMOS:hover {
+  transform: scale(1.05);
+}
+
+.boxesPageButton {
+  padding: 5%;
+  border-radius: 0.5rem;
+  font-size: 1.25em;
+  color: black;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.boxesPageButton:hover {
   transform: scale(1.05);
 }
 

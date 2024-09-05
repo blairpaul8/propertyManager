@@ -14,8 +14,8 @@
   </head>
   <body>
     <dialog id="editTeamModal" class="editTeam">
-        <button id='closeModal' class="closeModal">Save Team</button>
-    </dialog> 
+      <button id="closeModal" class="closeModal">Save Team</button>
+    </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <svg
@@ -53,138 +53,52 @@
             <img src="search-icon.svg" class="weatherIcons" />
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
-
           </button>
-                    </button>
-                </div>
-                <div class="teamMembers">
-                    <button class="membersDropDown">Team Members</button>
-                    <div id="teamNames" class="teamNames">
-                      <button id="editTeam" class="editTeamMembers">Edit Team</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bodyWrapper">
-                <div class="sidebar">
-                    <div class="propertyByMOS">All Property</div>
-                    <div class="propertyByMOS">18B Property</div>
-                    <div class="propertyByMOS">18C Property</div>
-                    <div class="propertyByMOS">18D Property</div>
-                    <div class="propertyByMOS">18E Property</div>
-                </div>
-                <div id="inventoryList" class="inventoryList"></div></div>
-            </div>
-
         </div>
         <div class="teamMembers">
           <button class="membersDropDown">Team Members</button>
-          <div id="teamNames" class="teamNames"></div>
+          <div id="teamNames" class="teamNames">
+            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+          </div>
         </div>
       </div>
 
       <div class="bodyWrapper">
         <div class="sidebar">
-          <div class="propertyByMOS">All Property</div>
-          <div class="propertyByMOS">18B Property</div>
-          <div class="propertyByMOS">18C Property</div>
-          <div class="propertyByMOS">18D Property</div>
-          <div class="propertyByMOS">18E Property</div>
-        </div>
-        <div id="inventoryList" class="inventoryList">
-          <div class="item">
-            <details>
-              <summary class="itemHeader">
-                <span
-                  >M4 <span class="lin">LIN NUMBER</span>
-                  <span class="name">REAL NAME</span></span
-                >
-                <svg
-                  class="icons"
-                  data-slot="icon"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </summary>
-              <div class="serialNumber">
-                <div class="serial">4732180</div>
-                <select id="" name="">
-                  <option value="">--</option>
-                  <option value="">E1</option>
-                  <option value="">E2</option>
-                </select>
-              </div>
-              <div class="serialNumber">
-                <div class="serial">4732180</div>
-                <select id="" name="">
-                  <option value="">--</option>
-                  <option value="">E1</option>
-                  <option value="">E2</option>
-                </select>
-              </div>
-            </details>
+          <div>
+            <div class="propertyByMOS">All Property</div>
+            <div class="propertyByMOS">18B Property</div>
+            <div class="propertyByMOS">18C Property</div>
+            <div class="propertyByMOS">18D Property</div>
+            <div class="propertyByMOS">18E Property</div>
           </div>
-          <div class="item">
-            <details>
-              <summary class="itemHeader">
-                <span
-                  >Radio <span class="lin">LIN NUMBER</span>
-                  <span class="name">REAL NAME</span></span
-                >
-                <svg
-                  class="icons"
-                  data-slot="icon"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </summary>
-              <div class="serialNumber">
-                <div class="serial">4732180</div>
-                <select id="" name="">
-                  <option value="">--</option>
-                  <option value="">E1</option>
-                  <option value="">E2</option>
-                </select>
-              </div>
-              <div class="serialNumber">
-                <div class="serial">4732180</div>
-                <select id="" name="">
-                  <option value="">--</option>
-                  <option value="">E1</option>
-                  <option value="">E2</option>
-                </select>
-              </div>
-            </details>
-          </div>
-          <h1 style="color: white">
-            Everything past this is dynamically inserted!
-          </h1>
-          <h3 style="color: white">
-            Try adding a new item in the 'items' array
-          </h3>
+          <button
+            class="boxesPageButton"
+            onclick="((event) => console.log('hi'))();"
+          >
+            Boxes View
+          </button>
         </div>
+        <div id="inventoryList" class="inventoryList"></div>
       </div>
     </div>
+
+    <div class="teamMembers">
+      <button class="membersDropDown">Team Members</button>
+      <div id="teamNames" class="teamNames"></div>
+    </div>
+
+    <div class="bodyWrapper">
+      <div class="sidebar">
+        <div class="propertyByMOS">All Property</div>
+        <div class="propertyByMOS">18B Property</div>
+        <div class="propertyByMOS">18C Property</div>
+        <div class="propertyByMOS">18D Property</div>
+        <div class="propertyByMOS">18E Property</div>
+      </div>
+      <div id="inventoryList" class="inventoryList"></div>
+    </div>
+    <div id="boxesPage" hidden></div>
   </body>
   <script type="text/javascript">
     /**
@@ -233,8 +147,6 @@
         this.buom = nsn_item_row[1][9];
         this.quantity = nsn_item_row[1][10];
 
-        console.table(nsn_item_row);
-
         for (let i = 3; i < nsn_item_row.length; i++) {
           if (nsn_item_row[i][0] === "SysNo") {
             continue;
@@ -242,13 +154,22 @@
           // The three possible spots for a serial number
           // We need to check each for null/undefined so those don't up in the array
           if (nsn_item_row[i][1]) {
-            this.serial_numbers.push({'serial_number': nsn_item_row[i][1], 'assignment': null});
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][1],
+              assignment: null,
+            });
           }
           if (nsn_item_row[i][5]) {
-            this.serial_numbers.push({'serial_number': nsn_item_row[i][5], 'assignment': null});
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][5],
+              assignment: null,
+            });
           }
           if (nsn_item_row[i][10]) {
-            this.serial_numbers.push({'serial_number': nsn_item_row[i][10], 'assignment': null});
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][10],
+              assignment: null,
+            });
           }
         }
 
@@ -319,14 +240,14 @@
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-                    <details class="itemDetails">
-                        <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
-                            <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </summary>
-                    </details>
-                </div>`;
+         <details class="itemDetails">
+           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+               <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+             </svg>
+           </summary>
+         </details>
+       </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -347,11 +268,20 @@
                               </select>
                           </div>`;
 
-            const header_element = document.getElementById(`header${rand_header}`)
-            header_element.insertAdjacentHTML("afterend", serial_number_element);
+            const header_element = document.getElementById(
+              `header${rand_header}`,
+            );
+            header_element.insertAdjacentHTML(
+              "afterend",
+              serial_number_element,
+            );
 
-            const select_box = document.getElementById(`serial${rand_serial}`)
-            select_box.addEventListener("change", (event) => {serial_number.assignment = document.getElementById(`serial${rand_serial}`).value;});
+            const select_box = document.getElementById(`serial${rand_serial}`);
+            select_box.addEventListener("change", (event) => {
+              serial_number.assignment = document.getElementById(
+                `serial${rand_serial}`,
+              ).value;
+            });
 
             roles.forEach((person) => {
               const option_html = `<option value="${person.role}">${person.role} (${person.name})</option>`;
@@ -367,47 +297,102 @@
       document.getElementById("mainPage").style.display = "block";
     }
 
-     // Pre-populate roles/names, this will come from the start screen later
-     const roles = [
-         {name: "Tony", role: "Z"},
-         {name: "Joel", role: "W"},
-         {name: "Chuck", role: "B1"},
-         {name: "Hayden", role: "B2"},
-         {name: "Forrest", role: "C1"},
-         {name: "Jordan", role: "C2"},
-         {name: "Eli", role: "D1"},
-         {name: "Tommy", role: "D2"},
-         {name: "Paul", role: "E1"},
-         {name: "Rhyan", role: "E2"},
-     ]
+    /**
+     * Build the 'boxes' view last based on global 'items' list.
+     * Any unassigned items will not be populated into the list.
+     * This list is a subset of items.
+     * @param role_list {String[]} - Roles to include in generated list, if null all roles are included
+     * @returns boxes - Mapping of roles to items assigned to those roles
+     */
+    function build_boxes(role_list) {
+      if (!role_list) {
+        role_list = roles;
+      }
 
-     roles.forEach((person) => {
-         document.getElementById("teamNames").insertAdjacentHTML('afterbegin', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
-     });
+      let role_symbols = role_list.map((a) => a.role);
 
-     const modal = document.getElementById("editTeamModal");
-     const openModal = document.getElementById("editTeam");
-     const closeModal = document.getElementById("closeModal");
+      // A map of key 'role name' => value 'item' & serial_number(s)
+      // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
+      const boxes = new Map();
 
-     openModal.addEventListener('click', () => {
+      // Loop through the entire items list, we need to boil down to each serial number
+      // and determine who that serial number is assigned to, then filters further to
+      // check first that the item is assigned at all, and that the role is in our role_list
+      items.forEach((item) => {
+        item.nsn_items.forEach((nsn_item) => {
+          nsn_item.serial_numbers.forEach((serial_number) => {
+            if (
+              serial_number.assignment !== null &&
+              role_symbols.includes(serial_number.assignment)
+            ) {
+              // Get our blank array so we can pushback on it
+              if (!boxes.has(serial_number.assignment)) {
+                boxes.set(serial_number.assignment, []);
+              }
+
+              boxes.get(serial_number.assignment).push({
+                item: item,
+                serial_number: serial_number.serial_number,
+              });
+            }
+          });
+        });
+      });
+
+      return boxes;
+    }
+
+    // Pre-populate roles/names, this will come from the start screen later
+    const roles = [
+      { name: "Tony", role: "Z" },
+      { name: "Joel", role: "W" },
+      { name: "Chuck", role: "B1" },
+      { name: "Hayden", role: "B2" },
+      { name: "Forrest", role: "C1" },
+      { name: "Jordan", role: "C2" },
+      { name: "Eli", role: "D1" },
+      { name: "Tommy", role: "D2" },
+      { name: "Paul", role: "E1" },
+      { name: "Rhyan", role: "E2" },
+    ];
+
+    roles.forEach((person) => {
+      document
+        .getElementById("teamNames")
+        .insertAdjacentHTML(
+          "afterbegin",
+          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+        );
+    });
+
+    const modal = document.getElementById("editTeamModal");
+    const openModal = document.getElementById("editTeam");
+    const closeModal = document.getElementById("closeModal");
+
+    openModal.addEventListener("click", () => {
       modal.showModal();
-     })
+    });
 
     function render_edit_team_list(role_list) {
       roles.forEach((person) => {
-         document.getElementById("editTeamModal").insertAdjacentHTML('afterbegin', `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`);
-     });
+        document
+          .getElementById("editTeamModal")
+          .insertAdjacentHTML(
+            "afterbegin",
+            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+          );
+      });
 
-     closeModal.addEventListener('click', () => {
-      modal.close();
-     })
+      closeModal.addEventListener("click", () => {
+        modal.close();
+      });
     }
 
     render_edit_team_list(roles);
 
-     // Setup out start screen
-     let input = document.getElementById("input");
-     var items = [];
+    // Setup out start screen
+    let input = document.getElementById("input");
+    let items = [];
 
     input.addEventListener("change", function () {
       readXlsxFile(input.files[0]).then(function (data) {
@@ -417,13 +402,8 @@
           itemObjects.push(new item(item_as_rows));
         });
 
-        itemObjects.forEach((item) => {
-          console.log(item);
-        });
-
         items = itemObjects.slice();
 
-        console.log(items.length);
         render_list(document.getElementById("inventoryList"), items);
       });
     });
