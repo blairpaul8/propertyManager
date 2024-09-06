@@ -426,7 +426,7 @@
       roles.forEach((person) => {
         document
           .getElementById("editTeamModal")
-          .insertAdjacentHTML("afterbegin",`<div class="editNamesList"><input class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,);
+          .insertAdjacentHTML("afterbegin",`<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,);
       });
 
       closeModal.addEventListener("click", () => {
