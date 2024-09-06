@@ -74,7 +74,7 @@
           </div>
           <button
             class="boxesPageButton"
-            onclick="((event) => console.log('hi'))();"
+            onclick="((event) => {render_boxes(null); toggle_page('boxes_page')})();"
           >
             Boxes View
           </button>
@@ -83,24 +83,60 @@
       </div>
     </div>
 
-    <div class="teamMembers">
-      <button class="membersDropDown">Team Members</button>
-      <div id="teamNames" class="teamNames"></div>
-    </div>
-
-    <div class="bodyWrapper">
-      <div class="sidebar">
-        <div class="propertyByMOS">All Property</div>
-        <div class="propertyByMOS">18B Property</div>
-        <div class="propertyByMOS">18C Property</div>
-        <div class="propertyByMOS">18D Property</div>
-        <div class="propertyByMOS">18E Property</div>
+    <div id="boxesPage" style="display: none">
+      <div class="topBar">
+        <div class="teamNumber">SFOD-A 2112</div>
+        <div class="searchBar">
+          <input
+            type="text"
+            placeholder="Search Equipment"
+            name="search"
+            class="search"
+          />
+          <button>
+            <img src="search-icon.svg" class="weatherIcons" />
+            <!-- I don't think we even need a search button, we can just filter
+                             the list as soon as they type as there are no network requests to slow things down -->
+          </button>
+        </div>
+        <div class="teamMembers">
+          <button class="membersDropDown">Team Members</button>
+          <div id="teamNames" class="teamNames">
+            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+          </div>
+        </div>
       </div>
-      <div id="inventoryList" class="inventoryList"></div>
     </div>
-    <div id="boxesPage" hidden></div>
   </body>
   <script type="text/javascript">
+    //
+    // Pages
+    //
+    const pages = [
+      {
+        page_name: "start_page",
+        element: document.getElementById("startPage"),
+      },
+      {
+        page_name: "main_page",
+        element: document.getElementById("mainPage"),
+      },
+      {
+        page_name: "boxes_page",
+        element: document.getElementById("boxesPage"),
+      },
+    ];
+
+    function toggle_page(page_name) {
+      pages.forEach((page) => {
+        if (page.page_name === page_name) {
+          page.element.style.display = "block";
+        } else {
+          page.element.style.display = "none";
+        }
+      });
+    }
+
     /**
      * Parse `data` into individual items.
      * @param {string{}{}} data - row-by-row view of the property book
@@ -240,14 +276,14 @@
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-         <details class="itemDetails">
-           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
-             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-               <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-             </svg>
-           </summary>
-         </details>
-       </div>`;
+          <details class="itemDetails">
+            <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+              <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </summary>
+          </details>
+        </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -262,11 +298,11 @@
           nsn_item.serial_numbers.forEach((serial_number) => {
             const rand_serial = Math.floor(Math.random() * 100000);
             const serial_number_element = `<div class="serialNumber">
-                              <div class="serial">${serial_number.serial_number}</div>
-                              <select id="serial${rand_serial}" name="">
-                                  <option value="">--</option>
-                              </select>
-                          </div>`;
+                               <div class="serial">${serial_number.serial_number}</div>
+                               <select id="serial${rand_serial}" name="">
+                                   <option value="">--</option>
+                               </select>
+                           </div>`;
 
             const header_element = document.getElementById(
               `header${rand_header}`,
@@ -292,9 +328,6 @@
           });
         });
       });
-
-      document.getElementById("startPage").style.display = "none";
-      document.getElementById("mainPage").style.display = "block";
     }
 
     /**
@@ -340,6 +373,21 @@
       });
 
       return boxes;
+    }
+
+    function render_boxes(role_list) {
+      boxes = build_boxes(role_list);
+
+      boxes.forEach((value, key, map) => {
+        temp_card = `<div style="padding: 1rem; background-color: white; border-radius: 0.5rem;">
+                      <p>${key}</p>
+                      <p>${value}</p>
+                     </div>`;
+
+        document
+          .getElementById("boxesPage")
+          .insertAdjacentHTML("beforeend", temp_card);
+      });
     }
 
     // Pre-populate roles/names, this will come from the start screen later
@@ -405,6 +453,7 @@
         items = itemObjects.slice();
 
         render_list(document.getElementById("inventoryList"), items);
+        toggle_page("main_page");
       });
     });
   </script>
