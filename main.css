@@ -5,6 +5,38 @@ body {
   overflow: hidden;
 }
 
+.editTeamModal {
+  width: 200px;
+  border-radius: 10px;
+  background-color: #666666;
+
+}
+
+.editNamesList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editName {
+  border-radius: 10px;
+  border: none;
+  margin-top: 5px;
+}
+
+.closeModal {
+  display: flex;
+  justify-content: center;
+  width: 125px;
+  border: none;
+  padding: 10px;
+  background-color: #455d7a;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-block: 0.5rem;
+  font-size: 1.25em;
+}
+
 .topBar {
   display: flex;
   position: sticky;

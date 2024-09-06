@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
   </head>
   <body>
-    <dialog id="editTeamModal" class="editTeam">
+    <dialog id="editTeamModal" class="editTeamModal">
       <button id="closeModal" class="closeModal">Save Team</button>
     </dialog>
     <div id="startPage" class="startPage">
@@ -58,6 +58,7 @@
         <div class="teamMembers">
           <button class="membersDropDown">Team Members</button>
           <div id="teamNames" class="teamNames">
+            <div id="namesList"></div>
             <button id="editTeam" class="editTeamMembers">Edit Team</button>
           </div>
         </div>
@@ -358,9 +359,9 @@
 
     roles.forEach((person) => {
       document
-        .getElementById("teamNames")
+        .getElementById("namesList")
         .insertAdjacentHTML(
-          "afterbegin",
+          "beforeend",
           `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
         );
     });
@@ -377,10 +378,7 @@
       roles.forEach((person) => {
         document
           .getElementById("editTeamModal")
-          .insertAdjacentHTML(
-            "afterbegin",
-            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
-          );
+          .insertAdjacentHTML("afterbegin",`<div class="editNamesList"><input class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,);
       });
 
       closeModal.addEventListener("click", () => {
