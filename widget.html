@@ -465,7 +465,6 @@
       if (section === null) {
         toggle_page(
           "main_page",
-          document.getElementById("inventoryList"),
           items,
         );
       } else {
@@ -483,7 +482,6 @@
         //console.log(results);
         toggle_page(
           "main_page",
-          document.getElementById("inventoryList"),
           results,
         );
       }
@@ -532,7 +530,8 @@
      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
      * Choose excel file
      */
-    function render_list(root, items) {
+    function render_list(items) {
+        root = document.getElementById("inventoryList");
       root.innerHTML = "";
 
       items.forEach((item) => {
@@ -582,7 +581,7 @@
             });
 
             roles.forEach((person) => {
-              const option_html = `<option value="${person.role}">${person.role} (${person.name})</option>`;
+                const option_html = `<option ${serial_number.assignment === person.role ? "selected" : ""} value="${person.role}">${person.role} (${person.name})</option>`;
               document
                 .getElementById(`serial${rand_serial}`)
                 .insertAdjacentHTML("beforeend", option_html);
@@ -766,6 +765,8 @@
         }
       }
 
+        toggle_page('main_page', items);
+
     }
 
     // Setup out start screen
@@ -785,7 +786,6 @@
         // render_list(document.getElementById("inventoryList"), items);
         toggle_page(
           "main_page",
-          document.getElementById("inventoryList"),
           items,
         );
       });
