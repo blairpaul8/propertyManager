@@ -16,6 +16,18 @@
     <dialog id="editTeamModal" class="editTeamModal">
       <button id="closeModal" class="closeModal">Save Team</button>
     </dialog>
+    <dialog id="fromTo" class="fromTo">
+      <form id="fromToForm" class="fromToForm">
+        <div id="roleCheckBoxes" class="roleCheckBoxes"></div>
+        <div>
+          <label for="from"> From: </label>
+          <input type="text" name="from" id="from" value="" />
+          <label for="to"> To: </label>
+          <input type="text" name="to" id="to" value="" />
+        </div>
+        <button type="submit">Generate 2062</button>
+      </form>
+    </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <svg
@@ -108,7 +120,11 @@
         </div>
       </div>
 
-      <div id="boxesList" class="boxesList"></div>
+      <div id="boxesList" class="boxesList">
+        <button id="generateMasterButton" class="generateMasterButton">
+          Generate Master 2062
+        </button>
+      </div>
     </div>
   </body>
   <script type="text/javascript">
@@ -285,7 +301,9 @@
      * Render `items` as a list, inserted into the dom at `root`
      * Will also clear the previous list
      * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching
+     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
+Choose excel file
+g
      */
     function render_list(root, items) {
       root.innerHTML = "";
@@ -375,12 +393,16 @@
               serial_number.assignment !== null &&
               role_symbols.includes(serial_number.assignment)
             ) {
+              // First grab the role object, set that as the key for our map
+              const role = role_list.filter(
+                (role) => role.role === serial_number.assignment,
+              )[0];
               // Get our blank array so we can pushback on it
-              if (!boxes.has(serial_number.assignment)) {
-                boxes.set(serial_number.assignment, []);
+              if (!boxes.has(role)) {
+                boxes.set(role, []);
               }
 
-              boxes.get(serial_number.assignment).push({
+              boxes.get(role).push({
                 mpo_description: item.mpo_description,
                 nsn_description: nsn_item.nsn_description,
                 serial_number: serial_number.serial_number,
@@ -402,14 +424,13 @@
 
         const header = document.createElement("summary");
         header.classList.add("boxHeader");
-        header.insertAdjacentHTML("beforeend", `<h3>${key}</h3>`);
+        header.insertAdjacentHTML(
+          "beforeend",
+          `<h3>${key.name} (${key.role})</h3>`,
+        );
 
         const rightGrouping = document.createElement("div");
         rightGrouping.classList.add("rightGrouping");
-        rightGrouping.insertAdjacentHTML(
-          "beforeend",
-          `<button class="generateButton">Generate 2062</button>`,
-        );
         rightGrouping.insertAdjacentHTML(
           "beforeend",
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

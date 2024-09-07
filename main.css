@@ -374,3 +374,13 @@ h3 {
   align-items: center;
   gap: 0.5rem;
 }
+
+.fromTo {
+  border-radius: 0.5rem;
+}
+
+.fromToForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
