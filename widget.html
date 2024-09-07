@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -146,7 +146,11 @@
       </div>
 
       <div id="boxesList" class="boxesList">
-        <button id="generateMasterButton" class="generateMasterButton">
+        <button
+          id="generateMasterButton"
+          class="generateMasterButton"
+          onclick=""
+        >
           Generate Master 2062
         </button>
       </div>
@@ -392,7 +396,7 @@
             matrix[i][j] = Math.min(
               matrix[i - 1][j - 1] + 1, // Substitution
               matrix[i][j - 1] + 1, // Insertion
-              matrix[i - 1][j] + 1 // Deletion
+              matrix[i - 1][j] + 1, // Deletion
             );
           }
         }
@@ -405,29 +409,27 @@
     }
 
     /**
-     * Render `items` as a list, inserted into the dom at `root`
-     * Will also clear the previous list
-     * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
-Choose excel file
-g
-     */
+             * Render `items` as a list, inserted into the dom at `root`
+             * Will also clear the previous list
+             * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+             * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
+        Choose excel file
+        g
+             */
     function render_list(root, items) {
       root.innerHTML = "";
 
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-          <details class="itemDetails">
-            <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${
-          item.mpo_description ? item.mpo_description : "No MPO"
-        }</span></span></span>
-              <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </summary>
-          </details>
-        </div>`;
+                  <details class="itemDetails">
+                    <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+                      <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </summary>
+                  </details>
+                </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -442,24 +444,24 @@ g
           nsn_item.serial_numbers.forEach((serial_number) => {
             const rand_serial = Math.floor(Math.random() * 100000);
             const serial_number_element = `<div class="serialNumber">
-                               <div class="serial">${serial_number.serial_number}</div>
-                               <select id="serial${rand_serial}" name="">
-                                   <option value="">--</option>
-                               </select>
-                           </div>`;
+                                       <div class="serial">${serial_number.serial_number}</div>
+                                       <select id="serial${rand_serial}" name="">
+                                           <option value="">--</option>
+                                       </select>
+                                   </div>`;
 
             const header_element = document.getElementById(
-              `header${rand_header}`
+              `header${rand_header}`,
             );
             header_element.insertAdjacentHTML(
               "afterend",
-              serial_number_element
+              serial_number_element,
             );
 
             const select_box = document.getElementById(`serial${rand_serial}`);
             select_box.addEventListener("change", (event) => {
               serial_number.assignment = document.getElementById(
-                `serial${rand_serial}`
+                `serial${rand_serial}`,
               ).value;
             });
 
@@ -504,7 +506,7 @@ g
             ) {
               // First grab the role object, set that as the key for our map
               const role = role_list.filter(
-                (role) => role.role === serial_number.assignment
+                (role) => role.role === serial_number.assignment,
               )[0];
               // Get our blank array so we can pushback on it
               if (!boxes.has(role)) {
@@ -535,7 +537,7 @@ g
         header.classList.add("boxHeader");
         header.insertAdjacentHTML(
           "beforeend",
-          `<h3>${key.name} (${key.role})</h3>`
+          `<h3>${key.name} (${key.role})</h3>`,
         );
 
         const rightGrouping = document.createElement("div");
@@ -543,8 +545,8 @@ g
         rightGrouping.insertAdjacentHTML(
           "beforeend",
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>`
+                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -559,15 +561,15 @@ g
             "beforeend",
             `<span>${
               assignment.mpo_description ? assignment.mpo_description : ""
-            }</span>`
+            }</span>`,
           );
           lineItem.insertAdjacentHTML(
             "beforeend",
-            `<span>${assignment.nsn_description}</span>`
+            `<span>${assignment.nsn_description}</span>`,
           );
           lineItem.insertAdjacentHTML(
             "beforeend",
-            `<span>${assignment.serial_number}</span>`
+            `<span>${assignment.serial_number}</span>`,
           );
 
           individualBox.appendChild(lineItem);
@@ -596,7 +598,7 @@ g
         .getElementById("namesList")
         .insertAdjacentHTML(
           "beforeend",
-          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`
+          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
         );
     });
 
@@ -614,7 +616,7 @@ g
           .getElementById("editTeamModal")
           .insertAdjacentHTML(
             "afterbegin",
-            `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`
+            `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
           );
       });
 
@@ -643,7 +645,7 @@ g
         toggle_page(
           "main_page",
           document.getElementById("inventoryList"),
-          items
+          items,
         );
       });
     });
