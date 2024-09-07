@@ -71,7 +71,11 @@
           <button class="membersDropDown">Team Members</button>
           <div id="teamNames" class="teamNames">
             <div id="namesList"></div>
-            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+            <button id="editTeam" class="editTeamMembers"
+              onclick="((event) => {modal.showModal()})();"
+              >
+              Edit Team
+            </button>
           </div>
         </div>
       </div>
@@ -83,7 +87,12 @@
             <div class="propertyByMOS">18B Property</div>
             <div class="propertyByMOS">18C Property</div>
             <div class="propertyByMOS">18D Property</div>
-            <div class="propertyByMOS">18E Property</div>
+            <button 
+              class="propertyByMOS"
+              onclick="((event) => {filterProperty()})()"
+            >
+              18E Property
+            </button>
           </div>
           <button
             class="boxesPageButton"
@@ -295,8 +304,59 @@
       }
     }
 
-    //Section Property Arrays insert here
+    //Section Property Arrrays by key word.
+    let echo_property = ["RADIO", "COMPUTER", "ANALYSIS", "RECIEVER", "ENCRYPTION", "MBITR", "OSRVT", "TRANSMITTER", "TRANSFER",
+      "A35329", "C05002", "E05011", "FA205N", "FA20A2", "FA950P", "M18029", "P05003", "R30308", "R45463"];
 
+    /**
+     * Fuzzy Matching function and filterProperty function used to filter the list of items based
+     * on which section property button is selected.
+     */
+    function fuzzyMatching(a, b) {
+      const matrix = [];
+
+      // Initialize the matrix
+      for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+      }
+      for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+      }
+
+      // Calculate the distance
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b[i - 1] === a[j - 1]) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+              matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1, // Substitution
+              matrix[i][j - 1] + 1,     // Insertion
+              matrix[i - 1][j] + 1      // Deletion
+            );
+          }
+        }
+      }
+
+        return matrix[b.length][a.length];
+    }
+
+    function filterProperty() {
+      const results = [];
+      const distanceThreshold = 2;  // Max allowed edit distance for a match
+
+      echo_property.forEach(keyword => {
+        items.forEach(item => {
+          const distance = fuzzyMatching(keyword, item.mpo_description);
+            if (distance <= distanceThreshold) {
+              results.push(item);
+            }
+        });
+      });
+
+      console.log('Custom fuzzy matched items:', results);
+    }
+     
     /**
      * Render `items` as a list, inserted into the dom at `root`
      * Will also clear the previous list
@@ -493,9 +553,9 @@ g
     const openModal = document.getElementById("editTeam");
     const closeModal = document.getElementById("closeModal");
 
-    openModal.addEventListener("click", () => {
-      modal.showModal();
-    });
+    //openModal.addEventListener("click", () => {
+      //modal.showModal();
+    //});
 
     function render_edit_team_list(role_list) {
       roles.forEach((person) => {
@@ -508,8 +568,9 @@ g
       });
 
       closeModal.addEventListener("click", () => {
-        modal.close();
+        modal.close()
       });
+      
     }
 
     render_edit_team_list(roles);
