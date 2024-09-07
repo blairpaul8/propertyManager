@@ -90,19 +90,26 @@
         <div class="sidebar">
           <div>
             <button
+            class="propertyByMOS"
+            onclick="((event) => {filterBySection(1)})()"
+          >
+            All Property
+            </button
+          ><button
+            <button
               class="propertyByMOS"
               onclick="((event) => {filterBySection(bravo_property)})()"
             >
               18B Property</button
             ><button
               class="propertyByMOS"
-              onclick="((event) => {filterBySection(delta_property)})()"
+              onclick="((event) => {filterBySection(charlie_property)})()"
             >
               18C Property
             </button>
             <button
               class="propertyByMOS"
-              onclick="((event) => {filterBySection(charlie_property)})()"
+              onclick="((event) => {filterBySection(delta_property)})()"
             >
               18D Property
             </button>
@@ -330,15 +337,6 @@
 
     //Section Property Arrrays by key word.
     let echo_property = [
-      "RADIO",
-      "COMPUTER",
-      "ANALYSIS",
-      "RECIEVER",
-      "ENCRYPTION",
-      "MBITR",
-      "OSRVT",
-      "TRANSMITTER",
-      "TRANSFER",
       "A35329",
       "C05002",
       "E05011",
@@ -349,30 +347,142 @@
       "P05003",
       "R30308",
       "R45463",
+      "70202N",
+      "70203N",
+      "70210N",
+      "70215N",
+      "98490N",
+      "FA20A0",
+      "FA400H",
+      "FA9535",
+      "FA953E",
+      "FH2087",
+      "FJ211E",
+      "FJ2572",
+      "FJ302A",
+      "Z05849"
     ];
+
+    let bravo_property = [
+      "A05014",
+      "B67907",
+      "C06935",
+      "J68653",
+      "L05003",
+      "L69080",
+      "M05036",
+      "M09009",
+      "M60256",
+      "M79678",
+      "M92454",
+      "N07848",
+      "P05043",
+      "R05003",
+      "R05009",
+      "R45351",
+      "R45601",
+      "S08669",
+      "S60342",
+      "T39223",
+      "69001N",
+      "70185N",
+      "A05014",
+      "FA550A",
+      "FA5518",
+      "FA5523",
+      "FA552D",
+      "FA552Q",
+      "FA552T",
+      "FA5533",
+      "FA553F",
+      "FA5553",
+      "FA5554",
+      "FA5559",
+      "FA5566",
+      "FA5573",
+      "FA6003",
+      "FA6038",
+      "FE3064",
+      "FG6003",
+      "GA4001",
+      "GA4002",
+      "GA4005",
+      "GA4006",
+      "GA4007",
+      "GA4021",
+      "GA403E",
+      "GA4046",
+      "GA404A",
+      "GA4068",
+      "GA4087",
+      "GA408T",
+      "GA409Q",
+      "L05001",
+      "MC8012",
+      "T05020",
+      "ZA050L",
+      "ZA0513",
+      "ZA051F",
+      "ZA0569",
+      "ZA0586",
+      "ZA05AC"
+    ];
+
+    let charlie_property = [
+      "J00697",
+      "L02015",
+      "W34648",
+      "W37483",
+      "W69528",
+      "92026N",
+      "DA151M",
+      "DA650V",
+      "EB1100",
+      "FA101P",
+      "LB318X",
+      "MC308W",
+      "SA102U",
+      "SB1000",
+    ]
+
+    let delta_property = [
+      "NA1519",
+      "S05058",
+    ]
 
     function filterBySection(section) {
       const results = [];
       let temp = "";
 
-      items.forEach((item) => {
-        section.forEach((keyword) => {
-          if (!item.mpo_description) {
-            return;
-          }
-          if (item.mpo_description.slice(0, 6) === keyword) {
-            results.push(item);
-          }
-        });
-      });
+      if (section === 1) {
+        toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          items,
+        );
+      }
 
-      //console.log(results);
-      toggle_page(
-        "main_page",
-        document.getElementById("inventoryList"),
-        results,
-      );
+      else {
+        items.forEach((item) => {
+          section.forEach((keyword) => {
+            if (!item.mpo_description) {
+              return;
+            }
+            if (item.mpo_description.slice(0, 6) === keyword) {
+              results.push(item);
+            }
+          });
+        });
+
+        //console.log(results);
+        toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          results,
+        );
+      }
     }
+      
 
     /**
      * Fuzzy Matching function and filterProperty function used to filter the list of items based
@@ -411,13 +521,12 @@
     }
 
     /**
-             * Render `items` as a list, inserted into the dom at `root`
-             * Will also clear the previous list
-             * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-             * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
-        Choose excel file
-        g
-             */
+      * Render `items` as a list, inserted into the dom at `root`
+      * Will also clear the previous list
+      * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
+      * Choose excel file
+      */
     function render_list(root, items) {
       root.innerHTML = "";
 
