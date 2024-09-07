@@ -17,7 +17,11 @@
       <button id="closeModal" class="closeModal">Save Team</button>
     </dialog>
     <dialog id="fromTo" class="fromTo">
-      <form id="fromToForm" class="fromToForm">
+      <form
+        id="fromToForm"
+        class="fromToForm"
+        onsubmit="generate_2062(event, this)"
+      >
         <div id="roleCheckBoxes" class="roleCheckBoxes"></div>
         <div>
           <label for="from"> From: </label>
@@ -89,10 +93,10 @@
               class="propertyByMOS"
               onclick="((event) => {filterBySection(bravo_property)})()"
             >
-              18B Property
-            </button><button
-            class="propertyByMOS"
-            onclick="((event) => {filterBySection(delta_property)})()"
+              18B Property</button
+            ><button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(delta_property)})()"
             >
               18C Property
             </button>
@@ -102,13 +106,13 @@
             >
               18D Property
             </button>
-       
-          <button
-            class="propertyByMOS"
-            onclick="((event) => {filterBySection(echo_property)})()"
-          >
-            18E Property
-          </button>
+
+            <button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(echo_property)})()"
+            >
+              18E Property
+            </button>
           </div>
           <button
             class="boxesPageButton"
@@ -149,7 +153,7 @@
         <button
           id="generateMasterButton"
           class="generateMasterButton"
-          onclick=""
+          onclick="roles_checklist()"
         >
           Generate Master 2062
         </button>
@@ -338,18 +342,16 @@
       "R45463",
     ];
 
-
     function filterBySection(section) {
-      
       const results = [];
       let temp = "";
-      
+
       items.forEach((item) => {
         section.forEach((keyword) => {
           if (!item.mpo_description) {
             return;
           }
-          if (item.mpo_description.slice(0,6) === keyword) {
+          if (item.mpo_description.slice(0, 6) === keyword) {
             results.push(item);
           }
         });
@@ -357,10 +359,10 @@
 
       //console.log(results);
       toggle_page(
-          "main_page",
-          document.getElementById("inventoryList"),
-          results
-        );
+        "main_page",
+        document.getElementById("inventoryList"),
+        results,
+      );
     }
 
     /**
@@ -639,5 +641,30 @@
         );
       });
     });
+
+    function roles_checklist() {
+      const boxes = build_boxes(null);
+      const fromToModal = document.getElementById("fromTo");
+      const roleCheckBoxes = document.getElementById("roleCheckBoxes");
+
+      Array.from(boxes.keys()).forEach((key) => {
+        const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML("beforeend", checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function generate_2062(event, form) {
+      event.preventDefault();
+
+      console.log("Generating 2062:");
+      console.log(form.elements["from"].value);
+      console.log(form.elements["to"].value);
+
+      console.log(form.elements["checkboxC1"].value);
+      console.log(form.elements["checkboxE1"] ?? "");
+    }
   </script>
 </html>
