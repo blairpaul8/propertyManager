@@ -14,7 +14,14 @@
   </head>
   <body>
     <dialog id="editTeamModal" class="editTeamModal">
-      <button id="closeModal" class="closeModal">Save Team</button>
+      <form 
+        id="nameInputs"
+        class="nameInputs"
+        onsubmit="updateNamesList(event, this)"
+      >
+        <button type="submit" id="closeModal" class="closeModal">Save Team</button>
+      </form>
+      
     </dialog>
     <dialog id="fromTo" class="fromTo">
       <form
@@ -124,7 +131,7 @@
             class="boxesPageButton"
             onclick="((event) => {toggle_page('boxes_page')})();"
           >
-            Boxes View
+            Gun Boxes
           </button>
         </div>
         <div id="inventoryList" class="inventoryList"></div>
@@ -684,7 +691,7 @@
     }
 
     // Pre-populate roles/names, this will come from the start screen later
-    const roles = [
+    let roles = [
       { name: "Tony", role: "Z" },
       { name: "Joel", role: "W" },
       { name: "Chuck", role: "B1" },
@@ -717,9 +724,9 @@
     function render_edit_team_list(role_list) {
       roles.forEach((person) => {
         document
-          .getElementById("editTeamModal")
+          .getElementById("nameInputs")
           .insertAdjacentHTML(
-            "afterbegin",
+            "beforeend",
             `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
           );
       });
@@ -730,6 +737,28 @@
     }
 
     render_edit_team_list(roles);
+
+    function updateNamesList(event, form) {
+      event.preventDefault();
+
+      let newNames = [];
+
+      const nameInputs = document.getElementById('nameInputs');
+      const inputs = nameInputs.querySelectorAll('input.editName');
+
+      inputs.forEach(input => {
+        newNames.push(input.value);
+      });
+
+      console.log(newNames);
+
+      for (let i = 0; i <= 10; i++) {
+        if (!newNames[i]) {
+          roles[i].name = newNames[i];
+        }
+      }
+
+    }
 
     // Setup out start screen
     let input = document.getElementById("input");
