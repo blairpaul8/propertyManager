@@ -91,7 +91,7 @@
           <div>
             <button
               class="propertyByMOS"
-              onclick="((event) => {filterBySection(1)})()"
+              onclick="((event) => {filterBySection()})()"
             >
               All Property
             </button>
@@ -446,11 +446,11 @@
 
     let delta_property = ["NA1519", "S05058"];
 
-    function filterBySection(section) {
+    function filterBySection(section = null) {
       const results = [];
       let temp = "";
 
-      if (section === 1) {
+      if (section === null) {
         toggle_page(
           "main_page",
           document.getElementById("inventoryList"),
