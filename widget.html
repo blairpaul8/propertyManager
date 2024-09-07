@@ -91,7 +91,7 @@
             <div class="propertyByMOS">18D Property</div>
             <button
               class="propertyByMOS"
-              onclick="((event) => {filterProperty()})()"
+              onclick="((event) => {filterBySection(echo_property)})()"
             >
               18E Property
             </button>
@@ -329,6 +329,31 @@
       "R45463",
     ];
 
+
+    function filterBySection(section) {
+      
+      const results = [];
+      let temp = "";
+      
+      items.forEach((item) => {
+        section.forEach((keyword) => {
+          if (!item.mpo_description) {
+            return;
+          }
+          if (item.mpo_description.slice(0,6) === keyword) {
+            results.push(item);
+          }
+        });
+      });
+
+      //console.log(results);
+      toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          results
+        );
+    }
+
     /**
      * Fuzzy Matching function and filterProperty function used to filter the list of items based
      * on which section property button is selected.
@@ -359,26 +384,10 @@
         }
       }
 
-      return matrix[b.length][a.length];
-    }
+      const distance = matrix[b.length][a.length];
 
-    function filterProperty() {
-      const results = [];
-      const distanceThreshold = 2; // Max allowed edit distance for a match
-
-      echo_property.forEach((keyword) => {
-        items.forEach((item) => {
-          const distance = fuzzyMatching(keyword, item.mpo_description);
-          if (!item.mpo_description) {
-            return;
-          }
-          if (distance <= distanceThreshold) {
-            results.push(item);
-          }
-        });
-      });
-
-      console.log("fuzzy matched items:", results);
+      const longestLength = Math.max(a.length, b.length);
+      return distance / longestLength;
     }
 
     /**
