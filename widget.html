@@ -79,7 +79,7 @@
           </div>
           <button
             class="boxesPageButton"
-            onclick="((event) => {render_boxes(null); toggle_page('boxes_page')})();"
+            onclick="((event) => {toggle_page('boxes_page')})();"
           >
             Boxes View
           </button>
@@ -111,30 +111,46 @@
           </div>
         </div>
       </div>
+
+      <div id="boxesList" class="boxesList"></div>
     </div>
   </body>
   <script type="text/javascript">
-    //
-    // Pages
-    //
+    /*
+     * PAGES
+     * Each Page should have its own element in the 'pages' array.
+     * Pages are identified by a page_name, the actual element,
+     * and an optional function which should be called to render any dynamic content.
+     */
     const pages = [
       {
         page_name: "start_page",
         element: document.getElementById("startPage"),
+        render_func: null,
       },
       {
         page_name: "main_page",
         element: document.getElementById("mainPage"),
+        render_func: render_list,
       },
       {
         page_name: "boxes_page",
         element: document.getElementById("boxesPage"),
+        render_func: render_boxes,
       },
     ];
 
-    function toggle_page(page_name) {
+    // Toggles which 'Page' is currently being displayed.
+    // Any arguments to be passed to a pages 'render_func' are
+    // passed though the args parameter, which accepts 0 or more arguments.
+    // Example: toggle_page('main_page', document.getElementById('inventoryList'), items)
+    // Example: toggle_page('boxes_page', [{ name: "Tony", role: "Z" }, { name: "Rhyan", role: "E2" }])
+    function toggle_page(page_name, ...args) {
       pages.forEach((page) => {
         if (page.page_name === page_name) {
+          if (page.render_func !== null) {
+            page.render_func(...args);
+          }
           page.element.style.display = "block";
         } else {
           page.element.style.display = "none";
@@ -369,7 +385,8 @@
               }
 
               boxes.get(serial_number.assignment).push({
-                item: item,
+                mpo_description: item.mpo_description,
+                nsn_description: nsn_item.nsn_description,
                 serial_number: serial_number.serial_number,
               });
             }
@@ -380,18 +397,55 @@
       return boxes;
     }
 
-    function render_boxes(role_list) {
+    function render_boxes(role_list = null) {
       boxes = build_boxes(role_list);
 
       boxes.forEach((value, key, map) => {
-        temp_card = `<div style="padding: 1rem; background-color: white; border-radius: 0.5rem;">
-                      <p>${key}</p>
-                      <p>${value}</p>
-                     </div>`;
+        const individualBox = document.createElement("details");
+        individualBox.classList.add("individualBox");
 
-        document
-          .getElementById("boxesPage")
-          .insertAdjacentHTML("beforeend", temp_card);
+        const header = document.createElement("summary");
+        header.classList.add("boxHeader");
+        header.insertAdjacentHTML("beforeend", `<h3>${key}</h3>`);
+
+        const rightGrouping = document.createElement("div");
+        rightGrouping.classList.add("rightGrouping");
+        rightGrouping.insertAdjacentHTML(
+          "beforeend",
+          `<button class="generateButton">Generate 2062</button>`,
+        );
+        rightGrouping.insertAdjacentHTML(
+          "beforeend",
+          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>`,
+        );
+        header.appendChild(rightGrouping);
+
+        individualBox.appendChild(header);
+
+        value.forEach((assignment) => {
+          const lineItem = document.createElement("div");
+          lineItem.style.display = "flex";
+          lineItem.style.justifyContent = "space-between";
+
+          lineItem.insertAdjacentHTML(
+            "beforeend",
+            `<span>${assignment.mpo_description ? assignment.mpo_description : ""}</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            "beforeend",
+            `<span>${assignment.nsn_description}</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            "beforeend",
+            `<span>${assignment.serial_number}</span>`,
+          );
+
+          individualBox.appendChild(lineItem);
+        });
+
+        document.getElementById("boxesList").appendChild(individualBox);
       });
     }
 
@@ -430,7 +484,10 @@
       roles.forEach((person) => {
         document
           .getElementById("editTeamModal")
-          .insertAdjacentHTML("afterbegin",`<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,);
+          .insertAdjacentHTML(
+            "afterbegin",
+            `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
+          );
       });
 
       closeModal.addEventListener("click", () => {
@@ -455,8 +512,12 @@
 
         items = itemObjects.slice();
 
-        render_list(document.getElementById("inventoryList"), items);
-        toggle_page("main_page");
+        // render_list(document.getElementById("inventoryList"), items);
+        toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          items,
+        );
       });
     });
   </script>

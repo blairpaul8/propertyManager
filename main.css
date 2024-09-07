@@ -9,7 +9,6 @@ body {
   width: 200px;
   border-radius: 10px;
   background-color: #666666;
-
 }
 
 .editNamesList {
@@ -126,15 +125,15 @@ body {
 }
 
 .editTeamMembers {
-  display: block; 
-    background-color: #666666;
-    color: #ffffff; 
-    min-width: 100%; 
-    padding: 10px; 
-    border: none; 
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; 
-    text-align: center;
+  display: block;
+  background-color: #666666;
+  color: #ffffff;
+  min-width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align: center;
 }
 
 .editTeamMembers:hover {
@@ -328,4 +327,50 @@ details[open] summary .icons {
   padding-inline: 1rem;
   padding-block: 0.75rem;
   border-radius: 0.5rem;
+}
+
+.boxesPage {
+  height: 100vh;
+}
+
+.boxesList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: scroll;
+  height: 90vh;
+  padding-bottom: 10rem;
+}
+
+.individualBox {
+  background-color: white;
+  width: 90%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.boxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+details[open] .boxHeader {
+  margin-bottom: 1rem;
+}
+
+h3 {
+  margin: 0rem;
+}
+
+.generateButton {
+  border-radius: 0.25rem;
+}
+
+.rightGrouping {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
