@@ -75,7 +75,7 @@
           </div>
           <button
             class="boxesPageButton"
-            onclick="((event) => {render_boxes(null); toggle_page('boxes_page')})();"
+            onclick="((event) => {toggle_page('boxes_page')})();"
           >
             Boxes View
           </button>
@@ -110,27 +110,41 @@
     </div>
   </body>
   <script type="text/javascript">
-    //
-    // Pages
-    //
+    /*
+     * PAGES
+     * Each Page should have its own element in the 'pages' array.
+     * Pages are identified by a page_name, the actual element,
+     * and an optional function which should be called to render any dynamic content.
+     */
     const pages = [
       {
         page_name: "start_page",
         element: document.getElementById("startPage"),
+        render_func: null,
       },
       {
         page_name: "main_page",
         element: document.getElementById("mainPage"),
+        render_func: render_list,
       },
       {
         page_name: "boxes_page",
         element: document.getElementById("boxesPage"),
+        render_func: render_boxes,
       },
     ];
 
-    function toggle_page(page_name) {
+    // Toggles which 'Page' is currently being displayed.
+    // Any arguments to be passed to a pages 'render_func' are
+    // passed though the args parameter, which accepts 0 or more arguments.
+    // Example: toggle_page('main_page', document.getElementById('inventoryList'), items)
+    // Example: toggle_page('boxes_page', [{ name: "Tony", role: "Z" }, { name: "Rhyan", role: "E2" }])
+    function toggle_page(page_name, ...args) {
       pages.forEach((page) => {
         if (page.page_name === page_name) {
+          if (page.render_func !== null) {
+            page.render_func(...args);
+          }
           page.element.style.display = "block";
         } else {
           page.element.style.display = "none";
@@ -376,7 +390,7 @@
       return boxes;
     }
 
-    function render_boxes(role_list) {
+    function render_boxes(role_list = null) {
       boxes = build_boxes(role_list);
 
       boxes.forEach((value, key, map) => {
@@ -426,7 +440,10 @@
       roles.forEach((person) => {
         document
           .getElementById("editTeamModal")
-          .insertAdjacentHTML("afterbegin",`<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,);
+          .insertAdjacentHTML(
+            "afterbegin",
+            `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
+          );
       });
 
       closeModal.addEventListener("click", () => {
@@ -450,8 +467,12 @@
 
         items = itemObjects.slice();
 
-        render_list(document.getElementById("inventoryList"), items);
-        toggle_page("main_page");
+        // render_list(document.getElementById("inventoryList"), items);
+        toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          items,
+        );
       });
     });
   </script>
