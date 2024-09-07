@@ -59,7 +59,11 @@
           <button class="membersDropDown">Team Members</button>
           <div id="teamNames" class="teamNames">
             <div id="namesList"></div>
-            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+            <button id="editTeam" class="editTeamMembers"
+              onclick="((event) => {modal.showModal()})();"
+              >
+              Edit Team
+            </button>
           </div>
         </div>
       </div>
@@ -418,9 +422,9 @@
     const openModal = document.getElementById("editTeam");
     const closeModal = document.getElementById("closeModal");
 
-    openModal.addEventListener("click", () => {
-      modal.showModal();
-    });
+    //openModal.addEventListener("click", () => {
+      //modal.showModal();
+    //});
 
     function render_edit_team_list(role_list) {
       roles.forEach((person) => {
@@ -430,8 +434,9 @@
       });
 
       closeModal.addEventListener("click", () => {
-        modal.close();
+        modal.close()
       });
+      
     }
 
     render_edit_team_list(roles);
