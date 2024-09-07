@@ -79,7 +79,12 @@
           </button>
         </div>
         <div class="teamMembers">
-          <button class="membersDropDown">Team Members</button>
+          <button 
+            class="membersDropDown"
+            onmouseover="((event) => {renderTeamMembersLsit()})();"
+          >
+            Team Members
+          </button>
           <div id="teamNames" class="teamNames">
             <div id="namesList"></div>
             <button
@@ -156,9 +161,9 @@
         </div>
         <div class="teamMembers">
           <button class="membersDropDown">Team Members</button>
-          <div id="teamNames" class="teamNames">
-            <button id="editTeam" class="editTeamMembers">Edit Team</button>
-          </div>
+            <div id="teamNames" class="teamNames">
+              <button id="editTeam" class="editTeamMembers">Edit Team</button>
+            </div>
         </div>
       </div>
 
@@ -704,14 +709,17 @@
       { name: "Rhyan", role: "E2" },
     ];
 
-    roles.forEach((person) => {
-      document
-        .getElementById("namesList")
-        .insertAdjacentHTML(
-          "beforeend",
-          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
-        );
-    });
+    function renderTeamMembersLsit() {
+      const dropDown = document.getElementById("namesList")
+      dropDown.innerHTML = '';
+      
+      roles.forEach((person) => {
+        dropDown.insertAdjacentHTML(
+            "beforeend",
+            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+          );
+      });
+    }
 
     const modal = document.getElementById("editTeamModal");
     const openModal = document.getElementById("editTeam");
@@ -753,7 +761,7 @@
       console.log(newNames);
 
       for (let i = 0; i <= 10; i++) {
-        if (!newNames[i]) {
+        if (newNames[i]) {
           roles[i].name = newNames[i];
         }
       }
