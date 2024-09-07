@@ -89,13 +89,27 @@
       <div class="bodyWrapper">
         <div class="sidebar">
           <div>
-            <div class="propertyByMOS">All Property</div>
-            <div class="propertyByMOS">18B Property</div>
-            <div class="propertyByMOS">18C Property</div>
-            <div class="propertyByMOS">18D Property</div>
             <button
               class="propertyByMOS"
-              onclick="((event) => {filterProperty()})()"
+              onclick="((event) => {filterBySection(bravo_property)})()"
+            >
+              18B Property</button
+            ><button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(delta_property)})()"
+            >
+              18C Property
+            </button>
+            <button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(charlie_property)})()"
+            >
+              18D Property
+            </button>
+
+            <button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(echo_property)})()"
             >
               18E Property
             </button>
@@ -337,6 +351,29 @@
       "R45463",
     ];
 
+    function filterBySection(section) {
+      const results = [];
+      let temp = "";
+
+      items.forEach((item) => {
+        section.forEach((keyword) => {
+          if (!item.mpo_description) {
+            return;
+          }
+          if (item.mpo_description.slice(0, 6) === keyword) {
+            results.push(item);
+          }
+        });
+      });
+
+      //console.log(results);
+      toggle_page(
+        "main_page",
+        document.getElementById("inventoryList"),
+        results,
+      );
+    }
+
     /**
      * Fuzzy Matching function and filterProperty function used to filter the list of items based
      * on which section property button is selected.
@@ -367,26 +404,10 @@
         }
       }
 
-      return matrix[b.length][a.length];
-    }
+      const distance = matrix[b.length][a.length];
 
-    function filterProperty() {
-      const results = [];
-      const distanceThreshold = 10; // Max allowed edit distance for a match
-
-      echo_property.forEach((keyword) => {
-        items.forEach((item) => {
-          if (!item.mpo_description) {
-            return;
-          }
-          const distance = fuzzyMatching(keyword, item.mpo_description);
-          if (distance <= distanceThreshold) {
-            results.push(item);
-          }
-        });
-      });
-
-      console.log("fuzzy matched items:", results);
+      const longestLength = Math.max(a.length, b.length);
+      return distance / longestLength;
     }
 
     /**
