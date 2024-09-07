@@ -90,12 +90,11 @@
         <div class="sidebar">
           <div>
             <button
-            class="propertyByMOS"
-            onclick="((event) => {filterBySection(1)})()"
-          >
-            All Property
-            </button
-          ><button
+              class="propertyByMOS"
+              onclick="((event) => {filterBySection(1)})()"
+            >
+              All Property
+            </button>
             <button
               class="propertyByMOS"
               onclick="((event) => {filterBySection(bravo_property)})()"
@@ -360,7 +359,7 @@
       "FJ211E",
       "FJ2572",
       "FJ302A",
-      "Z05849"
+      "Z05849",
     ];
 
     let bravo_property = [
@@ -425,7 +424,7 @@
       "ZA051F",
       "ZA0569",
       "ZA0586",
-      "ZA05AC"
+      "ZA05AC",
     ];
 
     let charlie_property = [
@@ -443,12 +442,9 @@
       "MC308W",
       "SA102U",
       "SB1000",
-    ]
+    ];
 
-    let delta_property = [
-      "NA1519",
-      "S05058",
-    ]
+    let delta_property = ["NA1519", "S05058"];
 
     function filterBySection(section) {
       const results = [];
@@ -460,9 +456,7 @@
           document.getElementById("inventoryList"),
           items,
         );
-      }
-
-      else {
+      } else {
         items.forEach((item) => {
           section.forEach((keyword) => {
             if (!item.mpo_description) {
@@ -482,7 +476,6 @@
         );
       }
     }
-      
 
     /**
      * Fuzzy Matching function and filterProperty function used to filter the list of items based
@@ -521,12 +514,12 @@
     }
 
     /**
-      * Render `items` as a list, inserted into the dom at `root`
-      * Will also clear the previous list
-      * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
-      * Choose excel file
-      */
+     * Render `items` as a list, inserted into the dom at `root`
+     * Will also clear the previous list
+     * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
+     * Choose excel file
+     */
     function render_list(root, items) {
       root.innerHTML = "";
 
@@ -782,9 +775,6 @@
       console.log("Generating 2062:");
       console.log(form.elements["from"].value);
       console.log(form.elements["to"].value);
-
-      // console.log(form.elements["checkboxC1"].value);
-      // console.log(form.elements["checkboxE1"] ?? "");
 
       const included_roles = Array.from(form.elements)
         .map((element) => element.name)
