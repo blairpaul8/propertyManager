@@ -656,6 +656,7 @@
       const boxes = build_boxes(null);
       const fromToModal = document.getElementById("fromTo");
       const roleCheckBoxes = document.getElementById("roleCheckBoxes");
+      roleCheckBoxes.innerHTML = "";
 
       Array.from(boxes.keys()).forEach((key) => {
         const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
@@ -673,8 +674,27 @@
       console.log(form.elements["from"].value);
       console.log(form.elements["to"].value);
 
-      console.log(form.elements["checkboxC1"].value);
-      console.log(form.elements["checkboxE1"] ?? "");
+      // console.log(form.elements["checkboxC1"].value);
+      // console.log(form.elements["checkboxE1"] ?? "");
+
+      const included_roles = Array.from(form.elements)
+        .map((element) => element.name)
+        .filter((name) => name.startsWith("checkbox"))
+        .filter((name) => form.elements[name].checked)
+        .map((name) => name.slice(8))
+        .map((name) => roles.find((element) => element.role === name));
+      const boxes = build_boxes(included_roles);
+
+      const names = included_roles.map((role) => role.name);
+      console.log(`generating master 2062 for ${names.join(", ")}`);
+      included_roles.forEach((role) => {
+        console.log(`\tgenerating individual 2062 for ${role.name}`);
+        boxes.get(role).forEach((item) => {
+          console.log(
+            `\t\tItem: ${item.mpo_description} Serial Number: ${item.serial_number}`,
+          );
+        });
+      });
     }
   </script>
 </html>
