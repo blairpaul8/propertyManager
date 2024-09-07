@@ -373,6 +373,9 @@
       echo_property.forEach((keyword) => {
         items.forEach((item) => {
           const distance = fuzzyMatching(keyword, item.mpo_description);
+          if (!item.mpo_description) {
+            return;
+          }
           if (distance <= distanceThreshold) {
             results.push(item);
           }
@@ -383,27 +386,27 @@
     }
 
     /**
-         * Render `items` as a list, inserted into the dom at `root`
-         * Will also clear the previous list
-         * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-         * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
-    Choose excel file
-    g
-         */
+             * Render `items` as a list, inserted into the dom at `root`
+             * Will also clear the previous list
+             * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+             * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
+        Choose excel file
+        g
+             */
     function render_list(root, items) {
       root.innerHTML = "";
 
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-              <details class="itemDetails">
-                <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
-                  <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </summary>
-              </details>
-            </div>`;
+                  <details class="itemDetails">
+                    <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+                      <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </summary>
+                  </details>
+                </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -418,11 +421,11 @@
           nsn_item.serial_numbers.forEach((serial_number) => {
             const rand_serial = Math.floor(Math.random() * 100000);
             const serial_number_element = `<div class="serialNumber">
-                                   <div class="serial">${serial_number.serial_number}</div>
-                                   <select id="serial${rand_serial}" name="">
-                                       <option value="">--</option>
-                                   </select>
-                               </div>`;
+                                       <div class="serial">${serial_number.serial_number}</div>
+                                       <select id="serial${rand_serial}" name="">
+                                           <option value="">--</option>
+                                       </select>
+                                   </div>`;
 
             const header_element = document.getElementById(
               `header${rand_header}`,
@@ -519,8 +522,8 @@
         rightGrouping.insertAdjacentHTML(
           "beforeend",
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>`,
+                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -533,7 +536,9 @@
 
           lineItem.insertAdjacentHTML(
             "beforeend",
-            `<span>${assignment.mpo_description ? assignment.mpo_description : ""}</span>`,
+            `<span>${
+              assignment.mpo_description ? assignment.mpo_description : ""
+            }</span>`,
           );
           lineItem.insertAdjacentHTML(
             "beforeend",
