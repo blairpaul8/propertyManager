@@ -71,9 +71,11 @@
           <button class="membersDropDown">Team Members</button>
           <div id="teamNames" class="teamNames">
             <div id="namesList"></div>
-            <button id="editTeam" class="editTeamMembers"
+            <button
+              id="editTeam"
+              class="editTeamMembers"
               onclick="((event) => {modal.showModal()})();"
-              >
+            >
               Edit Team
             </button>
           </div>
@@ -87,7 +89,7 @@
             <div class="propertyByMOS">18B Property</div>
             <div class="propertyByMOS">18C Property</div>
             <div class="propertyByMOS">18D Property</div>
-            <button 
+            <button
               class="propertyByMOS"
               onclick="((event) => {filterProperty()})()"
             >
@@ -130,7 +132,11 @@
       </div>
 
       <div id="boxesList" class="boxesList">
-        <button id="generateMasterButton" class="generateMasterButton">
+        <button
+          id="generateMasterButton"
+          class="generateMasterButton"
+          onclick=""
+        >
           Generate Master 2062
         </button>
       </div>
@@ -305,8 +311,27 @@
     }
 
     //Section Property Arrrays by key word.
-    let echo_property = ["RADIO", "COMPUTER", "ANALYSIS", "RECIEVER", "ENCRYPTION", "MBITR", "OSRVT", "TRANSMITTER", "TRANSFER",
-      "A35329", "C05002", "E05011", "FA205N", "FA20A2", "FA950P", "M18029", "P05003", "R30308", "R45463"];
+    let echo_property = [
+      "RADIO",
+      "COMPUTER",
+      "ANALYSIS",
+      "RECIEVER",
+      "ENCRYPTION",
+      "MBITR",
+      "OSRVT",
+      "TRANSMITTER",
+      "TRANSFER",
+      "A35329",
+      "C05002",
+      "E05011",
+      "FA205N",
+      "FA20A2",
+      "FA950P",
+      "M18029",
+      "P05003",
+      "R30308",
+      "R45463",
+    ];
 
     /**
      * Fuzzy Matching function and filterProperty function used to filter the list of items based
@@ -329,56 +354,56 @@
           if (b[i - 1] === a[j - 1]) {
             matrix[i][j] = matrix[i - 1][j - 1];
           } else {
-              matrix[i][j] = Math.min(
+            matrix[i][j] = Math.min(
               matrix[i - 1][j - 1] + 1, // Substitution
-              matrix[i][j - 1] + 1,     // Insertion
-              matrix[i - 1][j] + 1      // Deletion
+              matrix[i][j - 1] + 1, // Insertion
+              matrix[i - 1][j] + 1, // Deletion
             );
           }
         }
       }
 
-        return matrix[b.length][a.length];
+      return matrix[b.length][a.length];
     }
 
     function filterProperty() {
       const results = [];
-      const distanceThreshold = 2;  // Max allowed edit distance for a match
+      const distanceThreshold = 2; // Max allowed edit distance for a match
 
-      echo_property.forEach(keyword => {
-        items.forEach(item => {
+      echo_property.forEach((keyword) => {
+        items.forEach((item) => {
           const distance = fuzzyMatching(keyword, item.mpo_description);
-            if (distance <= distanceThreshold) {
-              results.push(item);
-            }
+          if (distance <= distanceThreshold) {
+            results.push(item);
+          }
         });
       });
 
-      console.log('fuzzy matched items:', results);
+      console.log("fuzzy matched items:", results);
     }
-     
+
     /**
-     * Render `items` as a list, inserted into the dom at `root`
-     * Will also clear the previous list
-     * @param root - element where the list should be rendered, document.getElementById('inventoryList')
-     * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
-Choose excel file
-g
-     */
+         * Render `items` as a list, inserted into the dom at `root`
+         * Will also clear the previous list
+         * @param root - element where the list should be rendered, document.getElementById('inventoryList')
+         * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searchin
+    Choose excel file
+    g
+         */
     function render_list(root, items) {
       root.innerHTML = "";
 
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-          <details class="itemDetails">
-            <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
-              <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </summary>
-          </details>
-        </div>`;
+              <details class="itemDetails">
+                <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+                  <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </summary>
+              </details>
+            </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -393,11 +418,11 @@ g
           nsn_item.serial_numbers.forEach((serial_number) => {
             const rand_serial = Math.floor(Math.random() * 100000);
             const serial_number_element = `<div class="serialNumber">
-                               <div class="serial">${serial_number.serial_number}</div>
-                               <select id="serial${rand_serial}" name="">
-                                   <option value="">--</option>
-                               </select>
-                           </div>`;
+                                   <div class="serial">${serial_number.serial_number}</div>
+                                   <select id="serial${rand_serial}" name="">
+                                       <option value="">--</option>
+                                   </select>
+                               </div>`;
 
             const header_element = document.getElementById(
               `header${rand_header}`,
@@ -494,8 +519,8 @@ g
         rightGrouping.insertAdjacentHTML(
           "beforeend",
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>`,
+                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -554,7 +579,7 @@ g
     const closeModal = document.getElementById("closeModal");
 
     //openModal.addEventListener("click", () => {
-      //modal.showModal();
+    //modal.showModal();
     //});
 
     function render_edit_team_list(role_list) {
@@ -568,9 +593,8 @@ g
       });
 
       closeModal.addEventListener("click", () => {
-        modal.close()
+        modal.close();
       });
-      
     }
 
     render_edit_team_list(roles);
