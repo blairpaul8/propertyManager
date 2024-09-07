@@ -364,7 +364,13 @@ h3 {
   margin: 0rem;
 }
 
-.generateButtom {
+.generateButton {
   border-radius: 0.25rem;
-  backgroun-color: red;
+}
+
+.rightGrouping {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }

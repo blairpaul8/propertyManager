@@ -403,12 +403,20 @@
         const header = document.createElement("summary");
         header.classList.add("boxHeader");
         header.insertAdjacentHTML("beforeend", `<h3>${key}</h3>`);
-        header.insertAdjacentHTML(
+
+        const rightGrouping = document.createElement("div");
+        rightGrouping.classList.add("rightGrouping");
+        rightGrouping.insertAdjacentHTML(
+          "beforeend",
+          `<button class="generateButton">Generate 2062</button>`,
+        );
+        rightGrouping.insertAdjacentHTML(
           "beforeend",
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>`,
         );
+        header.appendChild(rightGrouping);
 
         individualBox.appendChild(header);
 
