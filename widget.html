@@ -70,9 +70,12 @@
             type="text"
             placeholder="Search Equipment"
             name="search"
+            id="search"
             class="search"
           />
-          <button>
+          <button
+            onclick="((event) => {searchItems()})();"
+          >
             <img src="search-icon.svg" class="weatherIcons" />
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
@@ -346,7 +349,7 @@
       }
     }
 
-    //Section Property Arrrays by key word.
+    //Section Property Arrrays by LIN number.
     let echo_property = [
       "A35329",
       "C05002",
@@ -523,6 +526,35 @@
 
       const longestLength = Math.max(a.length, b.length);
       return distance / longestLength;
+    }
+
+    //function for search bar 
+    function searchItems() {
+      const searchResults = [];
+      const relativeThreshold = .8;
+      const input = document.getElementById('search').value;
+      
+      //console.log(searchInput);
+
+      items.forEach(item => {
+        if (!item.mpo_description) {
+          return;
+        }
+        const distance = fuzzyMatching(input, item.mpo_description);
+        console.log(distance);
+        if (distance <= relativeThreshold) {
+          searchResults.push(item);
+        }
+      });
+
+      console.log(searchResults);
+      toggle_page(
+          "main_page",
+          document.getElementById("inventoryList"),
+          searchResults,
+        );
+      
+
     }
 
     /**
@@ -712,7 +744,7 @@
     function renderTeamMembersLsit() {
       const dropDown = document.getElementById("namesList")
       dropDown.innerHTML = '';
-      
+
       roles.forEach((person) => {
         dropDown.insertAdjacentHTML(
             "beforeend",
