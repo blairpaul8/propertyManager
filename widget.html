@@ -65,7 +65,9 @@
     </div>
     <div class="mainPage" id="mainPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumber">SFOD-A 2112</div>
+        <div class="teamNumber" onclick="toggle_page('main_page', items)">
+          SFOD-A 2112
+        </div>
         <div class="searchBar">
           <input
             type="text"
@@ -74,9 +76,7 @@
             id="search"
             class="search"
           />
-          <button
-            onclick="((event) => {searchItems()})();"
-          >
+          <button onclick="((event) => {searchItems()})();">
             <img src="search-icon.svg" class="weatherIcons" />
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
@@ -104,7 +104,7 @@
 
       <div class="bodyWrapper">
         <div class="sidebar">
-          <div>
+          <div class="propertyByMOSWrapper">
             <button
               class="propertyByMOS"
               onclick="((event) => {filterBySection()})()"
@@ -149,7 +149,25 @@
 
     <div id="boxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumber">SFOD-A 2112</div>
+        <div class="teamNumber" onclick="toggle_page('main_page', items)">
+          <svg
+            class="icons"
+            data-slot="icon"
+            aria-hidden="true"
+            fill="none"
+            stroke-width="1.5"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+          SFOD-A 2112
+        </div>
         <div class="searchBar">
           <input
             type="text"
@@ -160,7 +178,7 @@
           <button>
             <img src="search-icon.svg" class="weatherIcons" />
             <!-- I don't think we even need a search button, we can just filter
-                             the list as soon as they type as there are no network requests to slow things down -->
+                 the list as soon as they type as there are no network requests to slow things down -->
           </button>
         </div>
         <div class="teamMembers">
@@ -528,43 +546,45 @@
      * @param right_str {string} - Second string of the comparison
      * @returns {number} Percentage match
      */
-   function trigram_comparison(left_str, right_str) {
-     const left_trigrams = [];
-     const right_trigrams = [];
+    function trigram_comparison(left_str, right_str) {
+      const left_trigrams = [];
+      const right_trigrams = [];
 
-     for (let i = 0; i < left_str.length-2; i++) {
-       left_trigrams.push(left_str.slice(i, i+3));
-     }
+      for (let i = 0; i < left_str.length - 2; i++) {
+        left_trigrams.push(left_str.slice(i, i + 3));
+      }
 
-     for (let i = 0; i < right_str.length-2; i++) {
-       right_trigrams.push(right_str.slice(i, i+3));
-     }
+      for (let i = 0; i < right_str.length - 2; i++) {
+        right_trigrams.push(right_str.slice(i, i + 3));
+      }
 
-     let match_count = 0;
-     for (let i = 0; i < left_trigrams.length; i++) {
-       for (let j = 0; j < right_trigrams.length; j++) {
-         if (left_trigrams[i] === right_trigrams[j]) {
-           match_count++;
-         }
-       }
-     }
+      let match_count = 0;
+      for (let i = 0; i < left_trigrams.length; i++) {
+        for (let j = 0; j < right_trigrams.length; j++) {
+          if (left_trigrams[i] === right_trigrams[j]) {
+            match_count++;
+          }
+        }
+      }
 
-     if (left_trigrams.length === 0 || right_trigrams.length === 0) {
-       return 0;
-     }
+      if (left_trigrams.length === 0 || right_trigrams.length === 0) {
+        return 0;
+      }
 
-     return match_count / Math.min(left_trigrams.length, right_trigrams.length);
-   }
+      return (
+        match_count / Math.min(left_trigrams.length, right_trigrams.length)
+      );
+    }
 
     //function for search bar
     function searchItems() {
       const searchResults = [];
-      const relativeThreshold = .8;
-      const input = document.getElementById('search').value.toUpperCase();
+      const relativeThreshold = 0.5;
+      const input = document.getElementById("search").value.toUpperCase();
 
       //console.log(searchInput);
 
-      items.forEach(item => {
+      items.forEach((item) => {
         if (!item.mpo_description) {
           return;
         }
@@ -576,12 +596,7 @@
       });
 
       console.log(searchResults);
-      toggle_page(
-          "main_page",
-          searchResults,
-        );
-
-
+      toggle_page("main_page", searchResults);
     }
 
     /**
@@ -598,14 +613,14 @@
       items.forEach((item) => {
         const rand_item = Math.floor(Math.random() * 100000);
         const html = `<div class="item">
-                  <details class="itemDetails">
-                    <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
-                      <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </summary>
-                  </details>
-                </div>`;
+         <details class="itemDetails">
+           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : "No MPO"}</span></span></span>
+             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+               <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+             </svg>
+           </summary>
+         </details>
+       </div>`;
         root.insertAdjacentHTML("beforeend", html);
 
         item.nsn_items.forEach((nsn_item) => {
@@ -770,9 +785,8 @@
     ];
 
     function renderTeamMembersLsit() {
-
       const dropDown = document.getElementById("namesList");
-      dropDown.innerHTML = '';
+      dropDown.innerHTML = "";
 
       roles.forEach((person) => {
         dropDown.insertAdjacentHTML(
