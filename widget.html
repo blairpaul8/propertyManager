@@ -521,21 +521,56 @@
       return distance / longestLength;
     }
 
-    //function for search bar 
+    /**
+     * trigram_comparison returns the percentage of trigrams which matched between 'left_str' and 'right_str'.
+     * Percentage is based on the total number of trigrams matched / number of trigrams in the shorter string
+     * @param left_str {string} - First string of the comparison
+     * @param right_str {string} - Second string of the comparison
+     * @returns {number} Percentage match
+     */
+   function trigram_comparison(left_str, right_str) {
+     const left_trigrams = [];
+     const right_trigrams = [];
+
+     for (let i = 0; i < left_str.length-2; i++) {
+       left_trigrams.push(left_str.slice(i, i+3));
+     }
+
+     for (let i = 0; i < right_str.length-2; i++) {
+       right_trigrams.push(right_str.slice(i, i+3));
+     }
+
+     let match_count = 0;
+     for (let i = 0; i < left_trigrams.length; i++) {
+       for (let j = 0; j < right_trigrams.length; j++) {
+         if (left_trigrams[i] === right_trigrams[j]) {
+           match_count++;
+         }
+       }
+     }
+
+     if (left_trigrams.length === 0 || right_trigrams.length === 0) {
+       return 0;
+     }
+
+     return match_count / Math.min(left_trigrams.length, right_trigrams.length);
+   }
+
+    //function for search bar
     function searchItems() {
       const searchResults = [];
       const relativeThreshold = .8;
-      const input = document.getElementById('search').value;
-      
+      const input = document.getElementById('search').value.toUpperCase();
+
       //console.log(searchInput);
 
       items.forEach(item => {
         if (!item.mpo_description) {
           return;
         }
-        const distance = fuzzyMatching(input, item.mpo_description);
+        const distance = trigram_comparison(input, item.mpo_description);
         console.log(distance);
-        if (distance <= relativeThreshold) {
+        if (distance >= relativeThreshold) {
           searchResults.push(item);
         }
       });
@@ -543,10 +578,9 @@
       console.log(searchResults);
       toggle_page(
           "main_page",
-          document.getElementById("inventoryList"),
           searchResults,
         );
-      
+
 
     }
 
