@@ -14,14 +14,15 @@
   </head>
   <body>
     <dialog id="editTeamModal" class="editTeamModal">
-      <form 
+      <form
         id="nameInputs"
         class="nameInputs"
         onsubmit="updateNamesList(event, this)"
       >
-        <button type="submit" id="closeModal" class="closeModal">Save Team</button>
+        <button type="submit" id="closeModal" class="closeModal">
+          Save Team
+        </button>
       </form>
-      
     </dialog>
     <dialog id="fromTo" class="fromTo">
       <form
@@ -82,7 +83,7 @@
           </button>
         </div>
         <div class="teamMembers">
-          <button 
+          <button
             class="membersDropDown"
             onmouseover="((event) => {renderTeamMembersLsit()})();"
           >
@@ -164,9 +165,9 @@
         </div>
         <div class="teamMembers">
           <button class="membersDropDown">Team Members</button>
-            <div id="teamNames" class="teamNames">
-              <button id="editTeam" class="editTeamMembers">Edit Team</button>
-            </div>
+          <div id="teamNames" class="teamNames">
+            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+          </div>
         </div>
       </div>
 
@@ -466,11 +467,7 @@
       let temp = "";
 
       if (section === null) {
-        toggle_page(
-          "main_page",
-          document.getElementById("inventoryList"),
-          items,
-        );
+        toggle_page("main_page", items);
       } else {
         items.forEach((item) => {
           section.forEach((keyword) => {
@@ -484,11 +481,7 @@
         });
 
         //console.log(results);
-        toggle_page(
-          "main_page",
-          document.getElementById("inventoryList"),
-          results,
-        );
+        toggle_page("main_page", results);
       }
     }
 
@@ -564,7 +557,8 @@
      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
      * Choose excel file
      */
-    function render_list(root, items) {
+    function render_list(items) {
+      root = document.getElementById("inventoryList");
       root.innerHTML = "";
 
       items.forEach((item) => {
@@ -614,7 +608,7 @@
             });
 
             roles.forEach((person) => {
-              const option_html = `<option value="${person.role}">${person.role} (${person.name})</option>`;
+              const option_html = `<option ${serial_number.assignment === person.role ? "selected" : ""} value="${person.role}">${person.role} (${person.name})</option>`;
               document
                 .getElementById(`serial${rand_serial}`)
                 .insertAdjacentHTML("beforeend", option_html);
@@ -742,14 +736,15 @@
     ];
 
     function renderTeamMembersLsit() {
-      const dropDown = document.getElementById("namesList")
+
+      const dropDown = document.getElementById("namesList");
       dropDown.innerHTML = '';
 
       roles.forEach((person) => {
         dropDown.insertAdjacentHTML(
-            "beforeend",
-            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
-          );
+          "beforeend",
+          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+        );
       });
     }
 
@@ -781,23 +776,18 @@
     function updateNamesList(event, form) {
       event.preventDefault();
 
-      let newNames = [];
+      const nameInputs = document.getElementById("nameInputs");
+      const inputs = Array.from(
+        nameInputs.querySelectorAll("input.editName"),
+      ).map((element) => element.value);
 
-      const nameInputs = document.getElementById('nameInputs');
-      const inputs = nameInputs.querySelectorAll('input.editName');
-
-      inputs.forEach(input => {
-        newNames.push(input.value);
-      });
-
-      console.log(newNames);
-
-      for (let i = 0; i <= 10; i++) {
-        if (newNames[i]) {
-          roles[i].name = newNames[i];
+      for (let i = 0; i <= inputs.length; i++) {
+        if (inputs[i]) {
+          roles[i].name = inputs[i];
         }
       }
 
+      toggle_page("main_page", items);
     }
 
     // Setup out start screen
@@ -815,11 +805,7 @@
         items = itemObjects.slice();
 
         // render_list(document.getElementById("inventoryList"), items);
-        toggle_page(
-          "main_page",
-          document.getElementById("inventoryList"),
-          items,
-        );
+        toggle_page("main_page", items);
       });
     });
 
