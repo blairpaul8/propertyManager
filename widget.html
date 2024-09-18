@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -140,10 +140,23 @@
             class="boxesPageButton"
             onclick="((event) => {toggle_page('boxes_page')})();"
           >
-            Gun Boxes
+            View Boxes
           </button>
         </div>
-        <div id="inventoryList" class="inventoryList"></div>
+        <div id="listWrapper" class="listWrapper">
+          <div id="addBoxes" class="addBoxes">
+            <label class="inputLabel">Add Box:</label>
+            <input id="newBox" class="newBox" placeholder="Enter Box Name" />
+            <button
+              class="saveBox"
+              id="saveBox"
+              onclick="((event) => {addBoxes()})()"
+            >
+              Save
+            </button>
+          </div>
+          <div id="inventoryList" class="inventoryList"></div>
+        </div>
       </div>
     </div>
 
@@ -161,7 +174,7 @@
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
               stroke-linecap="round"
               stroke-linejoin="round"
             ></path>
@@ -197,6 +210,7 @@
         >
           Generate Master 2062
         </button>
+        <div id="boxes" class="boxes"></div>
       </div>
     </div>
   </body>
@@ -612,7 +626,9 @@
         const rand_item = Math.floor(Math.random() * 100000)
         const html = `<div class="item">
          <details class="itemDetails">
-           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : 'No MPO'}</span></span></span>
+           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${
+          item.mpo_description ? item.mpo_description : 'No MPO'
+        }</span></span></span>
              <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
              </svg>
@@ -652,7 +668,13 @@
             })
 
             roles.forEach(person => {
-              const option_html = `<option ${serial_number.assignment === person.role ? 'selected' : ''} value="${person.role}">${person.role} (${person.name})</option>`
+              const option_html = `<option ${
+                serial_number.assignment === person.role && !person.role == null
+                  ? 'selected'
+                  : ''
+              } value="${person.name}">${person.name}    ${
+                person.role !== null ? '(' + person.role + ')' : ''
+              }</option>`
               document
                 .getElementById(`serial${rand_serial}`)
                 .insertAdjacentHTML('beforeend', option_html)
@@ -713,6 +735,7 @@
     }
 
     function render_boxes(role_list = null) {
+      //document.getElementById('boxesList').innerHTML = '';
       boxes = build_boxes(role_list)
 
       boxes.forEach((value, key, map) => {
@@ -784,10 +807,12 @@
       dropDown.innerHTML = ''
 
       roles.forEach(person => {
-        dropDown.insertAdjacentHTML(
-          'beforeend',
-          `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
-        )
+        if (person.role != null) {
+          dropDown.insertAdjacentHTML(
+            'beforeend',
+            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+          )
+        }
       })
     }
 
@@ -831,6 +856,13 @@
       }
 
       toggle_page('main_page', items)
+    }
+
+    function addBoxes() {
+      const boxName = document.getElementById('newBox').value
+      roles.push({ name: boxName, role: null })
+      document.getElementById('newBox').value = ''
+      console.log(roles)
     }
 
     // Setup out start screen
