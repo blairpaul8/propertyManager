@@ -11,6 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   </head>
   <body>
     <dialog id="editTeamModal" class="editTeamModal">
@@ -975,6 +976,34 @@
           )
         })
       })
+
+      const pdfBytes = fetch('6798.pdf')
+        .then(res => res.arrayBuffer())
+        .then(pdfBytes => {
+          const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
+            console.log(pdf_form.getForm().getTextField('FROM'))
+
+            const f = pdf_form.getForm()
+
+            // From and To Fields
+            const from_field = f.getTextField('FROM')
+            from_field.setText(form.elements['from'].value)
+            const to_field = f.getTextField('TO')
+            to_field.setText(form.elements['to'].value)
+
+            // Saving the PDF
+            pdf_form.save().then(output_bytes => {
+              const blob = new Blob([output_bytes], {
+                type: 'application/octet-stream',
+              })
+              const url = URL.createObjectURL(blob)
+              const a = document.createElement('a')
+              a.href = url
+              a.download = 'filled_2062.pdf'
+              a.click()
+            })
+          })
+        })
     }
 
     function export_to_json() {
