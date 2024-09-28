@@ -222,7 +222,6 @@
     </div>
   </body>
   <script type="text/javascript">
-    
     /*
      * PAGES
      * Each Page should have its own element in the 'pages' array.
@@ -354,8 +353,8 @@
         let nsns = [] // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
 
         let cursor = 0
-        common_name = ""
-        location = ""
+        this.common_name = ''
+        this.location = ''
         for (let i = 0; i < item_rows.length; i++) {
           // We reached the end of the header
           if (item_rows[i][0] === 'NSN' && cursor === 0) {
@@ -634,83 +633,81 @@
       root.innerHTML = ''
 
       items.forEach(item => {
-        
-       const individualItem = document.createElement('div')
-       individualItem.classList.add("item")
+        const individualItem = document.createElement('div')
+        individualItem.classList.add('item')
 
-       const itemDetails = document.createElement('details')
-       itemDetails.classList.add("itemDetails")
-       individualItem.appendChild(itemDetails)
+        const itemDetails = document.createElement('details')
+        itemDetails.classList.add('itemDetails')
+        individualItem.appendChild(itemDetails)
 
-       const itemHeader = document.createElement('summary')
-       itemHeader.classList.add("itemHeader")
-       itemHeader.id = "itemHeader"
-       itemDetails.appendChild(itemHeader)
+        const itemHeader = document.createElement('summary')
+        itemHeader.classList.add('itemHeader')
+        itemHeader.id = 'itemHeader'
+        itemDetails.appendChild(itemHeader)
 
-       const group_name_and_inputs = document.createElement('div')
-       group_name_and_inputs.classList.add("group_name")
-       itemHeader.appendChild(group_name_and_inputs)
+        const group_name_and_inputs = document.createElement('div')
+        group_name_and_inputs.classList.add('group_name')
+        itemHeader.appendChild(group_name_and_inputs)
 
-       const name = document.createElement('span')
-       name.classList.add("name")
-       name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`
-       group_name_and_inputs.appendChild(name)
+        const name = document.createElement('span')
+        name.classList.add('name')
+        name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`
+        group_name_and_inputs.appendChild(name)
 
-       const location_and_common_name = document.createElement('div')
-       location_and_common_name.classList.add("location_and_name")
-       group_name_and_inputs.appendChild(location_and_common_name)
-       
-       const commonName = document.createElement('p')
-       commonName.classList.add("commonName")
-       commonName.textContent = "Common Name: "
-       location_and_common_name.appendChild(commonName)
+        const location_and_common_name = document.createElement('div')
+        location_and_common_name.classList.add('location_and_name')
+        group_name_and_inputs.appendChild(location_and_common_name)
 
-       const common_name_input = document.createElement('input')
-       common_name_input.classList.add("common_name_input")
-       location_and_common_name.appendChild(common_name_input)
+        const commonName = document.createElement('p')
+        commonName.classList.add('commonName')
+        commonName.textContent = 'Common Name: '
+        location_and_common_name.appendChild(commonName)
 
-       const location = document.createElement('p')
-       location.classList.add("commonName")
-       location.textContent = "Location: "
-       location_and_common_name.appendChild(location)
+        const common_name_input = document.createElement('input')
+        common_name_input.classList.add('common_name_input')
+        location_and_common_name.appendChild(common_name_input)
 
-       const location_input = document.createElement('input')
-       location_input.classList.add("location_input")
-       location_and_common_name.appendChild(location_input)
+        const location = document.createElement('p')
+        location.classList.add('commonName')
+        location.textContent = 'Location: '
+        location_and_common_name.appendChild(location)
 
+        const location_input = document.createElement('input')
+        location_input.classList.add('location_input')
+        location_and_common_name.appendChild(location_input)
 
-
-       itemHeader.insertAdjacentHTML('beforeend',
-       `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        itemHeader.insertAdjacentHTML(
+          'beforeend',
+          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-             </svg>`)
-      
+             </svg>`,
+        )
+
         root.appendChild(individualItem)
 
         item.nsn_items.forEach(nsn_item => {
           // Header for this NSN item
           const header = document.createElement('div')
-          header.id = "header"
+          header.id = 'header'
           header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`
           itemDetails.appendChild(header)
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
-            
             const serial_number_element = document.createElement('div')
-            serial_number_element.classList.add("serialNumber")
+            serial_number_element.classList.add('serialNumber')
 
             const serial_number_ = document.createElement('div')
-            serial_number_.classList.add("serial")
+            serial_number_.classList.add('serial')
             serial_number_.textContent = serial_number.serial_number
             serial_number_element.appendChild(serial_number_)
 
             const serial = document.createElement('select')
-            serial.id = "serial"
+            serial.id = 'serial'
             serial_number_element.appendChild(serial)
 
             const value = document.createElement('option')
-            value.value = ""
+            value.value = ''
             value.textContent = `--`
             serial.appendChild(value)
 
@@ -1007,7 +1004,9 @@
     }
 
     function export_to_json() {
-      const blob = new Blob([JSON.stringify(items)], {type: 'application/json'})
+      const blob = new Blob([JSON.stringify(items)], {
+        type: 'application/json',
+      })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
