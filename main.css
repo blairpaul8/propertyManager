@@ -281,12 +281,40 @@ body {
 .item {
   border-radius: 0.25rem;
   color: #455d7a;
-  padding: 0.25rem;
+  padding: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   background-color: #333333;
   margin-right: 0.25rem;
 }
 
+.group_name {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.location_and_name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1rem;
+  height: min-content;
+}
+
+.commonName {
+  margin: 0rem;
+  padding: 0rem;
+}
+
+.common_name_input {
+  margin-right: 10px;
+  height: 1rem;
+}
+
+.location_input {
+  height: 1rem;
+}
 /* remove the weird carrot that shows up on detail tag by default */
 details > summary {
   list-style: none;

@@ -142,6 +142,12 @@
           >
             Gun Boxes
           </button>
+          <button
+            class="saveToJSON"
+            onclick="((event) => {export_to_json()})()"
+          >
+            Save Settings
+          </button>
         </div>
         <div id="listWrapper" class="listWrapper">
           <div id="addBoxes" class="addBoxes">
@@ -215,6 +221,7 @@
     </div>
   </body>
   <script type="text/javascript">
+    
     /*
      * PAGES
      * Each Page should have its own element in the 'pages' array.
@@ -346,7 +353,8 @@
         let nsns = [] // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
 
         let cursor = 0
-
+        common_name = ""
+        location = ""
         for (let i = 0; i < item_rows.length; i++) {
           // We reached the end of the header
           if (item_rows[i][0] === 'NSN' && cursor === 0) {
@@ -633,19 +641,43 @@
        itemDetails.classList.add("itemDetails")
        individualItem.appendChild(itemDetails)
 
-       const locationInput = document.createElement('input')
-       locationInput.classList.add("location")
-      
-
        const itemHeader = document.createElement('summary')
        itemHeader.classList.add("itemHeader")
        itemHeader.id = "itemHeader"
        itemDetails.appendChild(itemHeader)
 
+       const group_name_and_inputs = document.createElement('div')
+       group_name_and_inputs.classList.add("group_name")
+       itemHeader.appendChild(group_name_and_inputs)
+
        const name = document.createElement('span')
        name.classList.add("name")
        name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`
-       itemHeader.appendChild(name)
+       group_name_and_inputs.appendChild(name)
+
+       const location_and_common_name = document.createElement('div')
+       location_and_common_name.classList.add("location_and_name")
+       group_name_and_inputs.appendChild(location_and_common_name)
+       
+       const commonName = document.createElement('p')
+       commonName.classList.add("commonName")
+       commonName.textContent = "Common Name: "
+       location_and_common_name.appendChild(commonName)
+
+       const common_name_input = document.createElement('input')
+       common_name_input.classList.add("common_name_input")
+       location_and_common_name.appendChild(common_name_input)
+
+       const location = document.createElement('p')
+       location.classList.add("commonName")
+       location.textContent = "Location: "
+       location_and_common_name.appendChild(location)
+
+       const location_input = document.createElement('input')
+       location_input.classList.add("location_input")
+       location_and_common_name.appendChild(location_input)
+
+
 
        itemHeader.insertAdjacentHTML('beforeend',
        `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -943,6 +975,15 @@
           )
         })
       })
+    }
+
+    function export_to_json() {
+      const blob = new Blob([JSON.stringify(items)], {type: 'application/json'})
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'property_book.json'
+      a.click()
     }
   </script>
 </html>
