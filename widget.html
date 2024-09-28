@@ -210,6 +210,7 @@
         >
           Generate Master 2062
         </button>
+        <div id="boxes"></div>
       </div>
     </div>
   </body>
@@ -752,7 +753,7 @@
     }
 
     function render_boxes(role_list = null) {
-      document.getElementById('boxesList').innerHTML = '';
+      document.getElementById('boxes').innerHTML = ''
       boxes = build_boxes(role_list)
 
       boxes.forEach((value, key, map) => {
@@ -898,7 +899,8 @@
       const boxName = document.getElementById('newBox').value
       roles.push({ name: boxName, role: null })
       document.getElementById('newBox').value = ''
-      console.log(roles)
+
+      toggle_page('main_page', items)
     }
 
     function roles_checklist() {
