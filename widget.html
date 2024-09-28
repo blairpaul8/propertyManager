@@ -339,6 +339,8 @@
       mpo
       mpo_description
       nsn_items = []
+      common_name
+      location
 
       constructor(item_rows) {
         let header = [] // Just MPO and MPO Description
@@ -624,46 +626,66 @@
       root.innerHTML = ''
 
       items.forEach(item => {
-        const rand_item = Math.floor(Math.random() * 100000)
-        const html = `<div class="item">
-         <details class="itemDetails">
-           <summary id="itemHeader${rand_item}" class="itemHeader"><span class="name">${item.mpo_description ? item.mpo_description : 'No MPO'}</span></span></span>
-             <svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        
+       const individualItem = document.createElement('div')
+       individualItem.classList.add("item")
+
+       const itemDetails = document.createElement('details')
+       itemDetails.classList.add("itemDetails")
+       individualItem.appendChild(itemDetails)
+
+       const locationInput = document.createElement('input')
+       locationInput.classList.add("location")
+      
+
+       const itemHeader = document.createElement('summary')
+       itemHeader.classList.add("itemHeader")
+       itemHeader.id = "itemHeader"
+       itemDetails.appendChild(itemHeader)
+
+       const name = document.createElement('span')
+       name.classList.add("name")
+       name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`
+       itemHeader.appendChild(name)
+
+       itemHeader.insertAdjacentHTML('beforeend',
+       `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-             </svg>
-           </summary>
-         </details>
-       </div>`
-        root.insertAdjacentHTML('beforeend', html)
+             </svg>`)
+      
+        root.appendChild(individualItem)
 
         item.nsn_items.forEach(nsn_item => {
           // Header for this NSN item
-          const rand_header = Math.floor(Math.random() * 100000)
-          const header = `<div id=header${rand_header}>${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}</div>`
-          document
-            .getElementById(`itemHeader${rand_item}`)
-            .insertAdjacentHTML('afterend', header)
+          const header = document.createElement('div')
+          header.id = "header"
+          header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`
+          itemDetails.appendChild(header)
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
-            const rand_serial = Math.floor(Math.random() * 100000)
-            const serial_number_element = `<div class="serialNumber">
-                                       <div class="serial">${serial_number.serial_number}</div>
-                                       <select id="serial${rand_serial}" name="">
-                                           <option value="">--</option>
-                                       </select>
-                                   </div>`
+            
+            const serial_number_element = document.createElement('div')
+            serial_number_element.classList.add("serialNumber")
 
-            const header_element = document.getElementById(
-              `header${rand_header}`,
-            )
-            header_element.insertAdjacentHTML('afterend', serial_number_element)
+            const serial_number_ = document.createElement('div')
+            serial_number_.classList.add("serial")
+            serial_number_.textContent = serial_number.serial_number
+            serial_number_element.appendChild(serial_number_)
 
-            const select_box = document.getElementById(`serial${rand_serial}`)
-            select_box.addEventListener('change', event => {
-              serial_number.assignment = document.getElementById(
-                `serial${rand_serial}`,
-              ).value
+            const serial = document.createElement('select')
+            serial.id = "serial"
+            serial_number_element.appendChild(serial)
+
+            const value = document.createElement('option')
+            value.value = ""
+            value.textContent = `--`
+            serial.appendChild(value)
+
+            itemDetails.appendChild(serial_number_element)
+
+            serial.addEventListener('change', event => {
+              serial_number_.assignment = serial.value
             })
 
             roles.forEach(person => {
@@ -674,9 +696,7 @@
               } value="${person.role}">${person.name}    ${
                 person.role !== null ? '(' + person.role + ')' : ''
               }</option>`
-              document
-                .getElementById(`serial${rand_serial}`)
-                .insertAdjacentHTML('beforeend', option_html)
+              serial.insertAdjacentHTML('beforeend', option_html)
             })
           })
         })
