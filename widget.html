@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -45,7 +45,7 @@
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
           <p class="teamNumberStartPage">SFOD-A</p>
-          <input class="teamNumberStartPage" placeholder="Enter Team Number">
+          <input class="teamNumberStartPage" placeholder="Enter Team Number" />
         </div>
         <svg
           class="excelIcon"
@@ -62,6 +62,10 @@
             d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
           />
         </svg>
+        <div class="fileInput">
+          <label for="blank" class="btn">Blank 2062 </label>
+          <input id="blank" style="visibility: hidden" type="file" />
+        </div>
         <div class="fileInput">
           <label for="input" class="btn">Choose excel file</label>
           <input id="input" style="visibility: hidden" type="file" />
@@ -249,7 +253,7 @@
         element: document.getElementById('boxesPage'),
         render_func: render_boxes,
       },
-    ]
+    ];
 
     // Toggles which 'Page' is currently being displayed.
     // Any arguments to be passed to a pages 'render_func' are
@@ -260,13 +264,13 @@
       pages.forEach(page => {
         if (page.page_name === page_name) {
           if (page.render_func !== null) {
-            page.render_func(...args)
+            page.render_func(...args);
           }
-          page.element.style.display = 'block'
+          page.element.style.display = 'block';
         } else {
-          page.element.style.display = 'none'
+          page.element.style.display = 'none';
         }
-      })
+      });
     }
 
     /**
@@ -274,50 +278,50 @@
      * @param {string{}{}} data - row-by-row view of the property book
      */
     function parseItems(data) {
-      var items = []
-      var currentItem = []
+      var items = [];
+      var currentItem = [];
       for (let i = 0; i < data.length; i++) {
         if (data[i][0] === 'MPO') {
           if (currentItem.length > 0) {
-            items.push(currentItem)
+            items.push(currentItem);
           }
-          currentItem = [] // Reset currentItem for the next MPO
-          currentItem.push(data[i])
+          currentItem = []; // Reset currentItem for the next MPO
+          currentItem.push(data[i]);
         } else {
-          currentItem.push(data[i])
+          currentItem.push(data[i]);
         }
       }
 
       if (currentItem.length > 0) {
-        items.push(currentItem)
+        items.push(currentItem);
       }
 
-      return items
+      return items;
     }
 
     class nsn_item {
-      nsn
-      nsn_description
-      ui
-      ciic
-      dla
-      buom
-      quantity
+      nsn;
+      nsn_description;
+      ui;
+      ciic;
+      dla;
+      buom;
+      quantity;
       // Mapping of serial numbers to roles [{'serial_number': 431431, 'assignment': 'E1'}, ...]
-      serial_numbers = []
+      serial_numbers = [];
 
       constructor(nsn_item_row) {
-        this.nsn = nsn_item_row[1][0]
-        this.nsn_description = nsn_item_row[1][2]
-        this.ui = nsn_item_row[1][5]
-        this.ciic = nsn_item_row[1][7]
-        this.dla = nsn_item_row[1][8]
-        this.buom = nsn_item_row[1][9]
-        this.quantity = nsn_item_row[1][10]
+        this.nsn = nsn_item_row[1][0];
+        this.nsn_description = nsn_item_row[1][2];
+        this.ui = nsn_item_row[1][5];
+        this.ciic = nsn_item_row[1][7];
+        this.dla = nsn_item_row[1][8];
+        this.buom = nsn_item_row[1][9];
+        this.quantity = nsn_item_row[1][10];
 
         for (let i = 3; i < nsn_item_row.length; i++) {
           if (nsn_item_row[i][0] === 'SysNo') {
-            continue
+            continue;
           }
           // The three possible spots for a serial number
           // We need to check each for null/undefined so those don't up in the array
@@ -325,75 +329,75 @@
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][1],
               assignment: null,
-            })
+            });
           }
           if (nsn_item_row[i][5]) {
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][5],
               assignment: null,
-            })
+            });
           }
           if (nsn_item_row[i][10]) {
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][10],
               assignment: null,
-            })
+            });
           }
         }
 
         // Prevents new fields from being added in the future, acts more like a struct
-        Object.seal(this)
+        Object.seal(this);
       }
     }
 
     class item {
-      mpo
-      mpo_description
-      nsn_items = []
-      common_name
-      location
+      mpo;
+      mpo_description;
+      nsn_items = [];
+      common_name;
+      location;
 
       constructor(item_rows) {
-        let header = [] // Just MPO and MPO Description
-        let nsns = [] // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
+        let header = []; // Just MPO and MPO Description
+        let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
 
-        let cursor = 0
-        this.common_name = ''
-        this.location = ''
+        let cursor = 0;
+        this.common_name = '';
+        this.location = '';
         for (let i = 0; i < item_rows.length; i++) {
           // We reached the end of the header
           if (item_rows[i][0] === 'NSN' && cursor === 0) {
-            header = item_rows.slice(0, i)
-            cursor = i
-            continue
+            header = item_rows.slice(0, i);
+            cursor = i;
+            continue;
           }
 
           // Item has multiples NSNs
           if (item_rows[i][0] === 'NSN') {
-            nsns.push(item_rows.slice(cursor, i))
-            cursor = i
-            continue
+            nsns.push(item_rows.slice(cursor, i));
+            cursor = i;
+            continue;
           }
 
           // Last serial number block
           if (i === item_rows.length - 1) {
-            nsns.push(item_rows.slice(cursor))
+            nsns.push(item_rows.slice(cursor));
           }
         }
 
         if (header.length > 1) {
           // Some items don't have an mpo description
-          this.mpo = header[1][0]
-          this.mpo_description = header[1][2]
+          this.mpo = header[1][0];
+          this.mpo_description = header[1][2];
         }
 
         // Add a new NSN for each serial number block
         nsns.forEach(nsn_item_rows => {
-          this.nsn_items.push(new nsn_item(nsn_item_rows))
-        })
+          this.nsn_items.push(new nsn_item(nsn_item_rows));
+        });
 
         // Prevents new fields from being added in the future, acts more like a struct
-        Object.seal(this)
+        Object.seal(this);
       }
     }
 
@@ -423,7 +427,7 @@
       'FJ2572',
       'FJ302A',
       'Z05849',
-    ]
+    ];
 
     let bravo_property = [
       'A05014',
@@ -488,7 +492,7 @@
       'ZA0569',
       'ZA0586',
       'ZA05AC',
-    ]
+    ];
 
     let charlie_property = [
       'J00697',
@@ -505,30 +509,30 @@
       'MC308W',
       'SA102U',
       'SB1000',
-    ]
+    ];
 
-    let delta_property = ['NA1519', 'S05058']
+    let delta_property = ['NA1519', 'S05058'];
 
     function filterBySection(section = null) {
-      const results = []
-      let temp = ''
+      const results = [];
+      let temp = '';
 
       if (section === null) {
-        toggle_page('main_page', items)
+        toggle_page('main_page', items);
       } else {
         items.forEach(item => {
           section.forEach(keyword => {
             if (!item.mpo_description) {
-              return
+              return;
             }
             if (item.mpo_description.slice(0, 6) === keyword) {
-              results.push(item)
+              results.push(item);
             }
-          })
-        })
+          });
+        });
 
         //console.log(results);
-        toggle_page('main_page', results)
+        toggle_page('main_page', results);
       }
     }
 
@@ -537,35 +541,35 @@
      * on which section property button is selected.
      */
     function fuzzyMatching(a, b) {
-      const matrix = []
+      const matrix = [];
 
       // Initialize the matrix
       for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i]
+        matrix[i] = [i];
       }
       for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j
+        matrix[0][j] = j;
       }
 
       // Calculate the distance
       for (let i = 1; i <= b.length; i++) {
         for (let j = 1; j <= a.length; j++) {
           if (b[i - 1] === a[j - 1]) {
-            matrix[i][j] = matrix[i - 1][j - 1]
+            matrix[i][j] = matrix[i - 1][j - 1];
           } else {
             matrix[i][j] = Math.min(
               matrix[i - 1][j - 1] + 1, // Substitution
               matrix[i][j - 1] + 1, // Insertion
               matrix[i - 1][j] + 1, // Deletion
-            )
+            );
           }
         }
       }
 
-      const distance = matrix[b.length][a.length]
+      const distance = matrix[b.length][a.length];
 
-      const longestLength = Math.max(a.length, b.length)
-      return distance / longestLength
+      const longestLength = Math.max(a.length, b.length);
+      return distance / longestLength;
     }
 
     /**
@@ -576,87 +580,92 @@
      * @returns {number} Percentage match
      */
     function trigram_comparison(left_str, right_str) {
-      const left_trigrams = []
-      const right_trigrams = []
+      const left_trigrams = [];
+      const right_trigrams = [];
 
       for (let i = 0; i < left_str.length - 2; i++) {
-        left_trigrams.push(left_str.slice(i, i + 3))
+        left_trigrams.push(left_str.slice(i, i + 3));
       }
 
       for (let i = 0; i < right_str.length - 2; i++) {
-        right_trigrams.push(right_str.slice(i, i + 3))
+        right_trigrams.push(right_str.slice(i, i + 3));
       }
 
-      let match_count = 0
+      let match_count = 0;
       for (let i = 0; i < left_trigrams.length; i++) {
         for (let j = 0; j < right_trigrams.length; j++) {
           if (left_trigrams[i] === right_trigrams[j]) {
-            match_count++
+            match_count++;
           }
         }
       }
 
       if (left_trigrams.length === 0 || right_trigrams.length === 0) {
-        return 0
+        return 0;
       }
 
-      return match_count / Math.min(left_trigrams.length, right_trigrams.length)
+      return (
+        match_count / Math.min(left_trigrams.length, right_trigrams.length)
+      );
     }
 
     //digram_comparison
     function digram_comparison(left_str, right_str) {
-      const left_digrams = []
-      const right_digrams = []
+      const left_digrams = [];
+      const right_digrams = [];
 
       for (let i = 0; i < left_str.length - 1; i++) {
-        left_digrams.push(left_str.slice(i, i + 2))
+        left_digrams.push(left_str.slice(i, i + 2));
       }
 
       for (let i = 0; i < right_str.length - 1; i++) {
-        right_digrams.push(right_str.slice(i, i + 2))
+        right_digrams.push(right_str.slice(i, i + 2));
       }
 
-      let match_count = 0
+      let match_count = 0;
       for (let i = 0; i < left_digrams.length; i++) {
         for (let j = 0; j < right_digrams.length; j++) {
           if (left_digrams[i] === right_digrams[j]) {
-            match_count++
+            match_count++;
           }
         }
       }
 
       if (left_digrams.length === 0 || right_digrams.length === 0) {
-        return 0
+        return 0;
       }
 
-      return match_count / Math.min(left_digrams.length, right_digrams.length)
+      return match_count / Math.min(left_digrams.length, right_digrams.length);
     }
 
     //function for search bar
     function searchItems() {
-      const searchResults = []
-      const relativeThreshold = 0.5
-      const input = document.getElementById('search').value.toUpperCase()
+      const searchResults = [];
+      const relativeThreshold = 0.5;
+      const input = document.getElementById('search').value.toUpperCase();
 
       //console.log(searchInput);
 
       items.forEach(item => {
         if (!item.mpo_description) {
-          return
+          return;
         }
         if (input.length <= 0) {
-          toggle_page('main_page', items)
-          return
+          toggle_page('main_page', items);
+          return;
         }
-        const distance = digram_comparison(input, item.mpo_description + item.commonName)
-        console.log(distance)
+        const distance = digram_comparison(
+          input,
+          item.mpo_description + item.commonName,
+        );
+        console.log(distance);
         if (distance >= relativeThreshold) {
-          searchResults.push(item)
+          searchResults.push(item);
         }
-      })
+      });
 
-      console.log(searchResults)
-      toggle_page('main_page', searchResults)
+      console.log(searchResults);
+      toggle_page('main_page', searchResults);
     }
 
     /**
@@ -667,155 +676,179 @@
      * Choose excel file
      */
     function render_list(items) {
-      root = document.getElementById('inventoryList')
-      root.innerHTML = ''
+      root = document.getElementById('inventoryList');
+      root.innerHTML = '';
 
       items.forEach(item => {
-        const individualItem = document.createElement('div')
-        individualItem.classList.add('item')
+        const individualItem = document.createElement('div');
+        individualItem.classList.add('item');
 
-        const itemDetails = document.createElement('details')
-        itemDetails.classList.add('itemDetails')
-        individualItem.appendChild(itemDetails)
+        const itemDetails = document.createElement('details');
+        itemDetails.classList.add('itemDetails');
+        individualItem.appendChild(itemDetails);
 
-        const itemHeader = document.createElement('summary')
-        itemHeader.classList.add('itemHeader')
-        itemHeader.id = 'itemHeader'
-        itemDetails.appendChild(itemHeader)
+        const itemHeader = document.createElement('summary');
+        itemHeader.classList.add('itemHeader');
+        itemHeader.id = 'itemHeader';
+        itemDetails.appendChild(itemHeader);
 
-        const name = document.createElement('span')
-        name.classList.add('name')
-        name.textContent = `${
-          item.mpo_description ? item.mpo_description : 'No MPO'
-        }`
-        itemHeader.appendChild(name)
+        const group_name_and_inputs = document.createElement('div');
+        group_name_and_inputs.classList.add('group_name');
+        itemHeader.appendChild(group_name_and_inputs);
+
+        const name = document.createElement('span');
+        name.classList.add('name');
+        name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`;
+        group_name_and_inputs.appendChild(name);
+
+        const location_and_common_name = document.createElement('div');
+        location_and_common_name.classList.add('location_and_name');
+        group_name_and_inputs.appendChild(location_and_common_name);
+
+        const commonName = document.createElement('p');
+        commonName.classList.add('commonName');
+        commonName.textContent = 'Common Name: ';
+        location_and_common_name.appendChild(commonName);
+
+        const common_name_input = document.createElement('input');
+        common_name_input.classList.add('common_name_input');
+        location_and_common_name.appendChild(common_name_input);
+
+        const location = document.createElement('p');
+        location.classList.add('commonName');
+        location.textContent = 'Location: ';
+        location_and_common_name.appendChild(location);
+
+        const location_input = document.createElement('input');
+        location_input.classList.add('location_input');
+        location_and_common_name.appendChild(location_input);
 
         itemHeader.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-               <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-             </svg>`,
-        )
+                   <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg>`,
+        );
 
-        root.appendChild(individualItem)
+        root.appendChild(individualItem);
 
         item.nsn_items.forEach(nsn_item => {
           // Header for this NSN item
-          const header = document.createElement('div')
-          header.id = 'header'
-          header.classList.add('nsn_item_header')
-          header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`
-          itemDetails.appendChild(header)
+          const header = document.createElement('div');
+          header.id = 'header';
+          header.classList.add('nsn_item_header');
+          header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`;
+          itemDetails.appendChild(header);
 
-          const group_name_and_inputs = document.createElement('div')
-          group_name_and_inputs.classList.add('group_name')
-          header.appendChild(group_name_and_inputs)
+          const group_name_and_inputs = document.createElement('div');
+          group_name_and_inputs.classList.add('group_name');
+          header.appendChild(group_name_and_inputs);
 
-          const location_and_common_name = document.createElement('div')
-          location_and_common_name.classList.add('location_and_name')
-          group_name_and_inputs.appendChild(location_and_common_name)
+          const location_and_common_name = document.createElement('div');
+          location_and_common_name.classList.add('location_and_name');
+          group_name_and_inputs.appendChild(location_and_common_name);
 
-          const commonName = document.createElement('p')
-          commonName.classList.add('commonName')
-          commonName.textContent = 'Name: '
-          location_and_common_name.appendChild(commonName)
+          const commonName = document.createElement('p');
+          commonName.classList.add('commonName');
+          commonName.textContent = 'Name: ';
+          location_and_common_name.appendChild(commonName);
 
-          const common_name_input = document.createElement('input')
-          common_name_input.classList.add('common_name_input')
-          location_and_common_name.appendChild(common_name_input)
+          const common_name_input = document.createElement('input');
+          common_name_input.classList.add('common_name_input');
+          location_and_common_name.appendChild(common_name_input);
 
-          common_name_input.style.width = '6rem'
-          common_name_input.style.marginLeft = '.25rem'
-          common_name_input.style.borderRadius = '5px'
-          common_name_input.style.border = 'none'
+          common_name_input.style.width = '6rem';
+          common_name_input.style.marginLeft = '.25rem';
+          common_name_input.style.borderRadius = '5px';
+          common_name_input.style.border = 'none';
 
           common_name_input.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
               // Get the input value
-              const commonNameInput = common_name_input.value
-              item.commonName = commonNameInput
+              const commonNameInput = common_name_input.value;
+              item.commonName = commonNameInput;
 
               // Create a <p> tag to replace the input field
-              const pTagCommonName = document.createElement('p')
-              pTagCommonName.textContent = commonNameInput // Use item.commonName or the input value
+              const pTagCommonName = document.createElement('p');
+              pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
 
-              pTagCommonName.style.display = 'block'
-              pTagCommonName.style.color = 'white'
-              pTagCommonName.style.marginLeft = '.25rem'
-              pTagCommonName.style.marginRight = '.5rem'
+              pTagCommonName.style.display = 'block';
+              pTagCommonName.style.color = 'white';
+              pTagCommonName.style.marginLeft = '.25rem';
+              pTagCommonName.style.marginRight = '.5rem';
 
               // Replace the input field with the <p> tag
               location_and_common_name.replaceChild(
                 pTagCommonName,
                 common_name_input,
-              )
+              );
             }
-          })
+          });
 
           // Append the input field to the parent element
-          location_and_common_name.appendChild(common_name_input)
+          location_and_common_name.appendChild(common_name_input);
 
-          const location = document.createElement('p')
-          location.classList.add('commonName')
-          location.textContent = 'Location: '
-          location_and_common_name.appendChild(location)
+          const location = document.createElement('p');
+          location.classList.add('commonName');
+          location.textContent = 'Location: ';
+          location_and_common_name.appendChild(location);
 
-          const location_input = document.createElement('input')
-          location_input.classList.add('location_input')
-          location_and_common_name.appendChild(location_input)
+          const location_input = document.createElement('input');
+          location_input.classList.add('location_input');
+          location_and_common_name.appendChild(location_input);
 
-          location_input.style.width = '6rem'
-          location_input.style.marginLeft = '.25rem'
-          location_input.style.borderRadius = '5px'
-          location_input.style.border = 'none'
+          location_input.style.width = '6rem';
+          location_input.style.marginLeft = '.25rem';
+          location_input.style.borderRadius = '5px';
+          location_input.style.border = 'none';
 
           location_input.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
               // Get the input value
-              const locationInput = location_input.value
-              item.location = locationInput
+              const locationInput = location_input.value;
+              item.location = locationInput;
 
               // Create a <p> tag to replace the input field
-              const pTagLocation = document.createElement('p')
-              pTagLocation.textContent = locationInput // Use item.commonName or the input value
+              const pTagLocation = document.createElement('p');
+              pTagLocation.textContent = locationInput; // Use item.commonName or the input value
 
-              pTagLocation.style.display = 'block'
-              pTagLocation.style.color = 'white'
-              pTagLocation.style.marginLeft = '.25rem'
-              pTagLocation.style.marginRight = '.5rem'
+              pTagLocation.style.display = 'block';
+              pTagLocation.style.color = 'white';
+              pTagLocation.style.marginLeft = '.25rem';
+              pTagLocation.style.marginRight = '.5rem';
 
               // Replace the input field with the <p> tag
               location_and_common_name.replaceChild(
                 pTagLocation,
                 location_input,
-              )
+              );
             }
-          })
+          });
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
-            const serial_number_element = document.createElement('div')
-            serial_number_element.classList.add('serialNumber')
+            const serial_number_element = document.createElement('div');
+            serial_number_element.classList.add('serialNumber');
 
-            const serial_number_ = document.createElement('div')
-            serial_number_.classList.add('serial')
-            serial_number_.textContent = serial_number.serial_number
-            serial_number_element.appendChild(serial_number_)
+            const serial_number_ = document.createElement('div');
+            serial_number_.classList.add('serial');
+            serial_number_.textContent = serial_number.serial_number;
+            serial_number_element.appendChild(serial_number_);
 
-            const serial = document.createElement('select')
-            serial.id = 'serial'
-            serial_number_element.appendChild(serial)
+            const serial = document.createElement('select');
+            serial.id = 'serial';
+            serial_number_element.appendChild(serial);
 
-            const value = document.createElement('option')
-            value.value = ''
-            value.textContent = `--`
-            serial.appendChild(value)
+            const value = document.createElement('option');
+            value.value = '';
+            value.textContent = `--`;
+            serial.appendChild(value);
 
-            itemDetails.appendChild(serial_number_element)
+            itemDetails.appendChild(serial_number_element);
 
             serial.addEventListener('change', event => {
-              serial_number.assignment = serial.value
-            })
+              serial_number.assignment = serial.value;
+            });
 
             roles.forEach(person => {
               const option_html = `<option ${
@@ -824,12 +857,12 @@
                   : ''
               } value="${person.role}">${person.name}    ${
                 person.role !== null ? '(' + person.role + ')' : ''
-              }</option>`
-              serial.insertAdjacentHTML('beforeend', option_html)
-            })
-          })
-        })
-      })
+              }</option>`;
+              serial.insertAdjacentHTML('beforeend', option_html);
+            });
+          });
+        });
+      });
     }
 
     /**
@@ -841,14 +874,14 @@
      */
     function build_boxes(role_list) {
       if (!role_list) {
-        role_list = roles
+        role_list = roles;
       }
 
-      let role_symbols = role_list.map(a => a.role)
+      let role_symbols = role_list.map(a => a.role);
 
       // A map of key 'role name' => value 'item' & serial_number(s)
       // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
-      const boxes = new Map()
+      const boxes = new Map();
 
       // Loop through the entire items list, we need to boil down to each serial number
       // and determine who that serial number is assigned to, then filters further to
@@ -863,77 +896,78 @@
               // First grab the role object, set that as the key for our map
               const role = role_list.filter(
                 role => role.role === serial_number.assignment,
-              )[0]
+              )[0];
               // Get our blank array so we can pushback on it
               if (!boxes.has(role)) {
-                boxes.set(role, [])
+                boxes.set(role, []);
               }
 
               boxes.get(role).push({
                 mpo_description: item.mpo_description,
                 nsn_description: nsn_item.nsn_description,
+                nsn: nsn_item.nsn,
                 serial_number: serial_number.serial_number,
-              })
+              });
             }
-          })
-        })
-      })
+          });
+        });
+      });
 
-      return boxes
+      return boxes;
     }
 
     function render_boxes(role_list = null) {
-      document.getElementById('boxes').innerHTML = ''
-      boxes = build_boxes(role_list)
+      document.getElementById('boxes').innerHTML = '';
+      boxes = build_boxes(role_list);
 
       boxes.forEach((value, key, map) => {
-        const individualBox = document.createElement('details')
-        individualBox.classList.add('individualBox')
+        const individualBox = document.createElement('details');
+        individualBox.classList.add('individualBox');
 
-        const header = document.createElement('summary')
-        header.classList.add('boxHeader')
+        const header = document.createElement('summary');
+        header.classList.add('boxHeader');
         header.insertAdjacentHTML(
           'beforeend',
           `<h3>${key.name} (${key.role})</h3>`,
-        )
+        );
 
-        const rightGrouping = document.createElement('div')
-        rightGrouping.classList.add('rightGrouping')
+        const rightGrouping = document.createElement('div');
+        rightGrouping.classList.add('rightGrouping');
         rightGrouping.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </svg>`,
-        )
-        header.appendChild(rightGrouping)
+                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>`,
+        );
+        header.appendChild(rightGrouping);
 
-        individualBox.appendChild(header)
+        individualBox.appendChild(header);
 
         value.forEach(assignment => {
-          const lineItem = document.createElement('div')
-          lineItem.style.display = 'flex'
-          lineItem.style.justifyContent = 'space-between'
+          const lineItem = document.createElement('div');
+          lineItem.style.display = 'flex';
+          lineItem.style.justifyContent = 'space-between';
 
           lineItem.insertAdjacentHTML(
             'beforeend',
             `<span>${
               assignment.mpo_description ? assignment.mpo_description : ''
             }</span>`,
-          )
+          );
           lineItem.insertAdjacentHTML(
             'beforeend',
             `<span>${assignment.nsn_description}</span>`,
-          )
+          );
           lineItem.insertAdjacentHTML(
             'beforeend',
             `<span>${assignment.serial_number}</span>`,
-          )
+          );
 
-          individualBox.appendChild(lineItem)
-        })
+          individualBox.appendChild(lineItem);
+        });
 
-        document.getElementById('boxes').appendChild(individualBox)
-      })
+        document.getElementById('boxes').appendChild(individualBox);
+      });
     }
 
     // Pre-populate roles/names, this will come from the start screen later
@@ -948,25 +982,25 @@
       { name: 'Tommy', role: 'D2' },
       { name: 'Paul', role: 'E1' },
       { name: 'Rhyan', role: 'E2' },
-    ]
+    ];
 
     function renderTeamMembersLsit() {
-      const dropDown = document.getElementById('namesList')
-      dropDown.innerHTML = ''
+      const dropDown = document.getElementById('namesList');
+      dropDown.innerHTML = '';
 
       roles.forEach(person => {
         if (person.role != null) {
           dropDown.insertAdjacentHTML(
             'beforeend',
             `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
-          )
+          );
         }
-      })
+      });
     }
 
-    const modal = document.getElementById('editTeamModal')
-    const openModal = document.getElementById('editTeam')
-    const closeModal = document.getElementById('closeModal')
+    const modal = document.getElementById('editTeamModal');
+    const openModal = document.getElementById('editTeam');
+    const closeModal = document.getElementById('closeModal');
 
     //openModal.addEventListener("click", () => {
     //modal.showModal();
@@ -979,139 +1013,174 @@
           .insertAdjacentHTML(
             'afterbegin',
             `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
-          )
-      })
+          );
+      });
 
       closeModal.addEventListener('click', () => {
-        modal.close()
-      })
+        modal.close();
+      });
     }
 
-    render_edit_team_list(roles)
+    render_edit_team_list(roles);
 
     function updateNamesList(event, form) {
-      event.preventDefault()
+      event.preventDefault();
 
-      const nameInputs = document.getElementById('nameInputs')
+      const nameInputs = document.getElementById('nameInputs');
       const inputs = Array.from(
         nameInputs.querySelectorAll('input.editName'),
-      ).map(element => element.value)
+      ).map(element => element.value);
 
       for (let i = 0; i <= inputs.length; i++) {
         if (inputs[i]) {
-          roles[i].name = inputs[i]
+          roles[i].name = inputs[i];
         }
       }
 
-      toggle_page('main_page', items)
+      toggle_page('main_page', items);
     }
 
     // Setup out start screen
-    let input = document.getElementById('input')
-    let items = []
+    let input = document.getElementById('input');
+    let items = [];
+    let pdf_file;
 
     input.addEventListener('change', function () {
-      readXlsxFile(input.files[0]).then(function (data) {
-        let parsedRows = parseItems(data)
-        const itemObjects = []
-        parsedRows.forEach(item_as_rows => {
-          itemObjects.push(new item(item_as_rows))
-        })
+      pdf_file = document.getElementById('blank').files[0];
 
-        items = itemObjects.slice()
+      readXlsxFile(input.files[0]).then(function (data) {
+        let parsedRows = parseItems(data);
+        const itemObjects = [];
+        parsedRows.forEach(item_as_rows => {
+          itemObjects.push(new item(item_as_rows));
+        });
+
+        items = itemObjects.slice();
 
         // render_list(document.getElementById("inventoryList"), items);
-        toggle_page('main_page', items)
-      })
-    })
+        toggle_page('main_page', items);
+      });
+    });
 
     function addBoxes() {
-      const boxName = document.getElementById('newBox').value
-      roles.push({ name: boxName, role: null })
-      document.getElementById('newBox').value = ''
+      const boxName = document.getElementById('newBox').value;
+      roles.push({ name: boxName, role: null });
+      document.getElementById('newBox').value = '';
 
-      toggle_page('main_page', items)
+      toggle_page('main_page', items);
     }
 
     function roles_checklist() {
-      const boxes = build_boxes(null)
-      const fromToModal = document.getElementById('fromTo')
-      const roleCheckBoxes = document.getElementById('roleCheckBoxes')
-      roleCheckBoxes.innerHTML = ''
+      const boxes = build_boxes(null);
+      const fromToModal = document.getElementById('fromTo');
+      const roleCheckBoxes = document.getElementById('roleCheckBoxes');
+      roleCheckBoxes.innerHTML = '';
 
       Array.from(boxes.keys()).forEach(key => {
-        const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`
+        const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
 
-        roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox)
-      })
+        roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
 
-      fromToModal.showModal()
+      fromToModal.showModal();
     }
 
     function generate_2062(event, form) {
-      event.preventDefault()
+      event.preventDefault();
 
-      console.log('Generating 2062:')
-      console.log(form.elements['from'].value)
-      console.log(form.elements['to'].value)
+      console.log('Generating 2062:');
+      console.log(form.elements['from'].value);
+      console.log(form.elements['to'].value);
 
       const included_roles = Array.from(form.elements)
         .map(element => element.name)
         .filter(name => name.startsWith('checkbox'))
         .filter(name => form.elements[name].checked)
         .map(name => name.slice(8))
-        .map(name => roles.find(element => element.role === name))
-      const boxes = build_boxes(included_roles)
+        .map(name => roles.find(element => element.role === name));
+      const boxes = build_boxes(included_roles);
 
-      const names = included_roles.map(role => role.name)
-      console.log(`generating master 2062 for ${names.join(', ')}`)
+      const item_mappings = new Map();
+      console.log(boxes);
+
+      const names = included_roles.map(role => role.name);
+      console.log(`generating master 2062 for ${names.join(', ')}`);
       included_roles.forEach(role => {
-        console.log(`\tgenerating individual 2062 for ${role.name}`)
+        console.log(`\tgenerating individual 2062 for ${role.name}`);
         boxes.get(role).forEach(item => {
           console.log(
             `\t\tItem: ${item.mpo_description} Serial Number: ${item.serial_number}`,
-          )
-        })
-      })
+          );
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+          }
+        });
+      });
 
-      const pdfBytes = fetch('6798.pdf')
-        .then(res => res.arrayBuffer())
-        .then(pdfBytes => {
-          const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
-            console.log(pdf_form.getForm().getTextField('FROM'))
+      console.log(item_mappings);
 
-            const f = pdf_form.getForm()
+      pdf_file.arrayBuffer().then(pdfBytes => {
+        const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
+          const f = pdf_form.getForm();
 
-            // From and To Fields
-            const from_field = f.getTextField('FROM')
-            from_field.setText(form.elements['from'].value)
-            const to_field = f.getTextField('TO')
-            to_field.setText(form.elements['to'].value)
+          // From and To Fields
+          const from_field = f.getTextField('FROM');
+          from_field.setText(form.elements['from'].value);
+          const to_field = f.getTextField('TO');
+          to_field.setText(form.elements['to'].value);
 
-            // Saving the PDF
-            pdf_form.save().then(output_bytes => {
-              const blob = new Blob([output_bytes], {
-                type: 'application/octet-stream',
-              })
-              const url = URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.href = url
-              a.download = 'filled_2062.pdf'
-              a.click()
-            })
-          })
-        })
+          if (item_mappings.size > 16) {
+            console.error('Too many items you idiot!');
+          }
+          let i = 1;
+          item_mappings.forEach((v, k, m) => {
+            const stock_number = f.getTextField(`STOCKNUMBER aRow${i}`);
+            stock_number.setFontSize(12);
+            stock_number.setText(k.toString());
+
+            const serial_numbers = f.getTextField(`ITEM DESCRIPTION bRow${i}`);
+            serial_numbers.enableMultiline;
+            serial_numbers.setAlignment(PDFLib.TextAlignment.Left);
+            serial_numbers.disableScrolling();
+            // serial_numbers.setFontSize(8);
+            serial_numbers.setText('SNs: ' + v.join(','));
+
+            const qty_auth = f.getTextField(`QTY AUTH fRow${i}`);
+            qty_auth.setFontSize(12);
+            qty_auth.setText(v.length.toString());
+
+            const qty_a = f.getTextField(`ARow${i}`);
+            qty_a.setFontSize(12);
+            qty_a.setText(v.length.toString());
+            i += 1;
+          });
+
+          // Saving the PDF
+          pdf_form.save().then(output_bytes => {
+            const blob = new Blob([output_bytes], {
+              type: 'application/octet-stream',
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'filled_2062.pdf';
+            a.click();
+          });
+        });
+      });
     }
 
     function export_to_json() {
       const blob = new Blob([JSON.stringify(items)], {
         type: 'application/json',
-      })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = 'property_book.json'
-      a.click()
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'property_book.json';
+      a.click();
     }
   </script>
 </html>
