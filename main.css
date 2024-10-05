@@ -58,16 +58,40 @@ body {
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  width: 200px;
-  box-shadow: 0 0 5px rgb(0, 0, 0.25);
+  border-radius: 5px;
+  border: none;
+  width: 100px;
   padding-left: 5px;
   font-family: sans-serif;
-  font-size: 1.5em;
+  font-size: 1.25em;
   color: #455d7a;
   flex: 1;
   padding-left: 1rem;
   padding-right: 1rem;
   cursor: pointer;
+}
+
+.teamNumberStartPage {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  width: 100px;
+  padding-left: 5px;
+  font-family: sans-serif;
+  font-size: 1.25em;
+  color: #455d7a;
+  flex: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  cursor: pointer;
+}
+
+.teamNumberContainer {
+  display: flex;
+  flex-direction: row;
 }
 
 .searchBar {
@@ -218,6 +242,19 @@ body {
   transform: scale(1.05);
 }
 
+.saveToJSON {
+  padding: 5%;
+  border-radius: 0.5rem;
+  font-size: 1.25em;
+  color: black;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.saveToJSON:hover {
+  transform: scale(1.05);
+}
+
 .bodyWrapper {
   display: flex;
   flex-direction: row;
@@ -290,7 +327,7 @@ body {
 .group_name {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  margin-right: 10rem;
   justify-content: space-between;
 }
 
@@ -379,7 +416,7 @@ details[open] summary .icons {
   border-radius: 0.5rem;
   box-shadow: 0 0 5px rgb(0, 0, 0.25);
   width: 50vh;
-  height: 50vh;
+  height: 65vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -424,11 +461,31 @@ details[open] summary .icons {
   padding-bottom: 10rem;
 }
 
+.boxes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: scroll;
+  width: 95%;
+  height: 90vh;
+  padding-bottom: 10rem;
+}
+
 .individualBox {
   background-color: white;
   width: 90%;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+
+.nsn_item_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: .5rem;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .boxHeader {

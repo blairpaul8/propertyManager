@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -43,6 +43,10 @@
     </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
+        <div id="teamNumberContainer" class="teamNumberContainer">
+          <p class="teamNumberStartPage">SFOD-A</p>
+          <input class="teamNumberStartPage" placeholder="Enter Team Number">
+        </div>
         <svg
           class="excelIcon"
           xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +80,7 @@
             name="search"
             id="search"
             class="search"
+            onkeyup="((event) => {searchItems()})();"
           />
           <button onclick="((event) => {searchItems()})();">
             <img src="search-icon.svg" class="weatherIcons" />
@@ -217,7 +222,7 @@
         >
           Generate Master 2062
         </button>
-        <div id="boxes"></div>
+        <div id="boxes" class="boxes"></div>
       </div>
     </div>
   </body>
@@ -598,6 +603,35 @@
       return match_count / Math.min(left_trigrams.length, right_trigrams.length)
     }
 
+    //digram_comparison
+    function digram_comparison(left_str, right_str) {
+      const left_digrams = []
+      const right_digrams = []
+
+      for (let i = 0; i < left_str.length - 1; i++) {
+        left_digrams.push(left_str.slice(i, i + 2))
+      }
+
+      for (let i = 0; i < right_str.length - 1; i++) {
+        right_digrams.push(right_str.slice(i, i + 2))
+      }
+
+      let match_count = 0
+      for (let i = 0; i < left_digrams.length; i++) {
+        for (let j = 0; j < right_digrams.length; j++) {
+          if (left_digrams[i] === right_digrams[j]) {
+            match_count++
+          }
+        }
+      }
+
+      if (left_digrams.length === 0 || right_digrams.length === 0) {
+        return 0
+      }
+
+      return match_count / Math.min(left_digrams.length, right_digrams.length)
+    }
+
     //function for search bar
     function searchItems() {
       const searchResults = []
@@ -610,7 +644,11 @@
         if (!item.mpo_description) {
           return
         }
-        const distance = trigram_comparison(input, item.mpo_description)
+        if (input.length <= 0) {
+          toggle_page('main_page', items)
+          return
+        }
+        const distance = digram_comparison(input, item.mpo_description + item.commonName)
         console.log(distance)
         if (distance >= relativeThreshold) {
           searchResults.push(item)
@@ -645,36 +683,12 @@
         itemHeader.id = 'itemHeader'
         itemDetails.appendChild(itemHeader)
 
-        const group_name_and_inputs = document.createElement('div')
-        group_name_and_inputs.classList.add('group_name')
-        itemHeader.appendChild(group_name_and_inputs)
-
         const name = document.createElement('span')
         name.classList.add('name')
-        name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`
-        group_name_and_inputs.appendChild(name)
-
-        const location_and_common_name = document.createElement('div')
-        location_and_common_name.classList.add('location_and_name')
-        group_name_and_inputs.appendChild(location_and_common_name)
-
-        const commonName = document.createElement('p')
-        commonName.classList.add('commonName')
-        commonName.textContent = 'Common Name: '
-        location_and_common_name.appendChild(commonName)
-
-        const common_name_input = document.createElement('input')
-        common_name_input.classList.add('common_name_input')
-        location_and_common_name.appendChild(common_name_input)
-
-        const location = document.createElement('p')
-        location.classList.add('commonName')
-        location.textContent = 'Location: '
-        location_and_common_name.appendChild(location)
-
-        const location_input = document.createElement('input')
-        location_input.classList.add('location_input')
-        location_and_common_name.appendChild(location_input)
+        name.textContent = `${
+          item.mpo_description ? item.mpo_description : 'No MPO'
+        }`
+        itemHeader.appendChild(name)
 
         itemHeader.insertAdjacentHTML(
           'beforeend',
@@ -689,8 +703,94 @@
           // Header for this NSN item
           const header = document.createElement('div')
           header.id = 'header'
+          header.classList.add('nsn_item_header')
           header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`
           itemDetails.appendChild(header)
+
+          const group_name_and_inputs = document.createElement('div')
+          group_name_and_inputs.classList.add('group_name')
+          header.appendChild(group_name_and_inputs)
+
+          const location_and_common_name = document.createElement('div')
+          location_and_common_name.classList.add('location_and_name')
+          group_name_and_inputs.appendChild(location_and_common_name)
+
+          const commonName = document.createElement('p')
+          commonName.classList.add('commonName')
+          commonName.textContent = 'Name: '
+          location_and_common_name.appendChild(commonName)
+
+          const common_name_input = document.createElement('input')
+          common_name_input.classList.add('common_name_input')
+          location_and_common_name.appendChild(common_name_input)
+
+          common_name_input.style.width = '6rem'
+          common_name_input.style.marginLeft = '.25rem'
+          common_name_input.style.borderRadius = '5px'
+          common_name_input.style.border = 'none'
+
+          common_name_input.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+              // Get the input value
+              const commonNameInput = common_name_input.value
+              item.commonName = commonNameInput
+
+              // Create a <p> tag to replace the input field
+              const pTagCommonName = document.createElement('p')
+              pTagCommonName.textContent = commonNameInput // Use item.commonName or the input value
+
+              pTagCommonName.style.display = 'block'
+              pTagCommonName.style.color = 'white'
+              pTagCommonName.style.marginLeft = '.25rem'
+              pTagCommonName.style.marginRight = '.5rem'
+
+              // Replace the input field with the <p> tag
+              location_and_common_name.replaceChild(
+                pTagCommonName,
+                common_name_input,
+              )
+            }
+          })
+
+          // Append the input field to the parent element
+          location_and_common_name.appendChild(common_name_input)
+
+          const location = document.createElement('p')
+          location.classList.add('commonName')
+          location.textContent = 'Location: '
+          location_and_common_name.appendChild(location)
+
+          const location_input = document.createElement('input')
+          location_input.classList.add('location_input')
+          location_and_common_name.appendChild(location_input)
+
+          location_input.style.width = '6rem'
+          location_input.style.marginLeft = '.25rem'
+          location_input.style.borderRadius = '5px'
+          location_input.style.border = 'none'
+
+          location_input.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+              // Get the input value
+              const locationInput = location_input.value
+              item.location = locationInput
+
+              // Create a <p> tag to replace the input field
+              const pTagLocation = document.createElement('p')
+              pTagLocation.textContent = locationInput // Use item.commonName or the input value
+
+              pTagLocation.style.display = 'block'
+              pTagLocation.style.color = 'white'
+              pTagLocation.style.marginLeft = '.25rem'
+              pTagLocation.style.marginRight = '.5rem'
+
+              // Replace the input field with the <p> tag
+              location_and_common_name.replaceChild(
+                pTagLocation,
+                location_input,
+              )
+            }
+          })
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
@@ -832,7 +932,7 @@
           individualBox.appendChild(lineItem)
         })
 
-        document.getElementById('boxesList').appendChild(individualBox)
+        document.getElementById('boxes').appendChild(individualBox)
       })
     }
 
@@ -877,7 +977,7 @@
         document
           .getElementById('nameInputs')
           .insertAdjacentHTML(
-            'beforeend',
+            'afterbegin',
             `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
           )
       })
