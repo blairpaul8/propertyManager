@@ -47,6 +47,14 @@
           <p class="teamNumberStartPage">SFOD-A</p>
           <input class="teamNumberStartPage" placeholder="Enter Team Number">
         </div>
+        <div id="teamMembersContainer" class="teamMembersContainer">
+          <div id="teamMembersColumn1" class="teamMembersColumn1">
+
+          </div>
+          <div id="teamMembersColumn2" class="teamMembersColumn2">
+
+          </div>
+        </div>
         <svg
           class="excelIcon"
           xmlns="http://www.w3.org/2000/svg"
@@ -938,8 +946,10 @@
 
     // Pre-populate roles/names, this will come from the start screen later
     let roles = [
+      { name: 'None', role: 'A'},
       { name: 'Tony', role: 'Z' },
       { name: 'Joel', role: 'W' },
+      { name: 'James', role: 'F'},
       { name: 'Chuck', role: 'B1' },
       { name: 'Hayden', role: 'B2' },
       { name: 'Forrest', role: 'C1' },
@@ -949,6 +959,50 @@
       { name: 'Paul', role: 'E1' },
       { name: 'Rhyan', role: 'E2' },
     ]
+
+    //Show team member name inputs on start page
+    function renderTeamMembersOnStartPage() {
+      let name_count = 0;
+      roles.forEach(person => {
+        if (name_count <= 6) {
+          const column1 = document.getElementById('teamMembersColum1')
+          const roleAndName = document.createElement('div')
+
+          const roleStartPage = document.createElement('p')
+          roleStartPage.classList.add('roleStartPage')
+          roleStartPage.textContent = `${person.name}`
+          roleAndName.appendChild(roleStartPage)
+
+          const nameStartPage = document.createElement('input')
+          nameStartPage.classList.add('nameStartPage')
+          nameStartPage.placeholder = "Enter Name"
+          roleAndName.appendChild(nameStartPage)
+
+          column1.appendChild(roleAndName)
+          name_count += 1
+        }
+
+        else {
+          const column2 = document.getElementById('teamMembersColum2')
+          const roleAndName = document.createElement('div')
+
+          const roleStartPage = document.createElement('p')
+          roleStartPage.classList.add('roleStartPage')
+          roleStartPage.textContent = `${person.name}`
+          roleAndName.appendChild(roleStartPage)
+
+          const nameStartPage = document.createElement('input')
+          nameStartPage.classList.add('nameStartPage')
+          nameStartPage.placeholder = "Enter Name"
+          roleAndName.appendChild(nameStartPage)
+
+          column2.appendChild(roleAndName)
+        }
+        
+
+        
+      })
+    }
 
     function renderTeamMembersLsit() {
       const dropDown = document.getElementById('namesList')

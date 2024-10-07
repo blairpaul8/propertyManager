@@ -94,6 +94,21 @@ body {
   flex-direction: row;
 }
 
+.teamMembersContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.teamMembersColumn1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.teamMembersColumn2 {
+  display: flex;
+  flex-direction: column;
+}
+
 .searchBar {
   display: flex;
   border-top-left-radius: 10px;
