@@ -44,40 +44,73 @@
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
-          <p class="teamNumberStartPage">SFOD-A</p>
+          <span class="teamNumberStartPage">SFOD-A</span>
           <input class="teamNumberStartPage" placeholder="Enter Team Number" />
         </div>
         <div id="teamMembersContainer" class="teamMembersContainer">
-          <div id="teamMembersColumn1" class="teamMembersColumn1">
-
-          </div>
-          <div id="teamMembersColumn2" class="teamMembersColumn2">
-
-          </div>
+          <div id="teamMembersColumn1" class="teamMembersColumn1"></div>
+          <div id="teamMembersColumn2" class="teamMembersColumn2"></div>
         </div>
-        <svg
-          class="excelIcon"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
-          />
-        </svg>
+        
         <div class="fileInput">
-          <label for="blank" class="btn">Blank 2062 </label>
+          <label for="blank" class="btn2062">Blank 2062 </label>
           <input id="blank" style="visibility: hidden" type="file" />
         </div>
-        <div class="fileInput">
-          <label for="input" class="btn">Choose excel file</label>
-          <input id="input" style="visibility: hidden" type="file" />
-        </div>
+        <div class="fileInputs">
+            <div class="fileInputContainer">
+              <div class="inputExcelWrapper">
+                <input id="excelInput1" class="excelInput" type="file" />
+                <label for="excelInput1" class="customExcelInput" id="customExcelInput1">Choose File</label>
+                <input class="excelFileName" id="excelFileName1" type="text" placeholder="No File Choosen">
+              </div>
+
+              <svg
+                class="excelIcon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+                />
+              </svg>
+            </div>
+        
+          <div class="fileInputContainer">
+            <div class="inputExcelWrapper">
+              <input id="excelInput2" class="excelInput" type="file" />
+              <label for="excelInput2" class="customExcelInput" id="customExcelInput2">Choose File</label>
+              <input class="excelFileName" id="excelFileName2" type="text" placeholder="No File Choosen">
+            </div>
+
+            
+            
+            <!-- <label for="input" class="btn">Choose excel file</label> -->
+            <svg
+              class="excelIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+              />
+            </svg>
+          </div>
+          <div class="continueButtonContainer">
+            <button id="continueBotton" class="continueButton">Continue</button>
+          </div>
+        </div>  
       </div>
     </div>
     <div class="mainPage" id="mainPage" style="display: none">
@@ -239,6 +272,29 @@
     </div>
   </body>
   <script type="text/javascript">
+
+    // Get the file input, label, and the text input field
+    const fileInput1 = document.getElementById('excelInput1');
+    const fileNameField1 = document.getElementById('excelFileName1');
+
+    // Add an event listener to update the text field when a file is selected
+    fileInput1.addEventListener('change', function() {
+      const fileName = this.files.length > 0 ? this.files[0].name : 'No file chosen';
+      fileNameField1.value = fileName;
+    });
+
+    const fileInput2 = document.getElementById('excelInput2');
+    const fileNameField2 = document.getElementById('excelFileName2');
+
+    // Add an event listener to update the text field when a file is selected
+    fileInput2.addEventListener('change', function() {
+      const fileName = this.files.length > 0 ? this.files[0].name : 'No file chosen';
+      fileNameField2.value = fileName;
+    });
+
+
+
+
     /*
      * PAGES
      * Each Page should have its own element in the 'pages' array.
@@ -711,7 +767,7 @@
 
         const location_and_common_name = document.createElement('div');
         location_and_common_name.classList.add('location_and_name');
-        group_name_and_inputs.appendChild(location_and_common_name);
+        //group_name_and_inputs.appendChild(location_and_common_name);
 
         const commonName = document.createElement('p');
         commonName.classList.add('commonName');
@@ -998,13 +1054,14 @@
     function renderTeamMembersOnStartPage() {
       let name_count = 0;
       roles.forEach(person => {
-        if (name_count <= 6) {
-          const column1 = document.getElementById('teamMembersColum1')
+        if (name_count < 6) {
+          const column1 = document.getElementById('teamMembersColumn1')
           const roleAndName = document.createElement('div')
+          roleAndName.classList.add('roleAndName')
 
-          const roleStartPage = document.createElement('p')
+          const roleStartPage = document.createElement('span')
           roleStartPage.classList.add('roleStartPage')
-          roleStartPage.textContent = `${person.name}`
+          roleStartPage.textContent = `${person.role}`
           roleAndName.appendChild(roleStartPage)
 
           const nameStartPage = document.createElement('input')
@@ -1017,12 +1074,13 @@
         }
 
         else {
-          const column2 = document.getElementById('teamMembersColum2')
+          const column2 = document.getElementById('teamMembersColumn2')
           const roleAndName = document.createElement('div')
+          roleAndName.classList.add('roleAndName')
 
-          const roleStartPage = document.createElement('p')
+          const roleStartPage = document.createElement('span')
           roleStartPage.classList.add('roleStartPage')
-          roleStartPage.textContent = `${person.name}`
+          roleStartPage.textContent = `${person.role}`
           roleAndName.appendChild(roleStartPage)
 
           const nameStartPage = document.createElement('input')
@@ -1037,6 +1095,8 @@
         
       })
     }
+
+    renderTeamMembersOnStartPage()
 
     function renderTeamMembersLsit() {
       const dropDown = document.getElementById('namesList');
@@ -1095,11 +1155,11 @@
     }
 
     // Setup out start screen
-    let input = document.getElementById('input');
+    let continueButton = document.getElementById('continueButton');
     let items = [];
     let pdf_file;
 
-    input.addEventListener('change', function () {
+    continueButton.addEventListener('onclick', function () {
       pdf_file = document.getElementById('blank').files[0];
 
       readXlsxFile(input.files[0]).then(function (data) {
@@ -1108,6 +1168,8 @@
         parsedRows.forEach(item_as_rows => {
           itemObjects.push(new item(item_as_rows));
         });
+
+      
 
         items = itemObjects.slice();
 
