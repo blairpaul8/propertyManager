@@ -496,6 +496,10 @@ details[open] summary .icons {
   width: max-content;
 }
 
+#upload2062Button.uploaded {
+  background-color: rgb(84, 172, 84);
+}
+
 .inputExcelWrapper {
   display: flex;
   width: 100%;
