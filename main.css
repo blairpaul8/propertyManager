@@ -611,6 +611,14 @@ h3 {
   border-radius: 0.25rem;
 }
 
+.generateMasterButton {
+  border: 2px solid #000;
+  padding-inline: 1rem;
+  padding-block: 0.25rem;
+  border-radius: 0.5rem;
+  width: 20%;
+}
+
 .rightGrouping {
   display: flex;
   justify-content: space-between;

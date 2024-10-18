@@ -108,7 +108,7 @@
             </svg>
           </div>
           <div class="continueButtonContainer">
-            <button id="continueBotton" class="continueButton">Continue</button>
+            <button id="continueButton" class="continueButton">Continue</button>
           </div>
         </div>  
       </div>
@@ -1154,29 +1154,87 @@
       toggle_page('main_page', items);
     }
 
-    // Setup out start screen
-    let continueButton = document.getElementById('continueButton');
-    let items = [];
-    let pdf_file;
+    continueButton.addEventListener('click', function () {
+      let continueButton = document.getElementById('continueButton');
+      
+      const nameInputs = document.getElementById('teamMembersContainer');
+      const inputs = Array.from(nameInputs.querySelectorAll('input.nameStartPage'),
+      ).map(element => element.value);
 
-    continueButton.addEventListener('onclick', function () {
-      pdf_file = document.getElementById('blank').files[0];
+      for (let i = 0; i <= inputs.length; i++) {
+        if (inputs[i]) {
+          roles[i].name = inputs[i];
+        }
+      }
 
-      readXlsxFile(input.files[0]).then(function (data) {
-        let parsedRows = parseItems(data);
-        const itemObjects = [];
-        parsedRows.forEach(item_as_rows => {
-          itemObjects.push(new item(item_as_rows));
-        });
 
+    });
+    
+
+    // continueButton.addEventListener('click', function () {
+    //   pdf_file = document.getElementById('blank').files[0];
+
+    //   readXlsxFile(excelInput1.files[0]).then(function (data) {
+    //     let parsedRows1 = parseItems(data1);
+    //     parsedRows1.forEach(item_as_rows => {
+    //       itemObjects.push(new item(item_as_rows));
+
+    //     });
+    //   });
       
 
-        items = itemObjects.slice();
+    //   readXlsxFile(excelInput2.files[0]).then(function (data) {
+    //     let parsedRow2 = parseItems(data2);
+    //     parsedRows2.forEach(item_as_rows => {
+    //       itemObjects.push(new item(item_as_rows));
+    //     });
+    //   });
 
-        // render_list(document.getElementById("inventoryList"), items);
-        toggle_page('main_page', items);
-      });
+    //   items = itemObjects.slice();
+
+    //     // render_list(document.getElementById("inventoryList"), items);
+    //     toggle_page('main_page', items);
+    //   });
+    // });
+
+    // Setup out start screen
+    
+    let items = [];
+
+continueButton.addEventListener('click', function () {
+    let continueButton = document.getElementById('continueButton');
+    let pdf_file;
+    const itemObjects = [];
+  
+  pdf_file = document.getElementById('blank').files[0];
+
+  
+  Promise.all([
+    readXlsxFile(excelInput1.files[0]), // Read first file
+    readXlsxFile(excelInput2.files[0])  // Read second file
+  ]).then(function ([data1, data2]) {
+    
+    let parsedRows1 = parseItems(data1);
+    parsedRows1.forEach(item_as_rows => {
+      itemObjects.push(new item(item_as_rows));
     });
+
+    let parsedRows2 = parseItems(data2);
+    parsedRows2.forEach(item_as_rows => {
+      itemObjects.push(new item(item_as_rows));
+    });
+
+    // After both files are processed, update the items array
+    items = itemObjects.slice();
+
+    toggle_page('main_page', items);
+    console.log(items);
+
+  }).catch(function (error) {
+    console.error("Error reading Excel files:", error);
+  });
+});
+
 
     function addBoxes() {
       const boxName = document.getElementById('newBox').value;
