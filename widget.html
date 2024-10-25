@@ -1324,8 +1324,8 @@ continueButton.addEventListener('click', function () {
             serial_numbers.enableMultiline;
             serial_numbers.setAlignment(PDFLib.TextAlignment.Left);
             serial_numbers.disableScrolling();
-            // serial_numbers.setFontSize(8);
-            serial_numbers.setText('SNs: ' + v.join(','));
+            serial_numbers.setFontSize(8);
+            serial_numbers.setText('SNs: ' + v.join(', '));
 
             const qty_auth = f.getTextField(`QTY AUTH fRow${i}`);
             qty_auth.setFontSize(12);
