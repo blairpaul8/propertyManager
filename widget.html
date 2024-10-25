@@ -1514,10 +1514,6 @@
     function generate_2062(event, form) {
       event.preventDefault();
 
-      console.log('Generating 2062:');
-      console.log(form.elements['from'].value);
-      console.log(form.elements['to'].value);
-
       const included_roles = Array.from(form.elements)
         .map(element => element.name)
         .filter(name => name.startsWith('checkbox'))
@@ -1530,23 +1526,35 @@
       console.log(boxes);
 
       const names = included_roles.map(role => role.name);
-      console.log(`generating master 2062 for ${names.join(', ')}`);
+      
       included_roles.forEach(role => {
-        console.log(`\tgenerating individual 2062 for ${role.name}`);
+        const individual_mapping = new Map();
         boxes.get(role).forEach(item => {
-          console.log(
-            `\t\tItem: ${item.mpo_description} Serial Number: ${item.serial_number}`,
-          );
           if (item_mappings.has(item.nsn)) {
             item_mappings.get(item.nsn).push(item.serial_number);
-          } else {
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            }
+            else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } 
+          else {
             item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
           }
+          
         });
+        console.log("Pdf printing");
+        generate_pdfs(form.elements['from'].value, role.name, individual_mapping);
       });
-
+      generate_pdfs(form.elements['from'].value, form.elements['to'].value, item_mappings);
       console.log(item_mappings);
 
+      
+    }
+
+    function generate_pdfs(from, to, item_mappings) {
       pdf_file.arrayBuffer().then(pdfBytes => {
         const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
           const f = pdf_form.getForm();
@@ -1559,10 +1567,10 @@
           // From and To Fields
           const from_field = f.getTextField('FROM');
           from_field.setFontSize(10);
-          from_field.setText(form.elements['from'].value);
+          from_field.setText(from);
           const to_field = f.getTextField('TO');
           to_field.setFontSize(10);
-          to_field.setText(form.elements['to'].value);
+          to_field.setText(to);
 
           const pub_date = f.getTextField('PUBLICATION DATE');
           pub_date.setFontSize(10);
@@ -1601,7 +1609,11 @@
               type: 'application/pdf',
             });
             const url = URL.createObjectURL(blob);
-            window.open(url, '_blank');
+            setTimeout(function() {
+              window.open(url, '_blank');
+            }, 1000);
+           
+            
           });
         });
       });
