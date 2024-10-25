@@ -233,6 +233,12 @@
             Gun Boxes
           </button>
           <button
+            class="boxesPageButton"
+            onclick="((event) => {toggle_page('individual_boxes_page_')})();"
+          >
+            Individual Boxes
+          </button>
+          <button
             class="saveToJSON"
             onclick="((event) => {export_to_json()})()"
           >
@@ -1218,10 +1224,7 @@
 
         const header = document.createElement('summary');
         header.classList.add('boxHeader');
-        header.insertAdjacentHTML(
-          'beforeend',
-          `<h3>${key.name} (${key.role})</h3>`,
-        );
+        header.insertAdjacentHTML('beforeend', `<h3>${key.name}</h3>`);
 
         const rightGrouping = document.createElement('div');
         rightGrouping.classList.add('rightGrouping');
@@ -1258,7 +1261,7 @@
           individualBox.appendChild(lineItem);
         });
 
-        document.getElementById('boxes').appendChild(individualBox);
+        document.getElementById('individualBoxes').appendChild(individualBox);
       });
     }
 
@@ -1547,7 +1550,12 @@
       pdf_file.arrayBuffer().then(pdfBytes => {
         const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
           const f = pdf_form.getForm();
-
+          //
+          //           let fields = f.getFields();
+          //           fields.forEach(f => {
+          //             console.log(f.getName());
+          //           });
+          //
           // From and To Fields
           const from_field = f.getTextField('FROM');
           from_field.setFontSize(10);
