@@ -1307,8 +1307,10 @@ continueButton.addEventListener('click', function () {
 
           // From and To Fields
           const from_field = f.getTextField('FROM');
+          from_field.setFontSize(10);
           from_field.setText(form.elements['from'].value);
           const to_field = f.getTextField('TO');
+          to_field.setFontSize(10);
           to_field.setText(form.elements['to'].value);
 
           if (item_mappings.size > 16) {
@@ -1317,7 +1319,7 @@ continueButton.addEventListener('click', function () {
           let i = 1;
           item_mappings.forEach((v, k, m) => {
             const stock_number = f.getTextField(`STOCKNUMBER aRow${i}`);
-            stock_number.setFontSize(12);
+            stock_number.setFontSize(10);
             stock_number.setText(k.toString());
 
             const serial_numbers = f.getTextField(`ITEM DESCRIPTION bRow${i}`);
@@ -1340,13 +1342,10 @@ continueButton.addEventListener('click', function () {
           // Saving the PDF
           pdf_form.save().then(output_bytes => {
             const blob = new Blob([output_bytes], {
-              type: 'application/octet-stream',
+              type: 'application/pdf',
             });
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'filled_2062.pdf';
-            a.click();
+            window.open(url, '_blank');
           });
         });
       });
