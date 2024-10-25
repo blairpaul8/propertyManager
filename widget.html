@@ -1313,6 +1313,11 @@ continueButton.addEventListener('click', function () {
           to_field.setFontSize(10);
           to_field.setText(form.elements['to'].value);
 
+          const pub_date = f.getTextField('PUBLICATION DATE');
+          pub_date.setFontSize(10);
+          let date = new Date().toLocaleDateString();
+          pub_date.setText(date);
+
           if (item_mappings.size > 16) {
             console.error('Too many items you idiot!');
           }
