@@ -1609,9 +1609,7 @@
               type: 'application/pdf',
             });
             const url = URL.createObjectURL(blob);
-            setTimeout(function() {
-              window.open(url, '_blank');
-            }, 1000);
+            window.open(url, '');
            
             
           });
