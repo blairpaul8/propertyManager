@@ -41,6 +41,25 @@
         <button type="submit">Generate 2062</button>
       </form>
     </dialog>
+    <dialog id="fromToIndividual" class="fromTo">
+      <form
+        id="fromToFormIndividual"
+        class="fromToForm"
+        onsubmit="generate_2062(event, this)"
+      >
+        <div
+          id="roleCheckBoxesIndividual"
+          class="roleCheckBoxesIndividual"
+        ></div>
+        <div>
+          <label for="from"> From: </label>
+          <input type="text" name="from" id="from" value="" />
+          <label for="to"> To: </label>
+          <input type="text" name="to" id="to" value="" />
+        </div>
+        <button type="submit">Generate 2062</button>
+      </form>
+    </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
@@ -51,45 +70,65 @@
           <div id="teamMembersColumn1" class="teamMembersColumn1"></div>
           <div id="teamMembersColumn2" class="teamMembersColumn2"></div>
         </div>
-        
+
         <div class="fileInput">
-          <label for="blank" id="upload2062Button" class="btn2062">Blank 2062 </label>
+          <label for="blank" id="upload2062Button" class="btn2062"
+            >Blank 2062
+          </label>
           <input id="blank" style="visibility: hidden" type="file" />
         </div>
         <div class="fileInputs">
-            <div class="fileInputContainer">
-              <div class="inputExcelWrapper">
-                <input id="excelInput1" class="excelInput" type="file" />
-                <label for="excelInput1" class="customExcelInput" id="customExcelInput1">Choose File</label>
-                <input class="excelFileName" id="excelFileName1" type="text" placeholder="No File Choosen">
-              </div>
-
-              <svg
-                class="excelIcon"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
+          <div class="fileInputContainer">
+            <div class="inputExcelWrapper">
+              <input id="excelInput1" class="excelInput" type="file" />
+              <label
+                for="excelInput1"
+                class="customExcelInput"
+                id="customExcelInput1"
+                >Choose File</label
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
-                />
-              </svg>
+              <input
+                class="excelFileName"
+                id="excelFileName1"
+                type="text"
+                placeholder="No File Choosen"
+              />
             </div>
-        
+
+            <svg
+              class="excelIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+              />
+            </svg>
+          </div>
+
           <div class="fileInputContainer">
             <div class="inputExcelWrapper">
               <input id="excelInput2" class="excelInput" type="file" />
-              <label for="excelInput2" class="customExcelInput" id="customExcelInput2">Choose File</label>
-              <input class="excelFileName" id="excelFileName2" type="text" placeholder="No File Choosen">
+              <label
+                for="excelInput2"
+                class="customExcelInput"
+                id="customExcelInput2"
+                >Choose File</label
+              >
+              <input
+                class="excelFileName"
+                id="excelFileName2"
+                type="text"
+                placeholder="No File Choosen"
+              />
             </div>
 
-            
-            
             <!-- <label for="input" class="btn">Choose excel file</label> -->
             <svg
               class="excelIcon"
@@ -110,7 +149,7 @@
           <div class="continueButtonContainer">
             <button id="continueButton" class="continueButton">Continue</button>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
     <div class="mainPage" id="mainPage" style="display: none">
@@ -270,16 +309,69 @@
         <div id="boxes" class="boxes"></div>
       </div>
     </div>
+    <div id="individualBoxesPage" style="display: none">
+      <div class="topBar">
+        <div class="teamNumber" onclick="toggle_page('main_page', items)">
+          <svg
+            class="icons"
+            data-slot="icon"
+            aria-hidden="true"
+            fill="none"
+            stroke-width="1.5"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+          SFOD-A 2112
+        </div>
+        <div class="searchBar">
+          <input
+            type="text"
+            placeholder="Search Equipment"
+            name="search"
+            class="search"
+          />
+          <button>
+            <img src="search-icon.svg" class="weatherIcons" />
+            <!-- I don't think we even need a search button, we can just filter
+                 the list as soon as they type as there are no network requests to slow things down -->
+          </button>
+        </div>
+        <div class="teamMembers">
+          <button class="membersDropDown">Team Members</button>
+          <div id="teamNames" class="teamNames">
+            <button id="editTeam" class="editTeamMembers">Edit Team</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="individualBoxesList" class="boxesList">
+        <button
+          id="generateMasterButtonIndividual"
+          class="generateMasterButton"
+          onclick="boxes_checklist()"
+        >
+          Generate Master 2062
+        </button>
+        <div id="individualBoxes" class="boxes"></div>
+      </div>
+    </div>
   </body>
   <script type="text/javascript">
-
     // Get the file input, label, and the text input field
     const fileInput1 = document.getElementById('excelInput1');
     const fileNameField1 = document.getElementById('excelFileName1');
 
     // Add an event listener to update the text field when a file is selected
-    fileInput1.addEventListener('change', function() {
-      const fileName = this.files.length > 0 ? this.files[0].name : 'No file chosen';
+    fileInput1.addEventListener('change', function () {
+      const fileName =
+        this.files.length > 0 ? this.files[0].name : 'No file chosen';
       fileNameField1.value = fileName;
     });
 
@@ -287,13 +379,11 @@
     const fileNameField2 = document.getElementById('excelFileName2');
 
     // Add an event listener to update the text field when a file is selected
-    fileInput2.addEventListener('change', function() {
-      const fileName = this.files.length > 0 ? this.files[0].name : 'No file chosen';
+    fileInput2.addEventListener('change', function () {
+      const fileName =
+        this.files.length > 0 ? this.files[0].name : 'No file chosen';
       fileNameField2.value = fileName;
     });
-
-
-
 
     /*
      * PAGES
@@ -316,6 +406,11 @@
         page_name: 'boxes_page',
         element: document.getElementById('boxesPage'),
         render_func: render_boxes,
+      },
+      {
+        page_name: 'individual_boxes_page_',
+        element: document.getElementById('individualBoxesPage'),
+        render_func: render_individual_boxes,
       },
     ];
 
@@ -899,9 +994,22 @@
             serial_number_.textContent = serial_number.serial_number;
             serial_number_element.appendChild(serial_number_);
 
+            const container = document.createElement('div');
+            container.classList.add('selectList');
+            serial_number_element.appendChild(container);
+
+            const box_serial = document.createElement('select');
+            box_serial.id = 'box_serial';
+            container.appendChild(box_serial);
+
             const serial = document.createElement('select');
             serial.id = 'serial';
-            serial_number_element.appendChild(serial);
+            container.appendChild(serial);
+
+            const box_value = document.createElement('option');
+            box_value.value = '';
+            box_value.textContent = `--`;
+            box_serial.appendChild(box_value);
 
             const value = document.createElement('option');
             value.value = '';
@@ -910,8 +1018,23 @@
 
             itemDetails.appendChild(serial_number_element);
 
+            box_serial.addEventListener('change', event => {
+              serial_number.assignment = box_serial.value;
+            });
+
             serial.addEventListener('change', event => {
               serial_number.assignment = serial.value;
+            });
+
+            boxes_list.forEach(box => {
+              const option_html = `<option ${
+                serial_number.assignment === box.name && box.name !== null
+                  ? 'selected'
+                  : ''
+              } value="${box.name}">${box.name}    ${
+                box.role !== null ? '(' + box.name + ')' : ''
+              }</option>`;
+              box_serial.insertAdjacentHTML('beforeend', option_html);
             });
 
             roles.forEach(person => {
@@ -980,6 +1103,57 @@
       return boxes;
     }
 
+    /**
+     * Build the 'boxes' view last based on global 'items' list.
+     * Any unassigned items will not be populated into the list.
+     * This list is a subset of items.
+     * @param role_list {String[]} - Roles to include in generated list, if null all roles are included
+     * @returns boxes - Mapping of roles to items assigned to those roles
+     */
+    function build_individual_boxes(individual_boxes_list) {
+      if (!individual_boxes_list) {
+        individual_boxes_list = boxes_list;
+      }
+
+      let box_names = individual_boxes_list.map(box => box.name);
+
+      // A map of key 'role name' => value 'item' & serial_number(s)
+      // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
+      const boxes = new Map();
+
+      // Loop through the entire items list, we need to boil down to each serial number
+      // and determine who that serial number is assigned to, then filters further to
+      // check first that the item is assigned at all, and that the role is in our role_list
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            if (
+              serial_number.assignment !== null &&
+              box_names.includes(serial_number.assignment)
+            ) {
+              // First grab the role object, set that as the key for our map
+              const box = individual_boxes_list.filter(
+                box => box.name === serial_number.assignment,
+              )[0];
+              // Get our blank array so we can pushback on it
+              if (!boxes.has(box)) {
+                boxes.set(box, []);
+              }
+
+              boxes.get(box).push({
+                mpo_description: item.mpo_description,
+                nsn_description: nsn_item.nsn_description,
+                nsn: nsn_item.nsn,
+                serial_number: serial_number.serial_number,
+              });
+            }
+          });
+        });
+      });
+
+      return boxes;
+    }
+
     function render_boxes(role_list = null) {
       document.getElementById('boxes').innerHTML = '';
       boxes = build_boxes(role_list);
@@ -1034,12 +1208,66 @@
       });
     }
 
+    function render_individual_boxes(role_list = null) {
+      document.getElementById('individualBoxes').innerHTML = '';
+      boxes = build_individual_boxes(role_list);
+
+      boxes.forEach((value, key, map) => {
+        const individualBox = document.createElement('details');
+        individualBox.classList.add('individualBox');
+
+        const header = document.createElement('summary');
+        header.classList.add('boxHeader');
+        header.insertAdjacentHTML(
+          'beforeend',
+          `<h3>${key.name} (${key.role})</h3>`,
+        );
+
+        const rightGrouping = document.createElement('div');
+        rightGrouping.classList.add('rightGrouping');
+        rightGrouping.insertAdjacentHTML(
+          'beforeend',
+          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>`,
+        );
+        header.appendChild(rightGrouping);
+
+        individualBox.appendChild(header);
+
+        value.forEach(assignment => {
+          const lineItem = document.createElement('div');
+          lineItem.style.display = 'flex';
+          lineItem.style.justifyContent = 'space-between';
+
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${
+              assignment.mpo_description ? assignment.mpo_description : ''
+            }</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${assignment.nsn_description}</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${assignment.serial_number}</span>`,
+          );
+
+          individualBox.appendChild(lineItem);
+        });
+
+        document.getElementById('boxes').appendChild(individualBox);
+      });
+    }
+
     // Pre-populate roles/names, this will come from the start screen later
     let roles = [
-      { name: 'None', role: 'A'},
+      { name: 'None', role: 'A' },
       { name: 'Tony', role: 'Z' },
       { name: 'Joel', role: 'W' },
-      { name: 'James', role: 'F'},
+      { name: 'James', role: 'F' },
       { name: 'Chuck', role: 'B1' },
       { name: 'Hayden', role: 'B2' },
       { name: 'Forrest', role: 'C1' },
@@ -1050,53 +1278,50 @@
       { name: 'Rhyan', role: 'E2' },
     ];
 
+    const boxes_list = [];
+
     //Show team member name inputs on start page
     function renderTeamMembersOnStartPage() {
       let name_count = 0;
       roles.forEach(person => {
         if (name_count < 6) {
-          const column1 = document.getElementById('teamMembersColumn1')
-          const roleAndName = document.createElement('div')
-          roleAndName.classList.add('roleAndName')
+          const column1 = document.getElementById('teamMembersColumn1');
+          const roleAndName = document.createElement('div');
+          roleAndName.classList.add('roleAndName');
 
-          const roleStartPage = document.createElement('span')
-          roleStartPage.classList.add('roleStartPage')
-          roleStartPage.textContent = `${person.role}`
-          roleAndName.appendChild(roleStartPage)
+          const roleStartPage = document.createElement('span');
+          roleStartPage.classList.add('roleStartPage');
+          roleStartPage.textContent = `${person.role}`;
+          roleAndName.appendChild(roleStartPage);
 
-          const nameStartPage = document.createElement('input')
-          nameStartPage.classList.add('nameStartPage')
-          nameStartPage.placeholder = "Enter Name"
-          roleAndName.appendChild(nameStartPage)
+          const nameStartPage = document.createElement('input');
+          nameStartPage.classList.add('nameStartPage');
+          nameStartPage.placeholder = 'Enter Name';
+          roleAndName.appendChild(nameStartPage);
 
-          column1.appendChild(roleAndName)
-          name_count += 1
+          column1.appendChild(roleAndName);
+          name_count += 1;
+        } else {
+          const column2 = document.getElementById('teamMembersColumn2');
+          const roleAndName = document.createElement('div');
+          roleAndName.classList.add('roleAndName');
+
+          const roleStartPage = document.createElement('span');
+          roleStartPage.classList.add('roleStartPage');
+          roleStartPage.textContent = `${person.role}`;
+          roleAndName.appendChild(roleStartPage);
+
+          const nameStartPage = document.createElement('input');
+          nameStartPage.classList.add('nameStartPage');
+          nameStartPage.placeholder = 'Enter Name';
+          roleAndName.appendChild(nameStartPage);
+
+          column2.appendChild(roleAndName);
         }
-
-        else {
-          const column2 = document.getElementById('teamMembersColumn2')
-          const roleAndName = document.createElement('div')
-          roleAndName.classList.add('roleAndName')
-
-          const roleStartPage = document.createElement('span')
-          roleStartPage.classList.add('roleStartPage')
-          roleStartPage.textContent = `${person.role}`
-          roleAndName.appendChild(roleStartPage)
-
-          const nameStartPage = document.createElement('input')
-          nameStartPage.classList.add('nameStartPage')
-          nameStartPage.placeholder = "Enter Name"
-          roleAndName.appendChild(nameStartPage)
-
-          column2.appendChild(roleAndName)
-        }
-        
-
-        
-      })
+      });
     }
 
-    renderTeamMembersOnStartPage()
+    renderTeamMembersOnStartPage();
 
     function renderTeamMembersLsit() {
       const dropDown = document.getElementById('namesList');
@@ -1156,9 +1381,10 @@
 
     continueButton.addEventListener('click', function () {
       let continueButton = document.getElementById('continueButton');
-      
+
       const nameInputs = document.getElementById('teamMembersContainer');
-      const inputs = Array.from(nameInputs.querySelectorAll('input.nameStartPage'),
+      const inputs = Array.from(
+        nameInputs.querySelectorAll('input.nameStartPage'),
       ).map(element => element.value);
 
       for (let i = 0; i <= inputs.length; i++) {
@@ -1166,16 +1392,18 @@
           roles[i].name = inputs[i];
         }
       }
-
-
     });
 
-    document.getElementById('blank').addEventListener('change', function(event) {
-  if (event.target.files.length > 0 && event.target.files[0].type === 'application/pdf') {
-    document.getElementById('upload2062Button').classList.add('uploaded');
-  }
-});
-    
+    document
+      .getElementById('blank')
+      .addEventListener('change', function (event) {
+        if (
+          event.target.files.length > 0 &&
+          event.target.files[0].type === 'application/pdf'
+        ) {
+          document.getElementById('upload2062Button').classList.add('uploaded');
+        }
+      });
 
     // continueButton.addEventListener('click', function () {
     //   pdf_file = document.getElementById('blank').files[0];
@@ -1187,7 +1415,6 @@
 
     //     });
     //   });
-      
 
     //   readXlsxFile(excelInput2.files[0]).then(function (data) {
     //     let parsedRow2 = parseItems(data2);
@@ -1204,47 +1431,45 @@
     // });
 
     // Setup out start screen
-    
+
     let items = [];
     let pdf_file;
 
-continueButton.addEventListener('click', function () {
-    let continueButton = document.getElementById('continueButton');
-    const itemObjects = [];
-  
-  pdf_file = document.getElementById('blank').files[0];
+    continueButton.addEventListener('click', function () {
+      let continueButton = document.getElementById('continueButton');
+      const itemObjects = [];
 
-  
-  Promise.all([
-    readXlsxFile(excelInput1.files[0]), // Read first file
-    readXlsxFile(excelInput2.files[0])  // Read second file
-  ]).then(function ([data1, data2]) {
-    
-    let parsedRows1 = parseItems(data1);
-    parsedRows1.forEach(item_as_rows => {
-      itemObjects.push(new item(item_as_rows));
+      pdf_file = document.getElementById('blank').files[0];
+
+      Promise.all([
+        readXlsxFile(excelInput1.files[0]), // Read first file
+        readXlsxFile(excelInput2.files[0]), // Read second file
+      ])
+        .then(function ([data1, data2]) {
+          let parsedRows1 = parseItems(data1);
+          parsedRows1.forEach(item_as_rows => {
+            itemObjects.push(new item(item_as_rows));
+          });
+
+          let parsedRows2 = parseItems(data2);
+          parsedRows2.forEach(item_as_rows => {
+            itemObjects.push(new item(item_as_rows));
+          });
+
+          // After both files are processed, update the items array
+          items = itemObjects.slice();
+
+          toggle_page('main_page', items);
+          console.log(items);
+        })
+        .catch(function (error) {
+          console.error('Error reading Excel files:', error);
+        });
     });
-
-    let parsedRows2 = parseItems(data2);
-    parsedRows2.forEach(item_as_rows => {
-      itemObjects.push(new item(item_as_rows));
-    });
-
-    // After both files are processed, update the items array
-    items = itemObjects.slice();
-
-    toggle_page('main_page', items);
-    console.log(items);
-
-  }).catch(function (error) {
-    console.error("Error reading Excel files:", error);
-  });
-});
-
 
     function addBoxes() {
       const boxName = document.getElementById('newBox').value;
-      roles.push({ name: boxName, role: null });
+      boxes_list.push({ name: boxName, role: null });
       document.getElementById('newBox').value = '';
 
       toggle_page('main_page', items);
@@ -1258,6 +1483,24 @@ continueButton.addEventListener('click', function () {
 
       Array.from(boxes.keys()).forEach(key => {
         const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function boxes_checklist() {
+      const boxes = build_individual_boxes(null);
+      console.log(boxes);
+      const fromToModal = document.getElementById('fromToIndividual');
+      const roleCheckBoxes = document.getElementById(
+        'roleCheckBoxesIndividual',
+      );
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
 
         roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
       });
