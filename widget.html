@@ -64,7 +64,7 @@
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
           <span class="teamNumberStartPage">SFOD-A</span>
-          <input class="teamNumberStartPage" placeholder="Enter Team Number" />
+          <input class="teamNumberStartPage" id="teamNumberStartPage" placeholder="Enter Team Number" />
         </div>
         <div id="teamMembersContainer" class="teamMembersContainer">
           <div id="teamMembersColumn1" class="teamMembersColumn1"></div>
@@ -154,8 +154,11 @@
     </div>
     <div class="mainPage" id="mainPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumber" onclick="toggle_page('main_page', items)">
-          SFOD-A 2112
+        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+          <div class="sfoda">
+            SFOD-A
+          </div>
+          <div class="teamNumber" id="teamNumber"></div>
         </div>
         <div class="searchBar">
           <input
@@ -167,7 +170,7 @@
             onkeyup="((event) => {searchItems()})();"
           />
           <button onclick="((event) => {searchItems()})();">
-            <img src="search-icon.svg" class="weatherIcons" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -240,9 +243,15 @@
           </button>
           <button
             class="saveToJSON"
-            onclick="((event) => {export_to_json()})()"
+            onclick="((event) => {save_to_local_storage()})()"
           >
             Save Settings
+          </button>
+          <button
+            class="saveToJSON"
+            onclick="((event) => {load_from_local_storage()})()"
+          >
+            Upload Settings
           </button>
         </div>
         <div id="listWrapper" class="listWrapper">
@@ -291,7 +300,7 @@
             class="search"
           />
           <button>
-            <img src="search-icon.svg" class="weatherIcons" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
             <!-- I don't think we even need a search button, we can just filter
                  the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -344,7 +353,7 @@
             class="search"
           />
           <button>
-            <img src="search-icon.svg" class="weatherIcons" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
             <!-- I don't think we even need a search button, we can just filter
                  the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -915,80 +924,14 @@
 
           const commonName = document.createElement('p');
           commonName.classList.add('commonName');
-          commonName.textContent = 'Name: ';
+          commonName.textContent = 'General Boxes ';
           location_and_common_name.appendChild(commonName);
 
-          const common_name_input = document.createElement('input');
-          common_name_input.classList.add('common_name_input');
-          location_and_common_name.appendChild(common_name_input);
-
-          common_name_input.style.width = '6rem';
-          common_name_input.style.marginLeft = '.25rem';
-          common_name_input.style.borderRadius = '5px';
-          common_name_input.style.border = 'none';
-
-          common_name_input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-              // Get the input value
-              const commonNameInput = common_name_input.value;
-              item.commonName = commonNameInput;
-
-              // Create a <p> tag to replace the input field
-              const pTagCommonName = document.createElement('p');
-              pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
-
-              pTagCommonName.style.display = 'block';
-              pTagCommonName.style.color = 'white';
-              pTagCommonName.style.marginLeft = '.25rem';
-              pTagCommonName.style.marginRight = '.5rem';
-
-              // Replace the input field with the <p> tag
-              location_and_common_name.replaceChild(
-                pTagCommonName,
-                common_name_input,
-              );
-            }
-          });
-
-          // Append the input field to the parent element
-          location_and_common_name.appendChild(common_name_input);
-
+          
           const location = document.createElement('p');
           location.classList.add('commonName');
-          location.textContent = 'Location: ';
+          location.textContent = 'Personal Equipment';
           location_and_common_name.appendChild(location);
-
-          const location_input = document.createElement('input');
-          location_input.classList.add('location_input');
-          location_and_common_name.appendChild(location_input);
-
-          location_input.style.width = '6rem';
-          location_input.style.marginLeft = '.25rem';
-          location_input.style.borderRadius = '5px';
-          location_input.style.border = 'none';
-
-          location_input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-              // Get the input value
-              const locationInput = location_input.value;
-              item.location = locationInput;
-
-              // Create a <p> tag to replace the input field
-              const pTagLocation = document.createElement('p');
-              pTagLocation.textContent = locationInput; // Use item.commonName or the input value
-
-              pTagLocation.style.display = 'block';
-              pTagLocation.style.color = 'white';
-              pTagLocation.style.marginLeft = '.25rem';
-              pTagLocation.style.marginRight = '.5rem';
-
-              // Replace the input field with the <p> tag
-              location_and_common_name.replaceChild(
-                pTagLocation,
-                location_input,
-              );
-            }
-          });
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
@@ -1005,6 +948,7 @@
             serial_number_element.appendChild(container);
 
             const box_serial = document.createElement('select');
+            box_serial.classList.add('boxDropdown');
             box_serial.id = 'box_serial';
             container.appendChild(box_serial);
 
@@ -1265,6 +1209,8 @@
       });
     }
 
+    let teamNumberVariable = '0000';
+
     // Pre-populate roles/names, this will come from the start screen later
     let roles = [
       { name: 'None', role: 'A' },
@@ -1385,6 +1331,7 @@
     continueButton.addEventListener('click', function () {
       let continueButton = document.getElementById('continueButton');
 
+
       const nameInputs = document.getElementById('teamMembersContainer');
       const inputs = Array.from(
         nameInputs.querySelectorAll('input.nameStartPage'),
@@ -1439,6 +1386,16 @@
     let pdf_file;
 
     continueButton.addEventListener('click', function () {
+
+      let teamNumStartPage = document.getElementById('teamNumberStartPage');
+      let teamNumMainPage = document.getElementById('teamNumber');
+      
+      if (teamNumStartPage.value != "") {
+        teamNumberVariable = teamNumStartPage.value;
+      }
+      console.log(teamNumberVariable);
+      teamNumMainPage.textContent = `${teamNumberVariable}`;
+
       let continueButton = document.getElementById('continueButton');
       const itemObjects = [];
 
@@ -1616,6 +1573,21 @@
         });
       });
     }
+
+    function save_to_local_storage() {
+      localStorage.setItem('items', JSON.stringify(items));
+      console.log("Settings Saved");
+    }
+
+    function load_from_local_storage() {
+      const savedItems = localStorage.getItem('items');
+      if (savedItems) {
+          items = JSON.parse(savedItems);
+          toggle_page('main_page', items);
+          console.log("Settings Loaded");
+      }
+    }
+
 
     function export_to_json() {
       const blob = new Blob([JSON.stringify(items)], {

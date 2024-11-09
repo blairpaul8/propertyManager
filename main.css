@@ -53,7 +53,7 @@ body {
   height: 100vh;
 }
 
-.teamNumber {
+.teamNumberWrapper {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -360,16 +360,18 @@ body {
 .group_name {
   display: flex;
   flex-direction: row;
-  margin-right: 10rem;
   justify-content: space-between;
+  width: 28%;
 }
 
 .location_and_name {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   font-size: 1rem;
   height: min-content;
+  width: 100%;
 }
 
 .commonName {
@@ -639,6 +641,12 @@ h3 {
 
 dialog::backdrop {
   backdrop-filter: blur(10px);
+}
+
+.selectList {
+  display: flex;
+  justify-content: space-between;
+  width: 28%;
 }
 
 .selectList > select {
