@@ -64,7 +64,11 @@
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
           <span class="teamNumberStartPage">SFOD-A</span>
-          <input class="teamNumberStartPage" id="teamNumberStartPage" placeholder="Enter Team Number" />
+          <input
+            class="teamNumberStartPage"
+            id="teamNumberStartPage"
+            placeholder="Enter Team Number"
+          />
         </div>
         <div id="teamMembersContainer" class="teamMembersContainer">
           <div id="teamMembersColumn1" class="teamMembersColumn1"></div>
@@ -154,10 +158,11 @@
     </div>
     <div class="mainPage" id="mainPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
-          <div class="sfoda">
-            SFOD-A
-          </div>
+        <div
+          class="teamNumberWrapper"
+          onclick="toggle_page('main_page', items)"
+        >
+          <div class="sfoda">SFOD-A</div>
           <div class="teamNumber" id="teamNumber"></div>
         </div>
         <div class="searchBar">
@@ -170,7 +175,17 @@
             onkeyup="((event) => {searchItems()})();"
           />
           <button onclick="((event) => {searchItems()})();">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e8eaed"
+            >
+              <path
+                d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+              />
+            </svg>
             <!-- I don't think we even need a search button, we can just filter
                              the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -233,13 +248,13 @@
             class="boxesPageButton"
             onclick="((event) => {toggle_page('boxes_page')})();"
           >
-            Gun Boxes
+            Individual Boxes
           </button>
           <button
             class="boxesPageButton"
             onclick="((event) => {toggle_page('individual_boxes_page_')})();"
           >
-            Individual Boxes
+            Gun Boxes
           </button>
           <button
             class="saveToJSON"
@@ -300,7 +315,17 @@
             class="search"
           />
           <button>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e8eaed"
+            >
+              <path
+                d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+              />
+            </svg>
             <!-- I don't think we even need a search button, we can just filter
                  the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -353,7 +378,17 @@
             class="search"
           />
           <button>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e8eaed"
+            >
+              <path
+                d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+              />
+            </svg>
             <!-- I don't think we even need a search button, we can just filter
                  the list as soon as they type as there are no network requests to slow things down -->
           </button>
@@ -367,13 +402,16 @@
       </div>
 
       <div id="individualBoxesList" class="boxesList">
-        <button
-          id="generateMasterButtonIndividual"
-          class="generateMasterButton"
-          onclick="boxes_checklist()"
-        >
-          Generate Master 2062
-        </button>
+        <div id="generateDeleteWrapper">
+          <button
+            id="generateMasterButtonIndividual"
+            class="generateMasterButton"
+            onclick="boxes_checklist()"
+          >
+            Generate Master 2062
+          </button>
+          <button id="deleteSelected">Delete Selected</button>
+        </div>
         <div id="individualBoxes" class="boxes"></div>
       </div>
     </div>
@@ -927,7 +965,6 @@
           commonName.textContent = 'General Boxes ';
           location_and_common_name.appendChild(commonName);
 
-          
           const location = document.createElement('p');
           location.classList.add('commonName');
           location.textContent = 'Personal Equipment';
@@ -1159,12 +1196,18 @@
     }
 
     function render_individual_boxes(role_list = null) {
+      const delete_list = [];
+
       document.getElementById('individualBoxes').innerHTML = '';
       boxes = build_individual_boxes(role_list);
 
       boxes.forEach((value, key, map) => {
+        const wrapperDiv = document.createElement('div');
+        wrapperDiv.classList.add('wrapperDiv');
+
         const individualBox = document.createElement('details');
         individualBox.classList.add('individualBox');
+        wrapperDiv.appendChild(individualBox);
 
         const header = document.createElement('summary');
         header.classList.add('boxHeader');
@@ -1205,8 +1248,58 @@
           individualBox.appendChild(lineItem);
         });
 
-        document.getElementById('individualBoxes').appendChild(individualBox);
+        const checkbox = document.createElement('input');
+        checkbox.classList.add('checkbox');
+        checkbox.type = 'checkbox';
+        const pos = delete_list.length;
+        delete_list.push(false);
+        checkbox.addEventListener('change', () => {
+          delete_list[pos] = checkbox.checked;
+        });
+        wrapperDiv.appendChild(checkbox);
+
+        document.getElementById('individualBoxes').appendChild(wrapperDiv);
       });
+
+      const delete_button = document.getElementById('deleteSelected');
+      delete_button.addEventListener(
+        'click',
+        () => {
+          const names = [];
+          for (i = 0; i < delete_list.length; i++) {
+            if (delete_list[i]) {
+              names.push(boxes_list[i].name);
+            }
+          }
+          return delete_gun_box(names);
+        },
+        { once: true },
+      );
+    }
+
+    function delete_gun_box(names) {
+      if (
+        !names ||
+        names.length === 0 ||
+        !boxes_list.some(box => names.includes(box.name))
+      ) {
+        toggle_page('individual_boxes_page_');
+        return;
+      }
+
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            if (names.includes(serial_number.assignment)) {
+              serial_number.assignment = '';
+            }
+          });
+        });
+      });
+
+      boxes_list = boxes_list.filter(box => !names.includes(box.name));
+
+      toggle_page('individual_boxes_page_');
     }
 
     let teamNumberVariable = '0000';
@@ -1227,7 +1320,7 @@
       { name: 'Rhyan', role: 'E2' },
     ];
 
-    const boxes_list = [];
+    let boxes_list = [];
 
     //Show team member name inputs on start page
     function renderTeamMembersOnStartPage() {
@@ -1331,7 +1424,6 @@
     continueButton.addEventListener('click', function () {
       let continueButton = document.getElementById('continueButton');
 
-
       const nameInputs = document.getElementById('teamMembersContainer');
       const inputs = Array.from(
         nameInputs.querySelectorAll('input.nameStartPage'),
@@ -1386,11 +1478,10 @@
     let pdf_file;
 
     continueButton.addEventListener('click', function () {
-
       let teamNumStartPage = document.getElementById('teamNumberStartPage');
       let teamNumMainPage = document.getElementById('teamNumber');
-      
-      if (teamNumStartPage.value != "") {
+
+      if (teamNumStartPage.value != '') {
         teamNumberVariable = teamNumStartPage.value;
       }
       console.log(teamNumberVariable);
@@ -1483,7 +1574,7 @@
       console.log(boxes);
 
       const names = included_roles.map(role => role.name);
-      
+
       included_roles.forEach(role => {
         const individual_mapping = new Map();
         boxes.get(role).forEach(item => {
@@ -1491,24 +1582,27 @@
             item_mappings.get(item.nsn).push(item.serial_number);
             if (!individual_mapping.has(item.nsn)) {
               individual_mapping.set(item.nsn, [item.serial_number]);
-            }
-            else {
+            } else {
               individual_mapping.get(item.nsn).push(item.serial_number);
             }
-          } 
-          else {
+          } else {
             item_mappings.set(item.nsn, [item.serial_number]);
             individual_mapping.set(item.nsn, [item.serial_number]);
           }
-          
         });
-        console.log("Pdf printing");
-        generate_pdfs(form.elements['from'].value, role.name, individual_mapping);
+        console.log('Pdf printing');
+        generate_pdfs(
+          form.elements['from'].value,
+          role.name,
+          individual_mapping,
+        );
       });
-      generate_pdfs(form.elements['from'].value, form.elements['to'].value, item_mappings);
+      generate_pdfs(
+        form.elements['from'].value,
+        form.elements['to'].value,
+        item_mappings,
+      );
       console.log(item_mappings);
-
-      
     }
 
     function generate_pdfs(from, to, item_mappings) {
@@ -1567,8 +1661,6 @@
             });
             const url = URL.createObjectURL(blob);
             window.open(url, '');
-           
-            
           });
         });
       });
@@ -1576,18 +1668,17 @@
 
     function save_to_local_storage() {
       localStorage.setItem('items', JSON.stringify(items));
-      console.log("Settings Saved");
+      console.log('Settings Saved');
     }
 
     function load_from_local_storage() {
       const savedItems = localStorage.getItem('items');
       if (savedItems) {
-          items = JSON.parse(savedItems);
-          toggle_page('main_page', items);
-          console.log("Settings Loaded");
+        items = JSON.parse(savedItems);
+        toggle_page('main_page', items);
+        console.log('Settings Loaded');
       }
     }
-
 
     function export_to_json() {
       const blob = new Blob([JSON.stringify(items)], {

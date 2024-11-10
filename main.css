@@ -620,6 +620,7 @@ h3 {
   padding-block: 0.25rem;
   border-radius: 0.5rem;
   width: 20%;
+  width: max-content;
 }
 
 .rightGrouping {
@@ -651,4 +652,22 @@ dialog::backdrop {
 
 .selectList > select {
   width: 8rem;
+}
+
+.wrapperDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generateDeleteWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox {
+  width: 3rem;
+  height: 3rem;
 }
