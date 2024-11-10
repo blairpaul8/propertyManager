@@ -45,7 +45,7 @@
       <form
         id="fromToFormIndividual"
         class="fromToForm"
-        onsubmit="generate_2062(event, this)"
+        onsubmit="generate_2062_gunboxes(event, this)"
       >
         <div
           id="roleCheckBoxesIndividual"
@@ -1569,6 +1569,53 @@
         .map(name => name.slice(8))
         .map(name => roles.find(element => element.role === name));
       const boxes = build_boxes(included_roles);
+
+      const item_mappings = new Map();
+      console.log(boxes);
+
+      const names = included_roles.map(role => role.name);
+
+      included_roles.forEach(role => {
+        const individual_mapping = new Map();
+        boxes.get(role).forEach(item => {
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            } else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
+          }
+        });
+        console.log('Pdf printing');
+        generate_pdfs(
+          form.elements['from'].value,
+          role.name,
+          individual_mapping,
+        );
+      });
+      generate_pdfs(
+        form.elements['from'].value,
+        form.elements['to'].value,
+        item_mappings,
+      );
+      console.log(item_mappings);
+    }
+
+    function generate_2062_gunboxes(event, form) {
+      event.preventDefault();
+
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('checkbox'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(8))
+        .map(name => boxes_list.find(element => element.name === name));
+      console.log(included_roles);
+      const boxes = build_individual_boxes(included_roles);
 
       const item_mappings = new Map();
       console.log(boxes);
