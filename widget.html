@@ -11,6 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+    <script src="https://unpkg.com/write-excel-file@1.x/bundle/write-excel-file.min.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   </head>
   <body>
@@ -267,6 +268,12 @@
             onclick="((event) => {load_from_local_storage()})()"
           >
             Upload Settings
+          </button>
+          <button
+            class="saveToJSON"
+            onclick="(() => {stay_go_list()})()"
+          >
+            Stay Go List
           </button>
         </div>
         <div id="listWrapper" class="listWrapper">
@@ -1736,6 +1743,52 @@
       a.href = url;
       a.download = 'property_book.json';
       a.click();
+    }
+
+    function stay_go_list() {
+      let stay_go_data = [];
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            stay_go_data.push([
+              {value: !!item.mpo_description ? item.mpo_description : '', type: String},
+              {value: !!nsn_item.nsn_description ? nsn_item.nsn_description : '', type: String},
+              {value: !!serial_number ? `${serial_number.serial_number}` : '', type: String},
+              {value: !!serial_number.assignment ? 'GO' : 'STAY', type: String, backgroundColor: (!!serial_number.assignment ? '#00FF00' : '#FF0000'), color: (!!serial_number.assignment ? '#000000' : '#FFFFFF')}
+            ]);
+          });
+        });
+      });
+
+      console.log(stay_go_data)
+
+      const headers = [
+        {
+          value: 'MPO',
+          fontWeight: 'bold'
+        },
+        {
+          value: 'NSN',
+          fontWeight: 'bold'
+        },
+        {
+          value: 'SERIAL NUMBER',
+          fontWeight: 'bold'
+        },
+        {
+          value: 'STAY/GO',
+          fontWeight: 'bold'
+        },
+      ];
+
+      writeXlsxFile([headers, ...stay_go_data], {
+        fileName: 'something.xlsx',
+        stickyRowsCount: 1
+      }).then()
+    }
+  </script>
+</html>
+      ];
     }
   </script>
 </html>
