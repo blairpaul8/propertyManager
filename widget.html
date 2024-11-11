@@ -249,13 +249,13 @@
             class="boxesPageButton"
             onclick="((event) => {toggle_page('boxes_page')})();"
           >
-            Individual Boxes
+            Gun Boxes
           </button>
           <button
             class="boxesPageButton"
             onclick="((event) => {toggle_page('individual_boxes_page_')})();"
           >
-            Gun Boxes
+            General Boxes
           </button>
           <button
             class="saveToJSON"
@@ -295,25 +295,34 @@
 
     <div id="boxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumber" onclick="toggle_page('main_page', items)">
-          <svg
-            class="icons"
-            data-slot="icon"
-            aria-hidden="true"
-            fill="none"
-            stroke-width="1.5"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-          SFOD-A 2112
+        <div class="teamNumberWrapper">
+          <div class="teamNumber" onclick="toggle_page('main_page', items)">
+            
+            <div class="sfoda">
+              <svg
+              class="icons"
+              data-slot="icon"
+              aria-hidden="true"
+              fill="none"
+              stroke-width="1.5"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              >
+              <path
+                d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              </svg>
+
+              SFOD-A
+
+            </div>
+            <div class="teamNumber" id="teamNumber">0000</div>
+          </div>
         </div>
+        
         <div class="searchBar">
           <input
             type="text"
@@ -358,25 +367,28 @@
     </div>
     <div id="individualBoxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumber" onclick="toggle_page('main_page', items)">
-          <svg
-            class="icons"
-            data-slot="icon"
-            aria-hidden="true"
-            fill="none"
-            stroke-width="1.5"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-          SFOD-A 2112
+        <div class="teamNumberWrapper">
+          <div class="teamNumber" onclick="toggle_page('main_page', items)">
+            <svg
+              class="icons"
+              data-slot="icon"
+              aria-hidden="true"
+              fill="none"
+              stroke-width="1.5"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+            SFOD-A 2112
+          </div>
         </div>
+        
         <div class="searchBar">
           <input
             type="text"
@@ -1722,13 +1734,19 @@
 
     function save_to_local_storage() {
       localStorage.setItem('items', JSON.stringify(items));
+      localStorage.setItem('roles', JSON.stringify(roles));
+      localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
       console.log('Settings Saved');
     }
 
     function load_from_local_storage() {
       const savedItems = localStorage.getItem('items');
-      if (savedItems) {
+      const saved_roles = localStorage.getItem('roles');
+      const saved_boxes = localStorage.getItem('boxes_list');
+      if (savedItems && saved_roles && saved_boxes) {
         items = JSON.parse(savedItems);
+        roles = JSON.parse(saved_roles);
+        boxes_list = JSON.parse(saved_boxes);
         toggle_page('main_page', items);
         console.log('Settings Loaded');
       }
