@@ -84,3 +84,24 @@ const group_name_and_inputs = document.createElement('div');
               );
             }
           });
+
+
+
+
+
+
+          function save_to_local_storage() {
+            localStorage.setItem('items', JSON.stringify(items));
+            localStorage.setItem('roles', JSON.stringify(roles));
+            localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
+            console.log('Settings Saved');
+      
+            // Show notification
+            const notification = document.getElementById('notificationSaved');
+            notification.style.opacity = '1';
+      
+            // Hide notification after 1.5 seconds
+            setTimeout(() => {
+              notification.style.opacity = '0';
+            }, 1000);
+          }

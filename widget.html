@@ -259,6 +259,12 @@
           </button>
           <button
             class="saveToJSON"
+            onclick="(() => {stay_go_list()})()"
+          >
+            Stay Go List
+          </button>
+          <button
+            class="saveToJSON"
             onclick="((event) => {save_to_local_storage()})()"
           >
             Save Settings
@@ -269,12 +275,7 @@
           >
             Upload Settings
           </button>
-          <button
-            class="saveToJSON"
-            onclick="(() => {stay_go_list()})()"
-          >
-            Stay Go List
-          </button>
+          
         </div>
         <div id="listWrapper" class="listWrapper">
           <div id="addBoxes" class="addBoxes">
@@ -295,32 +296,9 @@
 
     <div id="boxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper">
-          <div class="teamNumber" onclick="toggle_page('main_page', items)">
-            
-            <div class="sfoda">
-              <svg
-              class="icons"
-              data-slot="icon"
-              aria-hidden="true"
-              fill="none"
-              stroke-width="1.5"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              >
-              <path
-                d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              </svg>
-
-              SFOD-A
-
-            </div>
-            <div class="teamNumber" id="teamNumber">0000</div>
-          </div>
+        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+          <div class="sfoda">SFOD-A</div>
+          <div class="teamNumber" id="teamNumber"></div>
         </div>
         
         <div class="searchBar">
@@ -367,26 +345,9 @@
     </div>
     <div id="individualBoxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper">
-          <div class="teamNumber" onclick="toggle_page('main_page', items)">
-            <svg
-              class="icons"
-              data-slot="icon"
-              aria-hidden="true"
-              fill="none"
-              stroke-width="1.5"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 9.5L12 3l9 6.5v11a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6H9v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11z"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
-            SFOD-A 2112
-          </div>
+        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+          <div class="sfoda">SFOD-A</div>
+          <div class="teamNumber" id="teamNumber"></div>
         </div>
         
         <div class="searchBar">
@@ -434,6 +395,15 @@
         <div id="individualBoxes" class="boxes"></div>
       </div>
     </div>
+
+    <div id="confirmationPopup" class="popup">
+      <p>All previous settings will be overwritten. Are you sure?</p>
+      <button id="confirmYes">Yes</button>
+      <button id="confirmNo">No</button>
+    </div>
+
+    <div id="notificationSaved" class="notification">Settings saved!</div>
+    <div id="notificationUploaded" class="notification">Settings uploaded!</div>
   </body>
   <script type="text/javascript">
     // Get the file input, label, and the text input field
@@ -1323,6 +1293,14 @@
 
     let teamNumberVariable = '0000';
 
+    function updateTeamNumber() {
+      // Get all elements with ID teamNumber across pages
+      const teamNumberElements = document.querySelectorAll('#teamNumber');
+      teamNumberElements.forEach(element => {
+        element.textContent = `${teamNumberVariable}`;
+      });
+    }
+
     // Pre-populate roles/names, this will come from the start screen later
     let roles = [
       { name: 'None', role: 'A' },
@@ -1498,13 +1476,13 @@
 
     continueButton.addEventListener('click', function () {
       let teamNumStartPage = document.getElementById('teamNumberStartPage');
-      let teamNumMainPage = document.getElementById('teamNumber');
 
       if (teamNumStartPage.value != '') {
         teamNumberVariable = teamNumStartPage.value;
       }
       console.log(teamNumberVariable);
-      teamNumMainPage.textContent = `${teamNumberVariable}`;
+
+      updateTeamNumber();
 
       let continueButton = document.getElementById('continueButton');
       const itemObjects = [];
@@ -1733,11 +1711,38 @@
     }
 
     function save_to_local_storage() {
-      localStorage.setItem('items', JSON.stringify(items));
-      localStorage.setItem('roles', JSON.stringify(roles));
-      localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
-      console.log('Settings Saved');
+      // Show confirmation popup
+      const confirmationPopup = document.getElementById('confirmationPopup');
+      confirmationPopup.style.display = 'block';
+
+      // Handle Yes button click
+      document.getElementById('confirmYes').addEventListener('click', function () {
+        // Save settings to local storage
+        localStorage.setItem('items', JSON.stringify(items));
+        localStorage.setItem('roles', JSON.stringify(roles));
+        localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
+        console.log('Settings Saved');
+
+        // Hide confirmation popup
+        confirmationPopup.style.display = 'none';
+
+        // Show "Settings saved" notification
+        const notification = document.getElementById('notificationSaved');
+        notification.style.opacity = '1';
+
+        // Hide notification after 1.5 seconds
+        setTimeout(() => {
+          notification.style.opacity = '0';
+        }, 1500);
+      });
+
+      // Handle No button click
+      document.getElementById('confirmNo').addEventListener('click', function () {
+        // Just hide the confirmation popup without saving
+        confirmationPopup.style.display = 'none';
+      });
     }
+
 
     function load_from_local_storage() {
       const savedItems = localStorage.getItem('items');
@@ -1750,6 +1755,14 @@
         toggle_page('main_page', items);
         console.log('Settings Loaded');
       }
+      // Show notification
+      const notification = document.getElementById('notificationUploaded');
+      notification.style.opacity = '1';
+
+      // Hide notification after 1.5 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+      }, 1000);
     }
 
     function export_to_json() {

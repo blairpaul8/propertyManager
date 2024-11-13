@@ -53,6 +53,7 @@ body {
   height: 100vh;
 }
 
+
 .teamNumberWrapper {
   display: flex;
   justify-content: center;
@@ -670,4 +671,54 @@ dialog::backdrop {
 .checkbox {
   width: 3rem;
   height: 3rem;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #666666;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  display: none; /* Initially hidden */
+}
+
+.popup button {
+  margin: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#confirmYes {
+  background-color: #4caf50;
+  color: white;
+}
+
+#confirmNo {
+  background-color: #f44336;
+  color: white;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e0f7e9;
+  color: #2e7d32;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
 }
