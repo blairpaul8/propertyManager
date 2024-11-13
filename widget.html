@@ -245,36 +245,41 @@
               18E Property
             </button>
           </div>
-          <button
-            class="boxesPageButton"
-            onclick="((event) => {toggle_page('boxes_page')})();"
-          >
-            Gun Boxes
-          </button>
-          <button
-            class="boxesPageButton"
-            onclick="((event) => {toggle_page('individual_boxes_page_')})();"
-          >
-            General Boxes
-          </button>
-          <button
-            class="saveToJSON"
-            onclick="(() => {stay_go_list()})()"
-          >
-            Stay Go List
-          </button>
-          <button
-            class="saveToJSON"
-            onclick="((event) => {save_to_local_storage()})()"
-          >
-            Save Settings
-          </button>
-          <button
-            class="saveToJSON"
-            onclick="((event) => {load_from_local_storage()})()"
-          >
-            Upload Settings
-          </button>
+
+          <div class="pagesWrapper">
+            <button
+              class="boxesPageButton"
+              onclick="((event) => {toggle_page('boxes_page')})();"
+            >
+              Gun Boxes
+            </button>
+            <button
+              class="boxesPageButton"
+              onclick="((event) => {toggle_page('individual_boxes_page_')})();"
+            >
+              General Boxes
+            </button>
+            <button
+              class="boxesPageButton"
+              onclick="(() => {stay_go_list()})()"
+            >
+              Stay Go List
+            </button>
+          </div>
+          <div class="settingsWrapper">
+            <button
+              class="saveToJSON"
+              onclick="((event) => {save_to_local_storage()})()"
+            >
+              Save Settings
+            </button>
+            <button
+              class="saveToJSON"
+              onclick="((event) => {load_from_local_storage()})()"
+            >
+              Upload Settings
+            </button>
+          </div>
           
         </div>
         <div id="listWrapper" class="listWrapper">
