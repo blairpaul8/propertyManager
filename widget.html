@@ -748,42 +748,6 @@
     }
 
     /**
-     * Fuzzy Matching function and filterProperty function used to filter the list of items based
-     * on which section property button is selected.
-     */
-    function fuzzyMatching(a, b) {
-      const matrix = [];
-
-      // Initialize the matrix
-      for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-      }
-      for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-      }
-
-      // Calculate the distance
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          if (b[i - 1] === a[j - 1]) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(
-              matrix[i - 1][j - 1] + 1, // Substitution
-              matrix[i][j - 1] + 1, // Insertion
-              matrix[i - 1][j] + 1, // Deletion
-            );
-          }
-        }
-      }
-
-      const distance = matrix[b.length][a.length];
-
-      const longestLength = Math.max(a.length, b.length);
-      return distance / longestLength;
-    }
-
-    /**
      * trigram_comparison returns the percentage of trigrams which matched between 'left_str' and 'right_str'.
      * Percentage is based on the total number of trigrams matched / number of trigrams in the shorter string
      * @param left_str {string} - First string of the comparison
@@ -855,28 +819,41 @@
       const relativeThreshold = 0.5;
       const input = document.getElementById('search').value.toUpperCase();
 
-      //console.log(searchInput);
+      if (input.length !== 0) {
+        items.forEach(item => {
+          if (!item.mpo_description) {
+            return;
+          }
+          const compare_against =
+            item.mpo_description +
+            item.commonName +
+            item.nsn_items.map(nsn => {
+              return nsn.serial_numbers
+                .map(sns => {
+                  return sns.serial_number;
+                })
+                .join(' ');
+            });
+          const distance =
+            input.length < 3
+              ? digram_comparison(input, compare_against)
+              : trigram_comparison(input, compare_against);
+          if (distance >= relativeThreshold) {
+            searchResults.push({ item: item, score: distance });
+          }
+        });
 
-      items.forEach(item => {
-        if (!item.mpo_description) {
-          return;
-        }
-        if (input.length <= 0) {
-          toggle_page('main_page', items);
-          return;
-        }
-        const distance = digram_comparison(
-          input,
-          item.mpo_description + item.commonName,
-        );
-        console.log(distance);
-        if (distance >= relativeThreshold) {
-          searchResults.push(item);
-        }
-      });
+        searchResults.sort((a, b) => b.score - a.score);
+        console.log(searchResults);
+      } else {
+        return toggle_page('main_page', items);
+      }
 
-      console.log(searchResults);
-      toggle_page('main_page', searchResults);
+      // console.log(searchResults);
+      return toggle_page(
+        'main_page',
+        searchResults.map(sr => sr.item),
+      );
     }
 
     /**
@@ -1469,7 +1446,6 @@
           items = itemObjects.slice();
 
           toggle_page('main_page', items);
-          console.log(items);
         })
         .catch(function (error) {
           console.error('Error reading Excel files:', error);
