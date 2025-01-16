@@ -377,6 +377,7 @@ body {
   flex-grow: 2;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 10px;
 }
 
 .card_lower {
@@ -426,34 +427,33 @@ body {
   width: 100%;
 }
 
-.commonName {
-  margin: 0rem;
-  padding: 0rem;
+
+.common_name {
+  font-size: 24px;
+  border: 2px solid lightgrey;
+  width: 40%;
+  border-radius: 0.5rem;
+  cursor: not-allowed; 
+  background-color: lightgrey;
 }
 
-.common_name_input {
-  margin-right: 10px;
-  height: 1rem;
-}
+.pTagCommonName {
+  color: white;
+  font-size: 24px;
+  margin-block-start: 0%;
+  margin-block-end: 0%;
 
-.location_input {
-  height: 1rem;
-}
-/* remove the weird carrot that shows up on detail tag by default */
-details > summary {
-  list-style: none;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
 }
 
 .serialNumber {
   display: flex;
 }
 
+.header {
+  gap: 5px;
+}
 .itemHeader {
-  font-size: 24px;
+  font-size: 18px;
   text-decoration: bold;
   color: white;
   display: flex;

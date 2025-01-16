@@ -528,7 +528,8 @@
         this.ciic = nsn_item_row[1][7];
         this.dla = nsn_item_row[1][8];
         this.buom = nsn_item_row[1][9];
-        this.quantity = nsn_item_row[1][10];
+        this.quantity = nsn_item_row[1][13];
+        console.table(nsn_item_row);
 
         for (let i = 3; i < nsn_item_row.length; i++) {
           if (nsn_item_row[i][0] === 'SysNo') {
@@ -877,11 +878,11 @@
           individualItem.appendChild(card_upper);
 
           const card_upper_left = document.createElement('div');
-          card_upper_left.classList.add('upper_left');
+          card_upper_left.classList.add('card_upper_left');
           card_upper.appendChild(card_upper_left);
         
           const card_upper_right = document.createElement('div');
-          card_upper_right.classList.add('upper_right');
+          card_upper_right.classList.add('card_upper_right');
           card_upper.appendChild(card_upper_right);
 
           const item_image = document.createElement('img');
@@ -889,6 +890,29 @@
           item_image.src = `photos/${nsn_item.nsn}.jpg`;
           item_image.onerror = function(){this.onerror=null;this.src='photos/default.jpg';}
           card_upper_right.appendChild(item_image);
+
+          const common_name = document.createElement('input');
+          common_name.classList.add('common_name');
+          common_name.placeholder = 'Common Name';
+    
+          common_name.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+              // Get the input value
+              const commonNameInput = common_name.value;
+              item.commonName = commonNameInput;
+
+              // Create a <p> tag to replace the input field
+              const pTagCommonName = document.createElement('p');
+              pTagCommonName.classList.add('pTagCommonName');
+              pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
+
+              // Replace the input field with the <p> tag
+              card_upper_left.replaceChild(pTagCommonName, common_name,);
+            }
+          });
+
+
+          card_upper_left.appendChild(common_name);
 
           //MPO Description
           const name = document.createElement('div');
@@ -912,7 +936,7 @@
           header.appendChild(nsn_description);
 
           const item_quantity = document.createElement('span');
-          item_quantity.textContent = nsn_item.quantity;
+          item_quantity.textContent = `Qty: ${nsn_item.quantity}`;
           header.appendChild(item_quantity);
 
           card_upper_left.appendChild(header);
