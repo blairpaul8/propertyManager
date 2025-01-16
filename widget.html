@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -877,20 +877,17 @@
           individualItem.appendChild(card_upper);
 
           const card_upper_left = document.createElement('div');
-          card_upper_left.classList.add('card_upper_left');
+          card_upper_left.classList.add('upper_left');
           card_upper.appendChild(card_upper_left);
-
+        
           const card_upper_right = document.createElement('div');
-          card_upper_right.classList.add('card_upper_right');
+          card_upper_right.classList.add('upper_right');
           card_upper.appendChild(card_upper_right);
 
           const item_image = document.createElement('img');
           item_image.classList.add('item_image');
           item_image.src = `photos/${nsn_item.nsn}.jpg`;
-          item_image.onerror = function () {
-            this.onerror = null;
-            this.src = 'photos/default.jpg';
-          };
+          item_image.onerror = function(){this.onerror=null;this.src='photos/default.jpg';}
           card_upper_right.appendChild(item_image);
 
           //MPO Description
@@ -930,6 +927,7 @@
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
+
             const serial_number_element = document.createElement('div');
             serial_number_element.classList.add('serialNumber');
 

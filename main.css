@@ -53,6 +53,7 @@ body {
   height: 100vh;
 }
 
+
 .teamNumberWrapper {
   display: flex;
   justify-content: center;
@@ -251,14 +252,14 @@ body {
 .pagesWrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: .5rem;
   padding-top: 2rem;
 }
 
 .settingsWrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: .5rem;
   padding-top: 2rem;
 }
 
@@ -374,7 +375,6 @@ body {
 .card_upper_left {
   display: flex;
   flex-grow: 2;
-  flex-shrink: 1;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -382,6 +382,7 @@ body {
 .card_lower {
   display: flex;
   flex-direction: column;
+  
 }
 
 .item {
@@ -392,7 +393,7 @@ body {
   color: #455d7a;
   flex-shrink: 1;
   flex-grow: 1;
-  flex-basis: 28%;
+  flex-basis: 45%;
   padding: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   background-color: #333333;
@@ -449,7 +450,6 @@ details summary::-webkit-details-marker {
 
 .serialNumber {
   display: flex;
-  justify-content: space-between;
 }
 
 .itemHeader {
@@ -696,6 +696,7 @@ dialog::backdrop {
 .selectList {
   display: flex;
   justify-content: space-between;
+  width: 28%;
 }
 
 .wrapperDiv {
