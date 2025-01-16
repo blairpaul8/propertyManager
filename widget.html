@@ -872,10 +872,23 @@
           const individualItem = document.createElement('div');
           individualItem.classList.add('item');
 
-          const itemHeader = document.createElement('span');
-          itemHeader.classList.add('itemHeader');
-          itemHeader.id = 'itemHeader';
-          individualItem.appendChild(itemHeader);
+          const card_upper = document.createElement('div');
+          card_upper.classList.add('card_upper');
+          individualItem.appendChild(card_upper);
+
+          const card_upper_left = document.createElement('div');
+          card_upper_left.classList.add('upper_left');
+          card_upper.appendChild(card_upper_left);
+        
+          const card_upper_right = document.createElement('div');
+          card_upper_right.classList.add('upper_right');
+          card_upper.appendChild(card_upper_right);
+
+          const item_image = document.createElement('img');
+          item_image.classList.add('item_image');
+          item_image.src = `photos/${nsn_item.nsn}.jpg`;
+          item_image.onerror = function(){this.onerror=null;this.src='photos/default.jpg';}
+          card_upper_right.appendChild(item_image);
 
           //MPO Description
           const name = document.createElement('div');
@@ -883,21 +896,38 @@
           name.textContent = `${
             item.mpo_description ? item.mpo_description : 'No MPO'
           }`;
-          individualItem.appendChild(name);
+          card_upper_left.appendChild(name);
 
           // Header for this NSN item
           const header = document.createElement('div');
           header.id = 'header';
           header.classList.add('nsn_item_header');
-          header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`;
-          individualItem.appendChild(header);
+
+          const nsn_num = document.createElement('span');
+          nsn_num.textContent = nsn_item.nsn;
+          header.appendChild(nsn_num);
+
+          const nsn_description = document.createElement('span');
+          nsn_description.textContent = nsn_item.nsn_description;
+          header.appendChild(nsn_description);
+
+          const item_quantity = document.createElement('span');
+          item_quantity.textContent = nsn_item.quantity;
+          header.appendChild(item_quantity);
+
+          card_upper_left.appendChild(header);
 
           const group_name_and_inputs = document.createElement('div');
           group_name_and_inputs.classList.add('group_name');
           header.appendChild(group_name_and_inputs);
 
+          const card_lower = document.createElement('div');
+          card_lower.classList.add('card_lower');
+          individualItem.appendChild(card_lower);
+
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
+
             const serial_number_element = document.createElement('div');
             serial_number_element.classList.add('serialNumber');
 
@@ -929,7 +959,7 @@
             value.textContent = `--`;
             serial.appendChild(value);
 
-            individualItem.appendChild(serial_number_element);
+            card_lower.appendChild(serial_number_element);
 
             box_serial.addEventListener('change', event => {
               serial_number.assignment = box_serial.value;
