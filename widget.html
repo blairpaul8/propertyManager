@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -280,7 +280,6 @@
               Upload Settings
             </button>
           </div>
-          
         </div>
         <div id="listWrapper" class="listWrapper">
           <div id="addBoxes" class="addBoxes">
@@ -301,11 +300,14 @@
 
     <div id="boxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+        <div
+          class="teamNumberWrapper"
+          onclick="toggle_page('main_page', items)"
+        >
           <div class="sfoda">SFOD-A</div>
           <div class="teamNumber" id="teamNumber"></div>
         </div>
-        
+
         <div class="searchBar">
           <input
             type="text"
@@ -350,11 +352,14 @@
     </div>
     <div id="individualBoxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+        <div
+          class="teamNumberWrapper"
+          onclick="toggle_page('main_page', items)"
+        >
           <div class="sfoda">SFOD-A</div>
           <div class="teamNumber" id="teamNumber"></div>
         </div>
-        
+
         <div class="searchBar">
           <input
             type="text"
@@ -886,83 +891,33 @@
       root.innerHTML = '';
 
       items.forEach(item => {
-        const individualItem = document.createElement('div');
-        individualItem.classList.add('item');
-
-        const itemDetails = document.createElement('details');
-        itemDetails.classList.add('itemDetails');
-        individualItem.appendChild(itemDetails);
-
-        const itemHeader = document.createElement('summary');
-        itemHeader.classList.add('itemHeader');
-        itemHeader.id = 'itemHeader';
-        itemDetails.appendChild(itemHeader);
-
-        const group_name_and_inputs = document.createElement('div');
-        group_name_and_inputs.classList.add('group_name');
-        itemHeader.appendChild(group_name_and_inputs);
-
-        const name = document.createElement('span');
-        name.classList.add('name');
-        name.textContent = `${item.mpo_description ? item.mpo_description : 'No MPO'}`;
-        group_name_and_inputs.appendChild(name);
-
-        const location_and_common_name = document.createElement('div');
-        location_and_common_name.classList.add('location_and_name');
-        //group_name_and_inputs.appendChild(location_and_common_name);
-
-        const commonName = document.createElement('p');
-        commonName.classList.add('commonName');
-        commonName.textContent = 'Common Name: ';
-        location_and_common_name.appendChild(commonName);
-
-        const common_name_input = document.createElement('input');
-        common_name_input.classList.add('common_name_input');
-        location_and_common_name.appendChild(common_name_input);
-
-        const location = document.createElement('p');
-        location.classList.add('commonName');
-        location.textContent = 'Location: ';
-        location_and_common_name.appendChild(location);
-
-        const location_input = document.createElement('input');
-        location_input.classList.add('location_input');
-        location_and_common_name.appendChild(location_input);
-
-        itemHeader.insertAdjacentHTML(
-          'beforeend',
-          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                   <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                 </svg>`,
-        );
-
-        root.appendChild(individualItem);
-
         item.nsn_items.forEach(nsn_item => {
+          const individualItem = document.createElement('div');
+          individualItem.classList.add('item');
+
+          const itemHeader = document.createElement('span');
+          itemHeader.classList.add('itemHeader');
+          itemHeader.id = 'itemHeader';
+          individualItem.appendChild(itemHeader);
+
+          //MPO Description
+          const name = document.createElement('div');
+          name.classList.add('name');
+          name.textContent = `${
+            item.mpo_description ? item.mpo_description : 'No MPO'
+          }`;
+          individualItem.appendChild(name);
+
           // Header for this NSN item
           const header = document.createElement('div');
           header.id = 'header';
           header.classList.add('nsn_item_header');
           header.textContent = `${nsn_item.nsn} ${nsn_item.nsn_description} ${nsn_item.quantity}`;
-          itemDetails.appendChild(header);
+          individualItem.appendChild(header);
 
           const group_name_and_inputs = document.createElement('div');
           group_name_and_inputs.classList.add('group_name');
           header.appendChild(group_name_and_inputs);
-
-          const location_and_common_name = document.createElement('div');
-          location_and_common_name.classList.add('location_and_name');
-          group_name_and_inputs.appendChild(location_and_common_name);
-
-          const commonName = document.createElement('p');
-          commonName.classList.add('commonName');
-          commonName.textContent = 'General Boxes ';
-          location_and_common_name.appendChild(commonName);
-
-          const location = document.createElement('p');
-          location.classList.add('commonName');
-          location.textContent = 'Personal Equipment';
-          location_and_common_name.appendChild(location);
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
@@ -997,7 +952,7 @@
             value.textContent = `--`;
             serial.appendChild(value);
 
-            itemDetails.appendChild(serial_number_element);
+            individualItem.appendChild(serial_number_element);
 
             box_serial.addEventListener('change', event => {
               serial_number.assignment = box_serial.value;
@@ -1029,6 +984,7 @@
               serial.insertAdjacentHTML('beforeend', option_html);
             });
           });
+          root.appendChild(individualItem);
         });
       });
     }
@@ -1721,33 +1677,36 @@
       confirmationPopup.style.display = 'block';
 
       // Handle Yes button click
-      document.getElementById('confirmYes').addEventListener('click', function () {
-        // Save settings to local storage
-        localStorage.setItem('items', JSON.stringify(items));
-        localStorage.setItem('roles', JSON.stringify(roles));
-        localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
-        console.log('Settings Saved');
+      document
+        .getElementById('confirmYes')
+        .addEventListener('click', function () {
+          // Save settings to local storage
+          localStorage.setItem('items', JSON.stringify(items));
+          localStorage.setItem('roles', JSON.stringify(roles));
+          localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
+          console.log('Settings Saved');
 
-        // Hide confirmation popup
-        confirmationPopup.style.display = 'none';
+          // Hide confirmation popup
+          confirmationPopup.style.display = 'none';
 
-        // Show "Settings saved" notification
-        const notification = document.getElementById('notificationSaved');
-        notification.style.opacity = '1';
+          // Show "Settings saved" notification
+          const notification = document.getElementById('notificationSaved');
+          notification.style.opacity = '1';
 
-        // Hide notification after 1.5 seconds
-        setTimeout(() => {
-          notification.style.opacity = '0';
-        }, 1500);
-      });
+          // Hide notification after 1.5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+          }, 1500);
+        });
 
       // Handle No button click
-      document.getElementById('confirmNo').addEventListener('click', function () {
-        // Just hide the confirmation popup without saving
-        confirmationPopup.style.display = 'none';
-      });
+      document
+        .getElementById('confirmNo')
+        .addEventListener('click', function () {
+          // Just hide the confirmation popup without saving
+          confirmationPopup.style.display = 'none';
+        });
     }
-
 
     function load_from_local_storage() {
       const savedItems = localStorage.getItem('items');
@@ -1787,44 +1746,58 @@
         item.nsn_items.forEach(nsn_item => {
           nsn_item.serial_numbers.forEach(serial_number => {
             stay_go_data.push([
-              {value: !!item.mpo_description ? item.mpo_description : '', type: String},
-              {value: !!nsn_item.nsn_description ? nsn_item.nsn_description : '', type: String},
-              {value: !!serial_number ? `${serial_number.serial_number}` : '', type: String},
-              {value: !!serial_number.assignment ? 'GO' : 'STAY', type: String, backgroundColor: (!!serial_number.assignment ? '#00FF00' : '#FF0000'), color: (!!serial_number.assignment ? '#000000' : '#FFFFFF')}
+              {
+                value: !!item.mpo_description ? item.mpo_description : '',
+                type: String,
+              },
+              {
+                value: !!nsn_item.nsn_description
+                  ? nsn_item.nsn_description
+                  : '',
+                type: String,
+              },
+              {
+                value: !!serial_number ? `${serial_number.serial_number}` : '',
+                type: String,
+              },
+              {
+                value: !!serial_number.assignment ? 'GO' : 'STAY',
+                type: String,
+                backgroundColor: !!serial_number.assignment
+                  ? '#00FF00'
+                  : '#FF0000',
+                color: !!serial_number.assignment ? '#000000' : '#FFFFFF',
+              },
             ]);
           });
         });
       });
 
-      console.log(stay_go_data)
+      console.log(stay_go_data);
 
       const headers = [
         {
           value: 'MPO',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'NSN',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'SERIAL NUMBER',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'STAY/GO',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
       ];
 
       writeXlsxFile([headers, ...stay_go_data], {
         fileName: 'something.xlsx',
-        stickyRowsCount: 1
-      }).then()
-    }
-  </script>
-</html>
-      ];
+        stickyRowsCount: 1,
+      }).then();
     }
   </script>
 </html>
