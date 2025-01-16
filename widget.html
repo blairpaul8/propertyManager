@@ -280,7 +280,6 @@
               Upload Settings
             </button>
           </div>
-          
         </div>
         <div id="listWrapper" class="listWrapper">
           <div id="addBoxes" class="addBoxes">
@@ -301,11 +300,14 @@
 
     <div id="boxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+        <div
+          class="teamNumberWrapper"
+          onclick="toggle_page('main_page', items)"
+        >
           <div class="sfoda">SFOD-A</div>
           <div class="teamNumber" id="teamNumber"></div>
         </div>
-        
+
         <div class="searchBar">
           <input
             type="text"
@@ -350,11 +352,14 @@
     </div>
     <div id="individualBoxesPage" style="display: none">
       <div class="topBar">
-        <div class="teamNumberWrapper" onclick="toggle_page('main_page', items)">
+        <div
+          class="teamNumberWrapper"
+          onclick="toggle_page('main_page', items)"
+        >
           <div class="sfoda">SFOD-A</div>
           <div class="teamNumber" id="teamNumber"></div>
         </div>
-        
+
         <div class="searchBar">
           <input
             type="text"
@@ -850,28 +855,41 @@
       const relativeThreshold = 0.5;
       const input = document.getElementById('search').value.toUpperCase();
 
-      //console.log(searchInput);
+      if (input.length !== 0) {
+        items.forEach(item => {
+          if (!item.mpo_description) {
+            return;
+          }
+          const compare_against =
+            item.mpo_description +
+            item.commonName +
+            item.nsn_items.map(nsn => {
+              return nsn.serial_numbers
+                .map(sns => {
+                  return sns.serial_number;
+                })
+                .join(' ');
+            });
+          const distance =
+            input.length < 3
+              ? digram_comparison(input, compare_against)
+              : trigram_comparison(input, compare_against);
+          if (distance >= relativeThreshold) {
+            searchResults.push({ item: item, score: distance });
+          }
+        });
 
-      items.forEach(item => {
-        if (!item.mpo_description) {
-          return;
-        }
-        if (input.length <= 0) {
-          toggle_page('main_page', items);
-          return;
-        }
-        const distance = digram_comparison(
-          input,
-          item.mpo_description + item.commonName,
-        );
-        console.log(distance);
-        if (distance >= relativeThreshold) {
-          searchResults.push(item);
-        }
-      });
+        searchResults.sort((a, b) => b.score - a.score);
+        console.log(searchResults);
+      } else {
+        return toggle_page('main_page', items);
+      }
 
-      console.log(searchResults);
-      toggle_page('main_page', searchResults);
+      // console.log(searchResults);
+      return toggle_page(
+        'main_page',
+        searchResults.map(sr => sr.item),
+      );
     }
 
     /**
@@ -1513,7 +1531,6 @@
           items = itemObjects.slice();
 
           toggle_page('main_page', items);
-          console.log(items);
         })
         .catch(function (error) {
           console.error('Error reading Excel files:', error);
@@ -1721,33 +1738,36 @@
       confirmationPopup.style.display = 'block';
 
       // Handle Yes button click
-      document.getElementById('confirmYes').addEventListener('click', function () {
-        // Save settings to local storage
-        localStorage.setItem('items', JSON.stringify(items));
-        localStorage.setItem('roles', JSON.stringify(roles));
-        localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
-        console.log('Settings Saved');
+      document
+        .getElementById('confirmYes')
+        .addEventListener('click', function () {
+          // Save settings to local storage
+          localStorage.setItem('items', JSON.stringify(items));
+          localStorage.setItem('roles', JSON.stringify(roles));
+          localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
+          console.log('Settings Saved');
 
-        // Hide confirmation popup
-        confirmationPopup.style.display = 'none';
+          // Hide confirmation popup
+          confirmationPopup.style.display = 'none';
 
-        // Show "Settings saved" notification
-        const notification = document.getElementById('notificationSaved');
-        notification.style.opacity = '1';
+          // Show "Settings saved" notification
+          const notification = document.getElementById('notificationSaved');
+          notification.style.opacity = '1';
 
-        // Hide notification after 1.5 seconds
-        setTimeout(() => {
-          notification.style.opacity = '0';
-        }, 1500);
-      });
+          // Hide notification after 1.5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+          }, 1500);
+        });
 
       // Handle No button click
-      document.getElementById('confirmNo').addEventListener('click', function () {
-        // Just hide the confirmation popup without saving
-        confirmationPopup.style.display = 'none';
-      });
+      document
+        .getElementById('confirmNo')
+        .addEventListener('click', function () {
+          // Just hide the confirmation popup without saving
+          confirmationPopup.style.display = 'none';
+        });
     }
-
 
     function load_from_local_storage() {
       const savedItems = localStorage.getItem('items');
@@ -1787,44 +1807,58 @@
         item.nsn_items.forEach(nsn_item => {
           nsn_item.serial_numbers.forEach(serial_number => {
             stay_go_data.push([
-              {value: !!item.mpo_description ? item.mpo_description : '', type: String},
-              {value: !!nsn_item.nsn_description ? nsn_item.nsn_description : '', type: String},
-              {value: !!serial_number ? `${serial_number.serial_number}` : '', type: String},
-              {value: !!serial_number.assignment ? 'GO' : 'STAY', type: String, backgroundColor: (!!serial_number.assignment ? '#00FF00' : '#FF0000'), color: (!!serial_number.assignment ? '#000000' : '#FFFFFF')}
+              {
+                value: !!item.mpo_description ? item.mpo_description : '',
+                type: String,
+              },
+              {
+                value: !!nsn_item.nsn_description
+                  ? nsn_item.nsn_description
+                  : '',
+                type: String,
+              },
+              {
+                value: !!serial_number ? `${serial_number.serial_number}` : '',
+                type: String,
+              },
+              {
+                value: !!serial_number.assignment ? 'GO' : 'STAY',
+                type: String,
+                backgroundColor: !!serial_number.assignment
+                  ? '#00FF00'
+                  : '#FF0000',
+                color: !!serial_number.assignment ? '#000000' : '#FFFFFF',
+              },
             ]);
           });
         });
       });
 
-      console.log(stay_go_data)
+      console.log(stay_go_data);
 
       const headers = [
         {
           value: 'MPO',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'NSN',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'SERIAL NUMBER',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
         {
           value: 'STAY/GO',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         },
       ];
 
       writeXlsxFile([headers, ...stay_go_data], {
         fileName: 'something.xlsx',
-        stickyRowsCount: 1
-      }).then()
-    }
-  </script>
-</html>
-      ];
+        stickyRowsCount: 1,
+      }).then();
     }
   </script>
 </html>
