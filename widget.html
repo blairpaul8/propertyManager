@@ -748,42 +748,6 @@
     }
 
     /**
-     * Fuzzy Matching function and filterProperty function used to filter the list of items based
-     * on which section property button is selected.
-     */
-    function fuzzyMatching(a, b) {
-      const matrix = [];
-
-      // Initialize the matrix
-      for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-      }
-      for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-      }
-
-      // Calculate the distance
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          if (b[i - 1] === a[j - 1]) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(
-              matrix[i - 1][j - 1] + 1, // Substitution
-              matrix[i][j - 1] + 1, // Insertion
-              matrix[i - 1][j] + 1, // Deletion
-            );
-          }
-        }
-      }
-
-      const distance = matrix[b.length][a.length];
-
-      const longestLength = Math.max(a.length, b.length);
-      return distance / longestLength;
-    }
-
-    /**
      * trigram_comparison returns the percentage of trigrams which matched between 'left_str' and 'right_str'.
      * Percentage is based on the total number of trigrams matched / number of trigrams in the shorter string
      * @param left_str {string} - First string of the comparison
