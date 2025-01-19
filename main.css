@@ -53,7 +53,6 @@ body {
   height: 100vh;
 }
 
-
 .teamNumberWrapper {
   display: flex;
   justify-content: center;
@@ -252,14 +251,14 @@ body {
 .pagesWrapper {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   padding-top: 2rem;
 }
 
 .settingsWrapper {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   padding-top: 2rem;
 }
 
@@ -357,9 +356,8 @@ body {
 }
 
 .inventoryList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(630px, 1fr));
   gap: 1rem;
   width: 100%;
   overflow: scroll;
@@ -370,6 +368,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 1rem;
+  min-height: 250px;
 }
 
 .card_upper_left {
@@ -383,7 +383,6 @@ body {
 .card_lower {
   display: flex;
   flex-direction: column;
-  
 }
 
 .item {
@@ -427,13 +426,12 @@ body {
   width: 100%;
 }
 
-
 .common_name {
   font-size: 24px;
   border: 2px solid lightgrey;
-  width: 40%;
+  width: 100%;
   border-radius: 0.5rem;
-  cursor: not-allowed; 
+  cursor: not-allowed;
   background-color: lightgrey;
 }
 
@@ -442,11 +440,33 @@ body {
   font-size: 24px;
   margin-block-start: 0%;
   margin-block-end: 0%;
-
+  font-weight: bold;
 }
 
 .serialNumber {
-  display: flex;
+  display: grid;
+  grid-template-columns: 6fr 2fr;
+  align-items: end;
+  padding-block: 0.2rem;
+  padding-inline: 0.1rem;
+}
+
+.serialNumber:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.serialNumber:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.serialNumber:nth-child(odd) {
+  background: #454545;
+}
+
+.serialNumber:nth-child(even) {
+  background: #333333;
 }
 
 .header {
@@ -470,6 +490,7 @@ body {
 .name {
   font-size: 1rem;
   color: #ffffff;
+  text-wrap: balance;
 }
 
 .icons {
@@ -640,9 +661,11 @@ details[open] summary .icons {
 .nsn_item_header {
   display: flex;
   flex-direction: column;
-  margin-top: 0.5rem;
+  margin-top: auto;
   width: 100%;
   justify-content: space-between;
+  color: white;
+  font-size: small;
 }
 
 .boxHeader {
@@ -695,8 +718,7 @@ dialog::backdrop {
 
 .selectList {
   display: flex;
-  justify-content: space-between;
-  width: 28%;
+  justify-content: flex-end;
 }
 
 .wrapperDiv {
