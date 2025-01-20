@@ -14,7 +14,7 @@ def get_number_from_table(slide):
         if shape.has_table:
             table = shape.table
             if len(table.rows) >= 4 and len(table.columns) >= 2:
-                return table.cell(2, 1).text.strip()  # Rows/columns are 0-indexed
+                return table.cell(2, 1).text.strip()
     return None
 
 

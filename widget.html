@@ -1019,6 +1019,29 @@
           card_lower.classList.add('card_lower');
           individualItem.appendChild(card_lower);
 
+          const lower_card_header = document.createElement('div');
+          lower_card_header.classList.add('lower_card_header');
+          card_lower.appendChild(lower_card_header);
+
+          const lower_card_sn = document.createElement('span');
+          lower_card_sn.classList.add('lower_card_sn');
+          lower_card_sn.textContent = 'SN:';
+          lower_card_header.appendChild(lower_card_sn);
+
+          const general_individual_cont = document.createElement('div');
+          general_individual_cont.classList.add('general_individual');
+          lower_card_header.appendChild(general_individual_cont);
+
+          const lower_card_general = document.createElement('span');
+          lower_card_general.classList.add('lower_card_sn');
+          lower_card_general.textContent = 'General Box';
+          general_individual_cont.appendChild(lower_card_general);
+
+          const lower_card_individual = document.createElement('span');
+          lower_card_individual.classList.add('lower_card_sn');
+          lower_card_individual.textContent = 'Individual Box';
+          general_individual_cont.appendChild(lower_card_individual);
+
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
             const serial_number_element = document.createElement('div');

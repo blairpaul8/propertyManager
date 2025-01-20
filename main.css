@@ -339,6 +339,19 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.lower_card_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.general_individual {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
 .item {
   display: flex;
   flex-direction: column;
@@ -395,7 +408,7 @@ image-with-fallback::part(image) {
 .common_name {
   font-size: 24px;
   border: 2px solid #d3d3d3;
-  width: 100%;
+  width: 50%;
   border-radius: 0.5rem;
   cursor: not-allowed;
   background-color: #d3d3d3;
@@ -598,7 +611,7 @@ details[open] .boxHeader {
 .line_item {
   display: grid;
   grid-template-columns: 4fr 4fr 2fr;
-  flex-direction; row;
+  flex-direction: row;
   text-wrap: balance;
   justify-content: space-between;
 }
@@ -610,8 +623,13 @@ h3 {
   padding-inline: 1rem;
   padding-block: 0.25rem;
   border-radius: 0.5rem;
-  width: 20%;
-  width: max-content;
+  padding: 5%;
+  font-size: 1.25em;
+  color: #000;
+  background-color: gray;
+  cursor: pointer;
+  width: 100%;
+  max-width: max-content;
 }
 .rightGrouping {
   display: flex;
