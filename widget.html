@@ -1178,7 +1178,6 @@
           value,
           ({ mpo_description }) => mpo_description,
         );
-        console.log(grouped);
 
         const individualBox = document.createElement('details');
         individualBox.classList.add('individualBox');
@@ -1202,7 +1201,9 @@
 
         individualBox.appendChild(header);
 
-        value.forEach(assignment => {
+        for (const [key, value] of Object.entries(grouped)) {
+          const serials = value.map(({ serial_number }) => serial_number);
+          const assignment = value[0];
           const lineItem = document.createElement('div');
           lineItem.classList.add('line_item');
 
@@ -1216,7 +1217,7 @@
           );
           lineItem.insertAdjacentHTML(
             'beforeend',
-            `<span>${assignment.serial_number}</span>`,
+            `<span>${serials.join(', ')}</span>`,
           );
           const item_image = document.createElement('image-with-fallback');
           item_image.classList.add('item_image');
@@ -1226,7 +1227,7 @@
           lineItem.appendChild(item_image);
 
           individualBox.appendChild(lineItem);
-        });
+        }
 
         document.getElementById('boxes').appendChild(individualBox);
       });
