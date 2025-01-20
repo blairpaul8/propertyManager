@@ -427,6 +427,11 @@
         // Create an <img> element inside the shadow DOM
         this.imgElement = document.createElement('img');
         this.imgElement.setAttribute('part', 'image');
+
+        // Create the dialog element
+        this.dialogElement = document.createElement('dialog');
+        this.dialogImage = document.createElement('img');
+        this.dialogElement.appendChild(this.dialogImage);
       }
 
       connectedCallback() {
@@ -453,8 +458,27 @@
 
         this.imgElement.classList.add('item_image');
 
-        // Append the <img> element to the shadow DOM
+        // Set the dialog image source to the same as the main image
+        this.dialogImage.src = imageSrc;
+        this.dialogImage.style.maxWidth = '80vw';
+        this.dialogImage.style.maxHeight = '80vh';
+
+        // Open the dialog when the image is clicked
+        this.imgElement.addEventListener('click', () => {
+          this.dialogElement.showModal(); // Open the dialog
+        });
+
+        // Close the dialog when clicked outside of the image in the dialog
+        this.dialogElement.addEventListener('click', e => {
+          if (e.target === this.dialogElement) {
+            this.dialogElement.close(); // Close the dialog
+          }
+        });
+        this.dialogElement.style.border = 'none';
+
+        // Append the <img> element and dialog to the shadow DOM
         this.shadowRoot.appendChild(this.imgElement);
+        this.shadowRoot.appendChild(this.dialogElement);
       }
     }
 
