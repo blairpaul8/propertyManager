@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -406,16 +406,60 @@
       </div>
     </div>
 
-    <div id="confirmationPopup" class="popup">
+    <dialog id="confirmationPopup" class="popup">
       <p>All previous settings will be overwritten. Are you sure?</p>
       <button id="confirmYes">Yes</button>
       <button id="confirmNo">No</button>
-    </div>
+    </dialog>
 
     <div id="notificationSaved" class="notification">Settings saved!</div>
     <div id="notificationUploaded" class="notification">Settings uploaded!</div>
   </body>
   <script type="text/javascript">
+    // Adding webcomponent for image with fallback
+    class ImageWithFallback extends HTMLElement {
+      constructor() {
+        super();
+
+        // Attach a shadow DOM
+        this.attachShadow({ mode: 'open' });
+
+        // Create an <img> element inside the shadow DOM
+        this.imgElement = document.createElement('img');
+        this.imgElement.setAttribute('part', 'image');
+      }
+
+      connectedCallback() {
+        // Read the attributes
+        const imageSrc = this.getAttribute('image-src');
+        const fallbackSrc = this.getAttribute('fallback-src');
+        const altText = this.getAttribute('alt');
+
+        // Set the alt attribute for the image
+        this.imgElement.alt = altText || 'Image';
+
+        // Set the image source
+        this.imgElement.src = imageSrc;
+
+        const originalConsoleError = console.error;
+        console.error = function () {}; // Suppress error logs
+
+        // Handle image load error
+        this.imgElement.onerror = () => {
+          this.imgElement.src = fallbackSrc; // Set to fallback image on error
+
+          console.error = originalConsoleError;
+        };
+
+        this.imgElement.classList.add('item_image');
+
+        // Append the <img> element to the shadow DOM
+        this.shadowRoot.appendChild(this.imgElement);
+      }
+    }
+
+    customElements.define('image-with-fallback', ImageWithFallback);
+
     // Get the file input, label, and the text input field
     const fileInput1 = document.getElementById('excelInput1');
     const fileNameField1 = document.getElementById('excelFileName1');
@@ -529,7 +573,6 @@
         this.dla = nsn_item_row[1][8];
         this.buom = nsn_item_row[1][9];
         this.quantity = nsn_item_row[1][13];
-        console.table(nsn_item_row);
 
         for (let i = 3; i < nsn_item_row.length; i++) {
           if (nsn_item_row[i][0] === 'SysNo') {
@@ -743,7 +786,6 @@
           });
         });
 
-        //console.log(results);
         toggle_page('main_page', results);
       }
     }
@@ -827,7 +869,7 @@
           }
           const compare_against =
             item.mpo_description +
-            item.commonName +
+            item.common_name +
             item.nsn_items.map(nsn => {
               return nsn.serial_numbers
                 .map(sns => {
@@ -845,12 +887,10 @@
         });
 
         searchResults.sort((a, b) => b.score - a.score);
-        console.log(searchResults);
       } else {
         return toggle_page('main_page', items);
       }
 
-      // console.log(searchResults);
       return toggle_page(
         'main_page',
         searchResults.map(sr => sr.item),
@@ -880,39 +920,45 @@
           const card_upper_left = document.createElement('div');
           card_upper_left.classList.add('card_upper_left');
           card_upper.appendChild(card_upper_left);
-        
+
           const card_upper_right = document.createElement('div');
           card_upper_right.classList.add('card_upper_right');
           card_upper.appendChild(card_upper_right);
 
-          const item_image = document.createElement('img');
+          const item_image = document.createElement('image-with-fallback');
           item_image.classList.add('item_image');
-          item_image.src = `photos/${nsn_item.nsn}.jpg`;
-          item_image.onerror = function(){this.onerror=null;this.src='photos/default.jpg';}
+          item_image.setAttribute('image-src', `photos/${nsn_item.nsn}.jpg`);
+          item_image.setAttribute('fallback-src', `photos/default.jpg`);
           card_upper_right.appendChild(item_image);
 
-          const common_name = document.createElement('input');
-          common_name.classList.add('common_name');
-          common_name.placeholder = 'Common Name';
-    
-          common_name.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-              // Get the input value
-              const commonNameInput = common_name.value;
-              item.commonName = commonNameInput;
+          if (!item.common_name) {
+            const common_name = document.createElement('input');
+            common_name.classList.add('common_name');
+            common_name.placeholder = 'Common Name';
 
-              // Create a <p> tag to replace the input field
-              const pTagCommonName = document.createElement('p');
-              pTagCommonName.classList.add('pTagCommonName');
-              pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
+            common_name.addEventListener('keydown', function (event) {
+              if (event.key === 'Enter') {
+                // Get the input value
+                const commonNameInput = common_name.value;
+                item.common_name = commonNameInput;
 
-              // Replace the input field with the <p> tag
-              card_upper_left.replaceChild(pTagCommonName, common_name,);
-            }
-          });
+                // Create a <p> tag to replace the input field
+                const pTagCommonName = document.createElement('p');
+                pTagCommonName.classList.add('pTagCommonName');
+                pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
 
+                // Replace the input field with the <p> tag
+                card_upper_left.replaceChild(pTagCommonName, common_name);
+              }
+            });
 
-          card_upper_left.appendChild(common_name);
+            card_upper_left.appendChild(common_name);
+          } else {
+            const pTagCommonName = document.createElement('p');
+            pTagCommonName.classList.add('pTagCommonName');
+            pTagCommonName.textContent = item.common_name; // Use item.commonName or the input value
+            card_upper_left.appendChild(pTagCommonName);
+          }
 
           //MPO Description
           const name = document.createElement('div');
@@ -951,7 +997,6 @@
 
           // Insert the serial numbers for this NSN item
           nsn_item.serial_numbers.forEach(serial_number => {
-
             const serial_number_element = document.createElement('div');
             serial_number_element.classList.add('serialNumber');
 
@@ -1058,6 +1103,7 @@
               }
 
               boxes.get(role).push({
+                common_name: item.common_name,
                 mpo_description: item.mpo_description,
                 nsn_description: nsn_item.nsn_description,
                 nsn: nsn_item.nsn,
@@ -1127,6 +1173,13 @@
       boxes = build_boxes(role_list);
 
       boxes.forEach((value, key, map) => {
+        // Group common items, so that their serial numbers appear together
+        const grouped = Object.groupBy(
+          value,
+          ({ mpo_description }) => mpo_description,
+        );
+        console.log(grouped);
+
         const individualBox = document.createElement('details');
         individualBox.classList.add('individualBox');
 
@@ -1151,23 +1204,26 @@
 
         value.forEach(assignment => {
           const lineItem = document.createElement('div');
-          lineItem.style.display = 'flex';
-          lineItem.style.justifyContent = 'space-between';
+          lineItem.classList.add('line_item');
 
           lineItem.insertAdjacentHTML(
             'beforeend',
             `<span>${
-              assignment.mpo_description ? assignment.mpo_description : ''
+              assignment.common_name
+                ? assignment.common_name
+                : assignment.mpo_description
             }</span>`,
-          );
-          lineItem.insertAdjacentHTML(
-            'beforeend',
-            `<span>${assignment.nsn_description}</span>`,
           );
           lineItem.insertAdjacentHTML(
             'beforeend',
             `<span>${assignment.serial_number}</span>`,
           );
+          const item_image = document.createElement('image-with-fallback');
+          item_image.classList.add('item_image');
+          item_image.setAttribute('image-src', `photos/${assignment.nsn}.jpg`);
+          item_image.setAttribute('fallback-src', `photos/default.jpg`);
+          item_image.style.justifySelf = 'end';
+          lineItem.appendChild(item_image);
 
           individualBox.appendChild(lineItem);
         });
@@ -1472,7 +1528,6 @@
       if (teamNumStartPage.value != '') {
         teamNumberVariable = teamNumStartPage.value;
       }
-      console.log(teamNumberVariable);
 
       updateTeamNumber();
 
@@ -1531,7 +1586,6 @@
 
     function boxes_checklist() {
       const boxes = build_individual_boxes(null);
-      console.log(boxes);
       const fromToModal = document.getElementById('fromToIndividual');
       const roleCheckBoxes = document.getElementById(
         'roleCheckBoxesIndividual',
@@ -1559,7 +1613,6 @@
       const boxes = build_boxes(included_roles);
 
       const item_mappings = new Map();
-      console.log(boxes);
 
       const names = included_roles.map(role => role.name);
 
@@ -1578,7 +1631,6 @@
             individual_mapping.set(item.nsn, [item.serial_number]);
           }
         });
-        console.log('Pdf printing');
         generate_pdfs(
           form.elements['from'].value,
           role.name,
@@ -1590,7 +1642,6 @@
         form.elements['to'].value,
         item_mappings,
       );
-      console.log(item_mappings);
     }
 
     function generate_2062_gunboxes(event, form) {
@@ -1602,11 +1653,9 @@
         .filter(name => form.elements[name].checked)
         .map(name => name.slice(8))
         .map(name => boxes_list.find(element => element.name === name));
-      console.log(included_roles);
       const boxes = build_individual_boxes(included_roles);
 
       const item_mappings = new Map();
-      console.log(boxes);
 
       const names = included_roles.map(role => role.name);
 
@@ -1625,7 +1674,6 @@
             individual_mapping.set(item.nsn, [item.serial_number]);
           }
         });
-        console.log('Pdf printing');
         generate_pdfs(
           form.elements['from'].value,
           role.name,
@@ -1637,7 +1685,6 @@
         form.elements['to'].value,
         item_mappings,
       );
-      console.log(item_mappings);
     }
 
     function generate_pdfs(from, to, item_mappings) {
@@ -1647,7 +1694,6 @@
           //
           //           let fields = f.getFields();
           //           fields.forEach(f => {
-          //             console.log(f.getName());
           //           });
           //
           // From and To Fields
@@ -1704,7 +1750,7 @@
     function save_to_local_storage() {
       // Show confirmation popup
       const confirmationPopup = document.getElementById('confirmationPopup');
-      confirmationPopup.style.display = 'block';
+      confirmationPopup.showModal();
 
       // Handle Yes button click
       document
@@ -1714,10 +1760,9 @@
           localStorage.setItem('items', JSON.stringify(items));
           localStorage.setItem('roles', JSON.stringify(roles));
           localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
-          console.log('Settings Saved');
 
           // Hide confirmation popup
-          confirmationPopup.style.display = 'none';
+          confirmationPopup.close();
 
           // Show "Settings saved" notification
           const notification = document.getElementById('notificationSaved');
@@ -1734,7 +1779,7 @@
         .getElementById('confirmNo')
         .addEventListener('click', function () {
           // Just hide the confirmation popup without saving
-          confirmationPopup.style.display = 'none';
+          confirmationPopup.close();
         });
     }
 
@@ -1747,7 +1792,6 @@
         roles = JSON.parse(saved_roles);
         boxes_list = JSON.parse(saved_boxes);
         toggle_page('main_page', items);
-        console.log('Settings Loaded');
       }
       // Show notification
       const notification = document.getElementById('notificationUploaded');
@@ -1803,8 +1847,6 @@
         });
       });
 
-      console.log(stay_go_data);
-
       const headers = [
         {
           value: 'MPO',
@@ -1829,5 +1871,7 @@
         stickyRowsCount: 1,
       }).then();
     }
+
+    load_from_local_storage();
   </script>
 </html>

@@ -1,28 +1,24 @@
 body {
-  background: #222222;
+  background: #222;
   max-width: 100vw;
   font-family: sans-serif;
   overflow: hidden;
 }
-
 .editTeamModal {
   width: 200px;
   border-radius: 10px;
-  background-color: #666666;
+  background-color: #666;
 }
-
 .editNamesList {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .editName {
   border-radius: 10px;
   border: none;
   margin-top: 5px;
 }
-
 .closeModal {
   display: flex;
   justify-content: center;
@@ -35,12 +31,11 @@ body {
   margin-block: 0.5rem;
   font-size: 1.25em;
 }
-
 .topBar {
   display: flex;
   position: sticky;
   top: 0;
-  background-color: #222222;
+  background-color: #222;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
@@ -48,11 +43,9 @@ body {
   box-shadow: 0 0 10px rgb(0, 0, 0.25);
   margin-bottom: 1rem;
 }
-
 .mainPage {
   height: 100vh;
 }
-
 .teamNumberWrapper {
   display: flex;
   justify-content: center;
@@ -70,7 +63,6 @@ body {
   padding-right: 1rem;
   cursor: pointer;
 }
-
 .teamNumberStartPage {
   display: flex;
   justify-content: center;
@@ -88,82 +80,71 @@ body {
   padding-right: 1rem;
   cursor: pointer;
 }
-
 .teamNumberContainer {
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
 }
-
 .teamMembersContainer {
   display: flex;
   flex-direction: row;
 }
-
 .teamMembersColumn1 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding-right: 0.5rem;
 }
-
 .teamMembersColumn2 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-
 .nameStartPage {
   height: min-content;
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   border-radius: 5px;
   width: 70%;
 }
-
 .roleAndName {
   display: flex;
   padding-top: 0.3rem;
   flex-direction: row;
   justify-content: space-around;
 }
-
 .searchBar {
   display: flex;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow: hidden;
-  background: #222222;
+  background: #222;
   flex: 3;
-  color: white;
+  color: #fff;
   padding-left: 1rem;
   padding-right: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
-
 .searchBar button {
   border: none;
   padding: 10px;
   background-color: #455d7a;
-  color: white;
+  color: #fff;
   cursor: pointer;
   border-radius: 10px;
   margin-block: 0.5rem;
 }
-
 .search {
   width: 100%;
-  background-color: #222222;
-  color: white;
-  border-width: 0px;
+  background-color: #222;
+  color: #fff;
+  border-width: 0;
   font-size: 16px;
 }
-
 .search:focus {
   outline-width: 0;
-  outline: none;
+  outline: 0;
 }
-
 .teamMembers {
   position: relative;
   display: flex;
@@ -174,7 +155,6 @@ body {
   font-family: sans-serif;
   flex: 1;
 }
-
 .namesAndRoles {
   display: flex;
   flex-direction: row;
@@ -182,11 +162,10 @@ body {
   padding-left: 5px;
   padding-right: 15px;
 }
-
 .editTeamMembers {
   display: block;
-  background-color: #666666;
-  color: #ffffff;
+  background-color: #666;
+  color: #fff;
   min-width: 100%;
   padding: 10px;
   border: none;
@@ -194,13 +173,11 @@ body {
   border-bottom-right-radius: 5px;
   text-align: center;
 }
-
 .editTeamMembers:hover {
-  background-color: #333333;
+  background-color: #333;
 }
-
 .membersDropDown {
-  background-color: #222222;
+  background-color: #222;
   font-size: 1.5em;
   color: #455d7a;
   padding: 16px;
@@ -208,30 +185,27 @@ body {
   border: none;
   cursor: pointer;
 }
-
 .teamNames {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: #666666;
+  right: 0;
+  background-color: #666;
   border-radius: 5px;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
-
 .teamMembers:hover .teamNames {
   display: block;
   border-radius: 10px;
 }
 .teamMembers:hover .membersDropDown {
-  background-color: #666666;
+  background-color: #666;
   border-radius: 10px;
 }
-
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -241,27 +215,23 @@ body {
   font-family: sans-serif;
   gap: 1rem;
 }
-
 .propertyByMOSWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .pagesWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 2rem;
 }
-
 .settingsWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 2rem;
 }
-
 .propertyByMOS {
   padding: 5%;
   border-radius: 0.5rem;
@@ -271,39 +241,33 @@ body {
   cursor: pointer;
   width: 100%;
 }
-
 .propertyByMOS:hover {
   transform: scale(1.05);
 }
-
 .boxesPageButton {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: black;
+  color: #000;
   background-color: gray;
   cursor: pointer;
   width: 100%;
 }
-
 .boxesPageButton:hover {
   transform: scale(1.05);
 }
-
 .saveToJSON {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: black;
+  color: #000;
   background-color: gray;
   cursor: pointer;
   width: 100%;
 }
-
 .saveToJSON:hover {
   transform: scale(1.05);
 }
-
 .bodyWrapper {
   display: flex;
   flex-direction: row;
@@ -312,13 +276,11 @@ body {
   padding-inline: 0.75rem;
   height: 100%;
 }
-
 .listWrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-
 .addBoxes {
   display: flex;
   flex-direction: row;
@@ -332,7 +294,6 @@ body {
   color: #455d7a;
   vertical-align: bottom;
 }
-
 .newBox {
   height: 35px;
   border: none;
@@ -340,21 +301,18 @@ body {
   border-bottom-left-radius: 10px;
   vertical-align: bottom;
 }
-
 .saveBox {
   height: 37px;
   border: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: #455d7a;
-  color: white;
+  color: #fff;
   vertical-align: bottom;
 }
-
 .saveBox:hover {
   transform: scale(1.1);
 }
-
 .inventoryList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(630px, 1fr));
@@ -363,7 +321,6 @@ body {
   overflow: scroll;
   margin-bottom: 7rem;
 }
-
 .card_upper {
   display: flex;
   flex-direction: row;
@@ -371,7 +328,6 @@ body {
   gap: 1rem;
   min-height: 250px;
 }
-
 .card_upper_left {
   display: flex;
   flex-grow: 2;
@@ -379,12 +335,10 @@ body {
   justify-content: flex-start;
   gap: 10px;
 }
-
 .card_lower {
   display: flex;
   flex-direction: column;
 }
-
 .item {
   display: flex;
   flex-direction: column;
@@ -393,10 +347,9 @@ body {
   color: #455d7a;
   padding: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
-  background-color: #333333;
+  background-color: #333;
   margin-right: 0.25rem;
 }
-
 .item_image {
   border-radius: 5px;
   display: block;
@@ -405,14 +358,31 @@ body {
   max-height: 250px;
   max-width: 250px;
 }
-
+image-with-fallback::part(image) {
+  border-radius: 5px;
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 250px;
+  max-width: 250px;
+}
+.line_item > image-with-fallback::part(image) {
+  border-radius: 5px;
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100px;
+  max-width: 100px;
+}
+.line_item > image-with-fallback::part(image):hover {
+  scale:250%;
+}
 .group_name {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 28%;
 }
-
 .location_and_name {
   display: flex;
   flex-direction: row;
@@ -422,24 +392,21 @@ body {
   height: min-content;
   width: 100%;
 }
-
 .common_name {
   font-size: 24px;
-  border: 2px solid lightgrey;
+  border: 2px solid #d3d3d3;
   width: 100%;
   border-radius: 0.5rem;
   cursor: not-allowed;
-  background-color: lightgrey;
+  background-color: #d3d3d3;
 }
-
 .pTagCommonName {
-  color: white;
+  color: #fff;
   font-size: 24px;
-  margin-block-start: 0%;
-  margin-block-end: 0%;
-  font-weight: bold;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-weight: 700;
 }
-
 .serialNumber {
   display: grid;
   grid-template-columns: 6fr 2fr;
@@ -447,49 +414,31 @@ body {
   padding-block: 0.2rem;
   padding-inline: 0.1rem;
 }
-
 .serialNumber:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
-
 .serialNumber:last-child {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
-
 .serialNumber:nth-child(odd) {
   background: #454545;
 }
-
 .serialNumber:nth-child(even) {
-  background: #333333;
+  background: #333;
 }
-
 .header {
   gap: 5px;
 }
-.itemHeader {
-  font-size: 18px;
-  text-decoration: bold;
-  color: white;
-  display: flex;
-}
-
-.itemHeader:hover {
-  cursor: pointer;
-}
-
 .lin {
   font-size: 1rem;
 }
-
 .name {
   font-size: 1rem;
-  color: #ffffff;
+  color: #fff;
   text-wrap: balance;
 }
-
 .icons {
   height: 1rem;
   width: auto;
@@ -497,15 +446,12 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-
 details[open] summary .icons {
   transform: rotate(180deg);
 }
-
 .serial {
-  color: white;
+  color: #fff;
 }
-
 .startPage {
   display: flex;
   justify-content: center;
@@ -513,9 +459,8 @@ details[open] summary .icons {
   width: 100vw;
   height: 100vh;
 }
-
 .addExcelFile {
-  background-color: white;
+  background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 0 5px rgb(0, 0, 0.25);
   padding: 1rem;
@@ -526,13 +471,11 @@ details[open] summary .icons {
   justify-content: space-around;
   flex-direction: column;
 }
-
 .excelIcon {
   height: 5rem;
   width: auto;
   color: green;
 }
-
 .fileInput {
   display: flex;
   flex-direction: row;
@@ -540,7 +483,6 @@ details[open] summary .icons {
   align-items: center;
   flex-direction: column;
 }
-
 .fileInputContainer {
   display: flex;
   flex-direction: row;
@@ -548,12 +490,10 @@ details[open] summary .icons {
   align-items: center;
   width: 100%;
 }
-
 .fileInputs {
   display: flex;
   flex-direction: column;
 }
-
 .btn2062 {
   margin-top: 2rem;
   border: 2px solid #000;
@@ -564,11 +504,9 @@ details[open] summary .icons {
 .btn {
   width: max-content;
 }
-
 #upload2062Button.uploaded {
-  background-color: rgb(84, 172, 84);
+  background-color: #54ac54;
 }
-
 .inputExcelWrapper {
   display: flex;
   width: 100%;
@@ -577,18 +515,16 @@ details[open] summary .icons {
   display: none;
   cursor: not-allowed;
 }
-
 .customExcelInput {
   display: flex;
   border: 2px solid #000;
   padding-inline: 1rem;
   padding-block: 0.25rem;
   border-radius: 0.5rem;
-  background-color: lightgrey;
+  background-color: #d3d3d3;
   margin-right: 3px;
   cursor: not-allowed;
 }
-
 .excelFileName {
   border: 2px solid #000;
   padding-inline: 1rem;
@@ -597,36 +533,26 @@ details[open] summary .icons {
   width: 60%;
   cursor: not-allowed;
 }
-
 .fileInput label.btn {
   border: 2px solid #000;
   padding-inline: 1rem;
   padding-block: 0.75rem;
   border-radius: 0.5rem;
 }
-
 .continueButtonContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-
 .continueButton {
   border: 2px solid #000;
   padding-inline: 1rem;
   padding-block: 0.25rem;
   border-radius: 0.5rem;
 }
-
-.propertyBookFile {
-  border: #000;
-  border-radius: 0.5rem;
-}
-
 .boxesPage {
   height: 100vh;
 }
-
 .boxesList {
   display: flex;
   flex-direction: column;
@@ -636,7 +562,6 @@ details[open] summary .icons {
   height: 90vh;
   padding-bottom: 10rem;
 }
-
 .boxes {
   display: flex;
   flex-direction: column;
@@ -647,42 +572,39 @@ details[open] summary .icons {
   height: 90vh;
   padding-bottom: 10rem;
 }
-
 .individualBox {
-  background-color: white;
+  background-color: #fff;
   width: 90%;
   padding: 1rem;
   border-radius: 0.5rem;
 }
-
 .nsn_item_header {
   display: flex;
   flex-direction: column;
   margin-top: auto;
   width: 100%;
   justify-content: space-between;
-  color: white;
+  color: #fff;
   font-size: small;
 }
-
 .boxHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 details[open] .boxHeader {
   margin-bottom: 1rem;
 }
-
+.line_item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  flex-direction; row;
+  text-wrap: balance;
+  justify-content: space-between;
+}
 h3 {
-  margin: 0rem;
+  margin: 0;
 }
-
-.generateButton {
-  border-radius: 0.25rem;
-}
-
 .generateMasterButton {
   border: 2px solid #000;
   padding-inline: 1rem;
@@ -691,66 +613,49 @@ h3 {
   width: 20%;
   width: max-content;
 }
-
 .rightGrouping {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
 }
-
 .fromTo {
   border-radius: 0.5rem;
 }
-
 .fromToForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
 dialog::backdrop {
   backdrop-filter: blur(10px);
 }
-
 .selectList {
   display: flex;
   justify-content: flex-end;
 }
-
 .wrapperDiv {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .generateDeleteWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .checkbox {
   width: 3rem;
   height: 3rem;
 }
-
 .popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #666666;
-  border: 2px solid #333;
+  background-color: #eee;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-  display: none; /* Initially hidden */
+  border: none;
 }
-
 .popup button {
   margin: 5px;
   padding: 8px 12px;
@@ -759,17 +664,14 @@ dialog::backdrop {
   border-radius: 5px;
   cursor: pointer;
 }
-
 #confirmYes {
   background-color: #4caf50;
-  color: white;
+  color: #fff;
 }
-
 #confirmNo {
   background-color: #f44336;
-  color: white;
+  color: #fff;
 }
-
 .notification {
   position: fixed;
   top: 20px;
@@ -779,7 +681,7 @@ dialog::backdrop {
   color: #2e7d32;
   padding: 10px 20px;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 16px;
   opacity: 0;
   transition: opacity 0.3s ease;
