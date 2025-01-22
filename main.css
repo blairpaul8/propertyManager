@@ -649,6 +649,12 @@ dialog::backdrop {
 .selectList {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
+}
+
+.boxDropDown {
+  max-width: max-content;
+  width: 100%
 }
 .wrapperDiv {
   width: 100%;
@@ -662,8 +668,8 @@ dialog::backdrop {
   align-items: center;
 }
 .checkbox {
-  width: 3rem;
-  height: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .popup {
   background-color: #eee;
