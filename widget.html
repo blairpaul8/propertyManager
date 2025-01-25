@@ -400,7 +400,9 @@
           >
             Generate Master 2062
           </button>
-          <button id="deleteSelected" class="generateMasterButton">Delete Selected</button>
+          <button id="deleteSelected" class="generateMasterButton">
+            Delete Selected
+          </button>
         </div>
         <div id="individualBoxes" class="boxes"></div>
       </div>
@@ -822,6 +824,10 @@
      * @returns {number} Percentage match
      */
     function trigram_comparison(left_str, right_str) {
+      if (left_str === right_str) {
+        return 1;
+      }
+
       const left_trigrams = [];
       const right_trigrams = [];
 
@@ -853,6 +859,10 @@
 
     //digram_comparison
     function digram_comparison(left_str, right_str) {
+      if (left_str === right_str) {
+        return 1;
+      }
+
       const left_digrams = [];
       const right_digrams = [];
 
@@ -888,28 +898,33 @@
 
       if (input.length !== 0) {
         items.forEach(item => {
-          if (!item.mpo_description) {
-            return;
-          }
           const compare_against =
-            item.mpo_description +
-            item.common_name +
-            item.nsn_items.map(nsn => {
-              return nsn.serial_numbers
-                .map(sns => {
-                  return sns.serial_number;
-                })
-                .join(' ');
-            });
+            item.mpo_description ??
+            '' +
+              item.common_name +
+              item.nsn_items.map(nsn => {
+                return nsn.serial_numbers
+                  .map(sns => {
+                    return sns.serial_number;
+                  })
+                  .join(' ');
+              });
+          if (item === items[0]) {
+            console.log(compare_against);
+          }
           const distance =
             input.length < 3
-              ? digram_comparison(input, compare_against)
-              : trigram_comparison(input, compare_against);
+              ? digram_comparison(input, compare_against.toUpperCase())
+              : trigram_comparison(input, compare_against.toUpperCase());
+          if (item.common_name === 'm4') {
+            console.log({ item: item, score: distance });
+          }
           if (distance >= relativeThreshold) {
             searchResults.push({ item: item, score: distance });
           }
         });
 
+        // console.log(searchResults);
         searchResults.sort((a, b) => b.score - a.score);
       } else {
         return toggle_page('main_page', items);
