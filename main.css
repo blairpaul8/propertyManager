@@ -5,31 +5,43 @@ body {
   overflow: hidden;
 }
 .editTeamModal {
-  width: 200px;
   border-radius: 10px;
-  background-color: #666;
+  background-color: #222;
+  border: none;
+}
+
+.editNamesList > .role {
+  padding-left: 0.25rem;
+  color: #fff;
 }
 .editNamesList {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 .editName {
   border-radius: 10px;
   border: none;
   margin-top: 5px;
 }
+
+.nameInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  align-items: center;
+}
 .closeModal {
-  display: flex;
-  justify-content: center;
-  width: 125px;
-  border: none;
   padding: 10px;
-  background-color: #455d7a;
+  background-color: #222;
+  border: 1px solid #fff;
+  color: #fff;
   cursor: pointer;
   border-radius: 10px;
   margin-block: 0.5rem;
   font-size: 1.25em;
+  grid-column: span 2;
 }
 .topBar {
   display: flex;
@@ -126,10 +138,9 @@ body {
   margin-right: 1rem;
 }
 .searchBar button {
-  border: none;
   padding: 10px;
-  background-color: #455d7a;
-  color: #fff;
+  background: none;
+  border: 1px solid white;
   cursor: pointer;
   border-radius: 10px;
   margin-block: 0.5rem;
@@ -151,7 +162,6 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 200px;
-  box-shadow: 0 0 5px rgb(0, 0, 0.25);
   font-family: sans-serif;
   flex: 1;
 }
@@ -174,23 +184,21 @@ body {
   text-align: center;
 }
 .editTeamMembers:hover {
-  background-color: #333;
 }
 .membersDropDown {
   background-color: #222;
-  font-size: 1.5em;
-  color: #455d7a;
-  padding: 16px;
+  color: #fff;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  width: 100%;
 }
 .teamNames {
   display: none;
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #666;
+  background-color: #fff;
   border-radius: 5px;
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -203,8 +211,7 @@ body {
   border-radius: 10px;
 }
 .teamMembers:hover .membersDropDown {
-  background-color: #666;
-  border-radius: 10px;
+  scale: 105%;
 }
 .sidebar {
   display: flex;
@@ -237,7 +244,7 @@ body {
   border-radius: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   font-size: 1.25em;
-  color: #455d7a;
+  color: #fffff;
   cursor: pointer;
   width: 100%;
 }
@@ -248,8 +255,8 @@ body {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: #000;
-  background-color: gray;
+  color: #fff;
+  background-color: #222;
   cursor: pointer;
   width: 100%;
 }
@@ -260,8 +267,8 @@ body {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: #000;
-  background-color: gray;
+  color: #fff;
+  background-color: #222;
   cursor: pointer;
   width: 100%;
 }
@@ -286,12 +293,12 @@ body {
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 10px;
+  align-items: center;
 }
 .inputLabel {
-  margin-top: 10px;
   margin-right: 10px;
   font-size: 1.2em;
-  color: #455d7a;
+  color: #ffffff;
   vertical-align: bottom;
 }
 .newBox {
@@ -306,7 +313,8 @@ body {
   border: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: #455d7a;
+  background-color: #222;
+  border: solid 1px white;
   color: #fff;
   vertical-align: bottom;
 }
@@ -359,9 +367,10 @@ body {
   border-radius: 0.25rem;
   color: #455d7a;
   padding: 0.5rem;
-  box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
-  background-color: #333;
+  /* box-shadow: 0 0 7.5px rgb(0, 0, 0.25); */
+  background-color: #222;
   margin-right: 0.25rem;
+  border: 1px solid white;
 }
 .item_image {
   border-radius: 5px;
@@ -388,7 +397,7 @@ image-with-fallback::part(image) {
   max-width: 100px;
 }
 .line_item > image-with-fallback::part(image):hover {
-  scale:250%;
+  scale: 250%;
 }
 .group_name {
   display: flex;
@@ -436,10 +445,10 @@ image-with-fallback::part(image) {
   border-bottom-right-radius: 0.25rem;
 }
 .serialNumber:nth-child(odd) {
-  background: #454545;
+  background: #282828;
 }
 .serialNumber:nth-child(even) {
-  background: #333;
+  background: #222;
 }
 .header {
   gap: 5px;
@@ -654,7 +663,7 @@ dialog::backdrop {
 
 .boxDropDown {
   max-width: max-content;
-  width: 100%
+  width: 100%;
 }
 .wrapperDiv {
   width: 100%;
@@ -708,4 +717,19 @@ dialog::backdrop {
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1000;
+}
+
+.lower_card_sn {
+  color: #8a8a8a;
+}
+
+.sfoda {
+  color: #fff;
+}
+
+.dropdown_name {
+  color: #000;
+}
+
+.search_button {
 }
