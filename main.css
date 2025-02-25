@@ -348,16 +348,41 @@ body {
   flex-direction: column;
 }
 
-.lower_card_header {
-  display: flex;
-  flex-direction: row;
+.lower_card_padding {
+  display: grid;
+  grid-template-columns: 2fr 2fr 6fr;
   justify-content: space-between;
   width: 100%;
+
+}
+
+.on_hand {
+  display: flex;
+  text-align: center;
+  justify-self: center;
+  color: #8a8a8a;
+}
+
+.lower_card_header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 6fr;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.checkbox_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 100%;
+
 }
 
 .general_individual {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 15px;
 }
 .item {
@@ -448,10 +473,28 @@ image-with-fallback::part(image) {
 }
 .serialNumber {
   display: grid;
-  grid-template-columns: 6fr 2fr;
+  grid-template-columns: 2fr 1fr 1fr 6fr;
   align-items: end;
   padding-block: 0.2rem;
   padding-inline: 0.1rem;
+}
+
+.yes_check_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  color: white;
+}
+
+.missing_reason_modal {
+  border-radius: 2rem;
+  background-color: #8a8a8a;
+}
+
+
+.missing_reason_input {
+  display: block;
+  margin-bottom: 10px;
 }
 .serialNumber:first-child {
   border-top-left-radius: 0.25rem;
@@ -679,8 +722,7 @@ dialog::backdrop {
 }
 
 .boxDropDown {
-  max-width: max-content;
-  width: 100%;
+  min-width: 95px;
 }
 .wrapperDiv {
   width: 100%;
