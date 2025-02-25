@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -78,7 +78,7 @@
 
         <div class="fileInput">
           <label for="blank" id="upload2062Button" class="btn2062"
-          >Blank 2062
+            >Blank 2062
           </label>
           <input id="blank" style="visibility: hidden" type="file" />
         </div>
@@ -90,7 +90,7 @@
                 for="excelInput1"
                 class="customExcelInput"
                 id="customExcelInput1"
-              >Choose File</label
+                >Choose File</label
               >
               <input
                 class="excelFileName"
@@ -124,7 +124,7 @@
                 for="excelInput2"
                 class="customExcelInput"
                 id="customExcelInput2"
-              >Choose File</label
+                >Choose File</label
               >
               <input
                 class="excelFileName"
@@ -418,491 +418,491 @@ the list as soon as they type as there are no network requests to slow things do
     <div id="notificationUploaded" class="notification">Settings uploaded!</div>
   </body>
   <script type="text/javascript">
-  // Adding webcomponent for image with fallback
-  class ImageWithFallback extends HTMLElement {
-    constructor() {
-      super();
+    // Adding webcomponent for image with fallback
+    class ImageWithFallback extends HTMLElement {
+      constructor() {
+        super();
 
-      // Attach a shadow DOM
-      this.attachShadow({ mode: 'open' });
+        // Attach a shadow DOM
+        this.attachShadow({ mode: 'open' });
 
-      // Create an <img> element inside the shadow DOM
-      this.imgElement = document.createElement('img');
-      this.imgElement.setAttribute('part', 'image');
+        // Create an <img> element inside the shadow DOM
+        this.imgElement = document.createElement('img');
+        this.imgElement.setAttribute('part', 'image');
 
-      // Create the dialog element
-      this.dialogElement = document.createElement('dialog');
-      this.dialogImage = document.createElement('img');
-      this.dialogElement.appendChild(this.dialogImage);
+        // Create the dialog element
+        this.dialogElement = document.createElement('dialog');
+        this.dialogImage = document.createElement('img');
+        this.dialogElement.appendChild(this.dialogImage);
+      }
+
+      connectedCallback() {
+        // Read the attributes
+        const imageSrc = this.getAttribute('image-src');
+        const fallbackSrc = this.getAttribute('fallback-src');
+        const altText = this.getAttribute('alt');
+
+        // Set the alt attribute for the image
+        this.imgElement.alt = altText || 'Image';
+
+        // Set the image source
+        this.imgElement.src = imageSrc;
+
+        const originalConsoleError = console.error;
+        console.error = function () {}; // Suppress error logs
+
+        // Handle image load error
+        this.imgElement.onerror = () => {
+          this.imgElement.src = fallbackSrc; // Set to fallback image on error
+
+          console.error = originalConsoleError;
+        };
+
+        this.imgElement.classList.add('item_image');
+
+        // Set the dialog image source to the same as the main image
+        this.dialogImage.src = imageSrc;
+        this.dialogImage.style.maxWidth = '80vw';
+        this.dialogImage.style.maxHeight = '80vh';
+
+        // Open the dialog when the image is clicked
+        this.imgElement.addEventListener('click', () => {
+          this.dialogElement.showModal(); // Open the dialog
+        });
+
+        // Close the dialog when clicked outside of the image in the dialog
+        this.dialogElement.addEventListener('click', e => {
+          if (e.target === this.dialogElement) {
+            this.dialogElement.close(); // Close the dialog
+          }
+        });
+        this.dialogElement.style.border = 'none';
+
+        // Append the <img> element and dialog to the shadow DOM
+        this.shadowRoot.appendChild(this.imgElement);
+        this.shadowRoot.appendChild(this.dialogElement);
+      }
     }
 
-    connectedCallback() {
-      // Read the attributes
-      const imageSrc = this.getAttribute('image-src');
-      const fallbackSrc = this.getAttribute('fallback-src');
-      const altText = this.getAttribute('alt');
+    customElements.define('image-with-fallback', ImageWithFallback);
 
-      // Set the alt attribute for the image
-      this.imgElement.alt = altText || 'Image';
+    // Get the file input, label, and the text input field
+    const fileInput1 = document.getElementById('excelInput1');
+    const fileNameField1 = document.getElementById('excelFileName1');
 
-      // Set the image source
-      this.imgElement.src = imageSrc;
+    // Add an event listener to update the text field when a file is selected
+    fileInput1.addEventListener('change', function () {
+      const fileName =
+        this.files.length > 0 ? this.files[0].name : 'No file chosen';
+      fileNameField1.value = fileName;
+    });
 
-      const originalConsoleError = console.error;
-      console.error = function () {}; // Suppress error logs
+    const fileInput2 = document.getElementById('excelInput2');
+    const fileNameField2 = document.getElementById('excelFileName2');
 
-      // Handle image load error
-      this.imgElement.onerror = () => {
-        this.imgElement.src = fallbackSrc; // Set to fallback image on error
+    // Add an event listener to update the text field when a file is selected
+    fileInput2.addEventListener('change', function () {
+      const fileName =
+        this.files.length > 0 ? this.files[0].name : 'No file chosen';
+      fileNameField2.value = fileName;
+    });
 
-        console.error = originalConsoleError;
-      };
-
-      this.imgElement.classList.add('item_image');
-
-      // Set the dialog image source to the same as the main image
-      this.dialogImage.src = imageSrc;
-      this.dialogImage.style.maxWidth = '80vw';
-      this.dialogImage.style.maxHeight = '80vh';
-
-      // Open the dialog when the image is clicked
-      this.imgElement.addEventListener('click', () => {
-        this.dialogElement.showModal(); // Open the dialog
-      });
-
-      // Close the dialog when clicked outside of the image in the dialog
-      this.dialogElement.addEventListener('click', e => {
-        if (e.target === this.dialogElement) {
-          this.dialogElement.close(); // Close the dialog
-        }
-      });
-      this.dialogElement.style.border = 'none';
-
-      // Append the <img> element and dialog to the shadow DOM
-      this.shadowRoot.appendChild(this.imgElement);
-      this.shadowRoot.appendChild(this.dialogElement);
-    }
-  }
-
-  customElements.define('image-with-fallback', ImageWithFallback);
-
-  // Get the file input, label, and the text input field
-  const fileInput1 = document.getElementById('excelInput1');
-  const fileNameField1 = document.getElementById('excelFileName1');
-
-  // Add an event listener to update the text field when a file is selected
-  fileInput1.addEventListener('change', function () {
-    const fileName =
-      this.files.length > 0 ? this.files[0].name : 'No file chosen';
-    fileNameField1.value = fileName;
-  });
-
-  const fileInput2 = document.getElementById('excelInput2');
-  const fileNameField2 = document.getElementById('excelFileName2');
-
-  // Add an event listener to update the text field when a file is selected
-  fileInput2.addEventListener('change', function () {
-    const fileName =
-      this.files.length > 0 ? this.files[0].name : 'No file chosen';
-    fileNameField2.value = fileName;
-  });
-
-  /*
+    /*
      * PAGES
      * Each Page should have its own element in the 'pages' array.
      * Pages are identified by a page_name, the actual element,
      * and an optional function which should be called to render any dynamic content.
      */
-  const pages = [
-    {
-      page_name: 'start_page',
-      element: document.getElementById('startPage'),
-      render_func: null,
-    },
-    {
-      page_name: 'main_page',
-      element: document.getElementById('mainPage'),
-      render_func: render_list,
-    },
-    {
-      page_name: 'boxes_page',
-      element: document.getElementById('boxesPage'),
-      render_func: render_boxes,
-    },
-    {
-      page_name: 'individual_boxes_page_',
-      element: document.getElementById('individualBoxesPage'),
-      render_func: render_individual_boxes,
-    },
-  ];
+    const pages = [
+      {
+        page_name: 'start_page',
+        element: document.getElementById('startPage'),
+        render_func: null,
+      },
+      {
+        page_name: 'main_page',
+        element: document.getElementById('mainPage'),
+        render_func: render_list,
+      },
+      {
+        page_name: 'boxes_page',
+        element: document.getElementById('boxesPage'),
+        render_func: render_boxes,
+      },
+      {
+        page_name: 'individual_boxes_page_',
+        element: document.getElementById('individualBoxesPage'),
+        render_func: render_individual_boxes,
+      },
+    ];
 
-  // Toggles which 'Page' is currently being displayed.
-  // Any arguments to be passed to a pages 'render_func' are
-  // passed though the args parameter, which accepts 0 or more arguments.
-  // Example: toggle_page('main_page', document.getElementById('inventoryList'), items)
-  // Example: toggle_page('boxes_page', [{ name: "Tony", role: "Z" }, { name: "Rhyan", role: "E2" }])
-  function toggle_page(page_name, ...args) {
-    pages.forEach(page => {
-      if (page.page_name === page_name) {
-        if (page.render_func !== null) {
-          page.render_func(...args);
+    // Toggles which 'Page' is currently being displayed.
+    // Any arguments to be passed to a pages 'render_func' are
+    // passed though the args parameter, which accepts 0 or more arguments.
+    // Example: toggle_page('main_page', document.getElementById('inventoryList'), items)
+    // Example: toggle_page('boxes_page', [{ name: "Tony", role: "Z" }, { name: "Rhyan", role: "E2" }])
+    function toggle_page(page_name, ...args) {
+      pages.forEach(page => {
+        if (page.page_name === page_name) {
+          if (page.render_func !== null) {
+            page.render_func(...args);
+          }
+          page.element.style.display = 'block';
+        } else {
+          page.element.style.display = 'none';
         }
-        page.element.style.display = 'block';
-      } else {
-        page.element.style.display = 'none';
-      }
-    });
-  }
+      });
+    }
 
-  /**
+    /**
      * Parse `data` into individual items.
      * @param {string{}{}} data - row-by-row view of the property book
      */
-  function parseItems(data) {
-    var items = [];
-    var currentItem = [];
-    for (let i = 0; i < data.length; i++) {
-      if (data[i][0] === 'MPO') {
-        if (currentItem.length > 0) {
-          items.push(currentItem);
-        }
-        currentItem = []; // Reset currentItem for the next MPO
-        currentItem.push(data[i]);
-      } else {
-        currentItem.push(data[i]);
-      }
-    }
-
-    if (currentItem.length > 0) {
-      items.push(currentItem);
-    }
-
-    return items;
-  }
-
-  class nsn_item {
-    nsn;
-    nsn_description;
-    ui;
-    ciic;
-    dla;
-    buom;
-    quantity;
-    // Mapping of serial numbers to roles [{'serial_number': 431431, 'assignment': 'E1'}, ...]
-    serial_numbers = [];
-
-    constructor(nsn_item_row) {
-      this.nsn = nsn_item_row[1][0];
-      this.nsn_description = nsn_item_row[1][2];
-      this.ui = nsn_item_row[1][5];
-      this.ciic = nsn_item_row[1][7];
-      this.dla = nsn_item_row[1][8];
-      this.buom = nsn_item_row[1][9];
-      this.quantity = nsn_item_row[1][13];
-
-      for (let i = 3; i < nsn_item_row.length; i++) {
-        if (nsn_item_row[i][0] === 'SysNo') {
-          continue;
-        }
-        // The three possible spots for a serial number
-        // We need to check each for null/undefined so those don't up in the array
-        if (nsn_item_row[i][1]) {
-          this.serial_numbers.push({
-            serial_number: nsn_item_row[i][1],
-            assignment: null,
-            missing_reason: null
-          });
-        }
-        if (nsn_item_row[i][5]) {
-          this.serial_numbers.push({
-            serial_number: nsn_item_row[i][5],
-            assignment: null,
-            missing_reason: null
-          });
-        }
-        if (nsn_item_row[i][10]) {
-          this.serial_numbers.push({
-            serial_number: nsn_item_row[i][10],
-            assignment: null,
-            missing_reason: null
-          });
-        }
-      }
-
-      // Prevents new fields from being added in the future, acts more like a struct
-      Object.seal(this);
-    }
-  }
-
-  class item {
-    mpo;
-    mpo_description;
-    nsn_items = [];
-    common_name;
-    location;
-
-    constructor(item_rows) {
-      let header = []; // Just MPO and MPO Description
-      let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
-
-      let cursor = 0;
-      this.common_name = '';
-      this.location = '';
-      for (let i = 0; i < item_rows.length; i++) {
-        // We reached the end of the header
-        if (item_rows[i][0] === 'NSN' && cursor === 0) {
-          header = item_rows.slice(0, i);
-          cursor = i;
-          continue;
-        }
-
-        // Item has multiples NSNs
-        if (item_rows[i][0] === 'NSN') {
-          nsns.push(item_rows.slice(cursor, i));
-          cursor = i;
-          continue;
-        }
-
-        // Last serial number block
-        if (i === item_rows.length - 1) {
-          nsns.push(item_rows.slice(cursor));
-        }
-      }
-
-      if (header.length > 1) {
-        // Some items don't have an mpo description
-        this.mpo = header[1][0];
-        this.mpo_description = header[1][2];
-      }
-
-      // Add a new NSN for each serial number block
-      nsns.forEach(nsn_item_rows => {
-        this.nsn_items.push(new nsn_item(nsn_item_rows));
-      });
-
-      // Prevents new fields from being added in the future, acts more like a struct
-      Object.seal(this);
-    }
-  }
-
-  //Section Property Arrrays by LIN number.
-  let echo_property = [
-    'A35329',
-    'C05002',
-    'E05011',
-    'FA205N',
-    'FA20A2',
-    'FA950P',
-    'M18029',
-    'P05003',
-    'R30308',
-    'R45463',
-    '70202N',
-    '70203N',
-    '70210N',
-    '70215N',
-    '98490N',
-    'FA20A0',
-    'FA400H',
-    'FA9535',
-    'FA953E',
-    'FH2087',
-    'FJ211E',
-    'FJ2572',
-    'FJ302A',
-    'Z05849',
-  ];
-
-  let bravo_property = [
-    'A05014',
-    'B67907',
-    'C06935',
-    'J68653',
-    'L05003',
-    'L69080',
-    'M05036',
-    'M09009',
-    'M60256',
-    'M79678',
-    'M92454',
-    'N07848',
-    'P05043',
-    'R05003',
-    'R05009',
-    'R45351',
-    'R45601',
-    'S08669',
-    'S60342',
-    'T39223',
-    '69001N',
-    '70185N',
-    'A05014',
-    'FA550A',
-    'FA5518',
-    'FA5523',
-    'FA552D',
-    'FA552Q',
-    'FA552T',
-    'FA5533',
-    'FA553F',
-    'FA5553',
-    'FA5554',
-    'FA5559',
-    'FA5566',
-    'FA5573',
-    'FA6003',
-    'FA6038',
-    'FE3064',
-    'FG6003',
-    'GA4001',
-    'GA4002',
-    'GA4005',
-    'GA4006',
-    'GA4007',
-    'GA4021',
-    'GA403E',
-    'GA4046',
-    'GA404A',
-    'GA4068',
-    'GA4087',
-    'GA408T',
-    'GA409Q',
-    'L05001',
-    'MC8012',
-    'T05020',
-    'ZA050L',
-    'ZA0513',
-    'ZA051F',
-    'ZA0569',
-    'ZA0586',
-    'ZA05AC',
-  ];
-
-  let charlie_property = [
-    'J00697',
-    'L02015',
-    'W34648',
-    'W37483',
-    'W69528',
-    '92026N',
-    'DA151M',
-    'DA650V',
-    'EB1100',
-    'FA101P',
-    'LB318X',
-    'MC308W',
-    'SA102U',
-    'SB1000',
-  ];
-
-  let delta_property = ['NA1519', 'S05058'];
-
-  function filterBySection(section = null) {
-    const results = [];
-    let temp = '';
-
-    if (section === null) {
-      toggle_page('main_page', items);
-    } else {
-      items.forEach(item => {
-        section.forEach(keyword => {
-          if (!item.mpo_description) {
-            return;
+    function parseItems(data) {
+      var items = [];
+      var currentItem = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i][0] === 'MPO') {
+          if (currentItem.length > 0) {
+            items.push(currentItem);
           }
-          if (item.mpo_description.slice(0, 6) === keyword) {
-            results.push(item);
+          currentItem = []; // Reset currentItem for the next MPO
+          currentItem.push(data[i]);
+        } else {
+          currentItem.push(data[i]);
+        }
+      }
+
+      if (currentItem.length > 0) {
+        items.push(currentItem);
+      }
+
+      return items;
+    }
+
+    class nsn_item {
+      nsn;
+      nsn_description;
+      ui;
+      ciic;
+      dla;
+      buom;
+      quantity;
+      // Mapping of serial numbers to roles [{'serial_number': 431431, 'assignment': 'E1'}, ...]
+      serial_numbers = [];
+
+      constructor(nsn_item_row) {
+        this.nsn = nsn_item_row[1][0];
+        this.nsn_description = nsn_item_row[1][2];
+        this.ui = nsn_item_row[1][5];
+        this.ciic = nsn_item_row[1][7];
+        this.dla = nsn_item_row[1][8];
+        this.buom = nsn_item_row[1][9];
+        this.quantity = nsn_item_row[1][13];
+
+        for (let i = 3; i < nsn_item_row.length; i++) {
+          if (nsn_item_row[i][0] === 'SysNo') {
+            continue;
           }
+          // The three possible spots for a serial number
+          // We need to check each for null/undefined so those don't up in the array
+          if (nsn_item_row[i][1]) {
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][1],
+              assignment: null,
+              missing_reason: null,
+            });
+          }
+          if (nsn_item_row[i][5]) {
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][5],
+              assignment: null,
+              missing_reason: null,
+            });
+          }
+          if (nsn_item_row[i][10]) {
+            this.serial_numbers.push({
+              serial_number: nsn_item_row[i][10],
+              assignment: null,
+              missing_reason: null,
+            });
+          }
+        }
+
+        // Prevents new fields from being added in the future, acts more like a struct
+        Object.seal(this);
+      }
+    }
+
+    class item {
+      mpo;
+      mpo_description;
+      nsn_items = [];
+      common_name;
+      location;
+
+      constructor(item_rows) {
+        let header = []; // Just MPO and MPO Description
+        let nsns = []; // Double nested array, [[nsn & all serial numbers], [nsn & all serial numbers]]
+
+        let cursor = 0;
+        this.common_name = '';
+        this.location = '';
+        for (let i = 0; i < item_rows.length; i++) {
+          // We reached the end of the header
+          if (item_rows[i][0] === 'NSN' && cursor === 0) {
+            header = item_rows.slice(0, i);
+            cursor = i;
+            continue;
+          }
+
+          // Item has multiples NSNs
+          if (item_rows[i][0] === 'NSN') {
+            nsns.push(item_rows.slice(cursor, i));
+            cursor = i;
+            continue;
+          }
+
+          // Last serial number block
+          if (i === item_rows.length - 1) {
+            nsns.push(item_rows.slice(cursor));
+          }
+        }
+
+        if (header.length > 1) {
+          // Some items don't have an mpo description
+          this.mpo = header[1][0];
+          this.mpo_description = header[1][2];
+        }
+
+        // Add a new NSN for each serial number block
+        nsns.forEach(nsn_item_rows => {
+          this.nsn_items.push(new nsn_item(nsn_item_rows));
         });
-      });
 
-      toggle_page('main_page', results);
+        // Prevents new fields from being added in the future, acts more like a struct
+        Object.seal(this);
+      }
     }
-  }
 
-  /**
+    //Section Property Arrrays by LIN number.
+    let echo_property = [
+      'A35329',
+      'C05002',
+      'E05011',
+      'FA205N',
+      'FA20A2',
+      'FA950P',
+      'M18029',
+      'P05003',
+      'R30308',
+      'R45463',
+      '70202N',
+      '70203N',
+      '70210N',
+      '70215N',
+      '98490N',
+      'FA20A0',
+      'FA400H',
+      'FA9535',
+      'FA953E',
+      'FH2087',
+      'FJ211E',
+      'FJ2572',
+      'FJ302A',
+      'Z05849',
+    ];
+
+    let bravo_property = [
+      'A05014',
+      'B67907',
+      'C06935',
+      'J68653',
+      'L05003',
+      'L69080',
+      'M05036',
+      'M09009',
+      'M60256',
+      'M79678',
+      'M92454',
+      'N07848',
+      'P05043',
+      'R05003',
+      'R05009',
+      'R45351',
+      'R45601',
+      'S08669',
+      'S60342',
+      'T39223',
+      '69001N',
+      '70185N',
+      'A05014',
+      'FA550A',
+      'FA5518',
+      'FA5523',
+      'FA552D',
+      'FA552Q',
+      'FA552T',
+      'FA5533',
+      'FA553F',
+      'FA5553',
+      'FA5554',
+      'FA5559',
+      'FA5566',
+      'FA5573',
+      'FA6003',
+      'FA6038',
+      'FE3064',
+      'FG6003',
+      'GA4001',
+      'GA4002',
+      'GA4005',
+      'GA4006',
+      'GA4007',
+      'GA4021',
+      'GA403E',
+      'GA4046',
+      'GA404A',
+      'GA4068',
+      'GA4087',
+      'GA408T',
+      'GA409Q',
+      'L05001',
+      'MC8012',
+      'T05020',
+      'ZA050L',
+      'ZA0513',
+      'ZA051F',
+      'ZA0569',
+      'ZA0586',
+      'ZA05AC',
+    ];
+
+    let charlie_property = [
+      'J00697',
+      'L02015',
+      'W34648',
+      'W37483',
+      'W69528',
+      '92026N',
+      'DA151M',
+      'DA650V',
+      'EB1100',
+      'FA101P',
+      'LB318X',
+      'MC308W',
+      'SA102U',
+      'SB1000',
+    ];
+
+    let delta_property = ['NA1519', 'S05058'];
+
+    function filterBySection(section = null) {
+      const results = [];
+      let temp = '';
+
+      if (section === null) {
+        toggle_page('main_page', items);
+      } else {
+        items.forEach(item => {
+          section.forEach(keyword => {
+            if (!item.mpo_description) {
+              return;
+            }
+            if (item.mpo_description.slice(0, 6) === keyword) {
+              results.push(item);
+            }
+          });
+        });
+
+        toggle_page('main_page', results);
+      }
+    }
+
+    /**
      * trigram_comparison returns the percentage of trigrams which matched between 'left_str' and 'right_str'.
      * Percentage is based on the total number of trigrams matched / number of trigrams in the shorter string
      * @param left_str {string} - First string of the comparison
      * @param right_str {string} - Second string of the comparison
      * @returns {number} Percentage match
      */
-  function trigram_comparison(left_str, right_str) {
-    if (left_str === right_str) {
-      return 1;
-    }
+    function trigram_comparison(left_str, right_str) {
+      if (left_str === right_str) {
+        return 1;
+      }
 
-    const left_trigrams = [];
-    const right_trigrams = [];
+      const left_trigrams = [];
+      const right_trigrams = [];
 
-    for (let i = 0; i < left_str.length - 2; i++) {
-      left_trigrams.push(left_str.slice(i, i + 3));
-    }
+      for (let i = 0; i < left_str.length - 2; i++) {
+        left_trigrams.push(left_str.slice(i, i + 3));
+      }
 
-    for (let i = 0; i < right_str.length - 2; i++) {
-      right_trigrams.push(right_str.slice(i, i + 3));
-    }
+      for (let i = 0; i < right_str.length - 2; i++) {
+        right_trigrams.push(right_str.slice(i, i + 3));
+      }
 
-    let match_count = 0;
-    for (let i = 0; i < left_trigrams.length; i++) {
-      for (let j = 0; j < right_trigrams.length; j++) {
-        if (left_trigrams[i] === right_trigrams[j]) {
-          match_count++;
+      let match_count = 0;
+      for (let i = 0; i < left_trigrams.length; i++) {
+        for (let j = 0; j < right_trigrams.length; j++) {
+          if (left_trigrams[i] === right_trigrams[j]) {
+            match_count++;
+          }
         }
       }
+
+      if (left_trigrams.length === 0 || right_trigrams.length === 0) {
+        return 0;
+      }
+
+      return (
+        match_count / Math.min(left_trigrams.length, right_trigrams.length)
+      );
     }
 
-    if (left_trigrams.length === 0 || right_trigrams.length === 0) {
-      return 0;
-    }
+    //digram_comparison
+    function digram_comparison(left_str, right_str) {
+      if (left_str === right_str) {
+        return 1;
+      }
 
-    return (
-      match_count / Math.min(left_trigrams.length, right_trigrams.length)
-    );
-  }
+      const left_digrams = [];
+      const right_digrams = [];
 
-  //digram_comparison
-  function digram_comparison(left_str, right_str) {
-    if (left_str === right_str) {
-      return 1;
-    }
+      for (let i = 0; i < left_str.length - 1; i++) {
+        left_digrams.push(left_str.slice(i, i + 2));
+      }
 
-    const left_digrams = [];
-    const right_digrams = [];
+      for (let i = 0; i < right_str.length - 1; i++) {
+        right_digrams.push(right_str.slice(i, i + 2));
+      }
 
-    for (let i = 0; i < left_str.length - 1; i++) {
-      left_digrams.push(left_str.slice(i, i + 2));
-    }
-
-    for (let i = 0; i < right_str.length - 1; i++) {
-      right_digrams.push(right_str.slice(i, i + 2));
-    }
-
-    let match_count = 0;
-    for (let i = 0; i < left_digrams.length; i++) {
-      for (let j = 0; j < right_digrams.length; j++) {
-        if (left_digrams[i] === right_digrams[j]) {
-          match_count++;
+      let match_count = 0;
+      for (let i = 0; i < left_digrams.length; i++) {
+        for (let j = 0; j < right_digrams.length; j++) {
+          if (left_digrams[i] === right_digrams[j]) {
+            match_count++;
+          }
         }
       }
+
+      if (left_digrams.length === 0 || right_digrams.length === 0) {
+        return 0;
+      }
+
+      return match_count / Math.min(left_digrams.length, right_digrams.length);
     }
 
-    if (left_digrams.length === 0 || right_digrams.length === 0) {
-      return 0;
-    }
+    //function for search bar
+    function searchItems() {
+      const searchResults = [];
+      const relativeThreshold = 0.5;
+      const input = document.getElementById('search').value.toUpperCase();
 
-    return match_count / Math.min(left_digrams.length, right_digrams.length);
-  }
-
-  //function for search bar
-  function searchItems() {
-    const searchResults = [];
-    const relativeThreshold = 0.5;
-    const input = document.getElementById('search').value.toUpperCase();
-
-    if (input.length !== 0) {
-      items.forEach(item => {
-        const compare_against =
-          item.mpo_description ??
+      if (input.length !== 0) {
+        items.forEach(item => {
+          const compare_against =
+            item.mpo_description ??
             '' +
               item.common_name +
               item.nsn_items.map(nsn => {
@@ -912,1151 +912,1153 @@ the list as soon as they type as there are no network requests to slow things do
                   })
                   .join(' ');
               });
-        if (item === items[0]) {
-          console.log(compare_against);
-        }
-        const distance =
-          input.length < 3
-            ? digram_comparison(input, compare_against.toUpperCase())
-            : trigram_comparison(input, compare_against.toUpperCase());
-        if (item.common_name === 'm4') {
-          console.log({ item: item, score: distance });
-        }
-        if (distance >= relativeThreshold) {
-          searchResults.push({ item: item, score: distance });
-        }
-      });
+          if (item === items[0]) {
+            console.log(compare_against);
+          }
+          const distance =
+            input.length < 3
+              ? digram_comparison(input, compare_against.toUpperCase())
+              : trigram_comparison(input, compare_against.toUpperCase());
+          if (item.common_name === 'm4') {
+            console.log({ item: item, score: distance });
+          }
+          if (distance >= relativeThreshold) {
+            searchResults.push({ item: item, score: distance });
+          }
+        });
 
-      // console.log(searchResults);
-      searchResults.sort((a, b) => b.score - a.score);
-    } else {
-      return toggle_page('main_page', items);
+        // console.log(searchResults);
+        searchResults.sort((a, b) => b.score - a.score);
+      } else {
+        return toggle_page('main_page', items);
+      }
+
+      return toggle_page(
+        'main_page',
+        searchResults.map(sr => sr.item),
+      );
     }
 
-    return toggle_page(
-      'main_page',
-      searchResults.map(sr => sr.item),
-    );
-  }
-
-  /**
+    /**
      * Render `items` as a list, inserted into the dom at `root`
      * Will also clear the previous list
      * @param root - element where the list should be rendered, document.getElementById('inventoryList')
      * @param items {[]item} - A list of items from the class above, this can/should be filtered down for searching \
      * Choose excel file
      */
-  function render_list(items) {
-    root = document.getElementById('inventoryList');
-    root.innerHTML = '';
+    function render_list(items) {
+      root = document.getElementById('inventoryList');
+      root.innerHTML = '';
 
-    items.forEach(item => {
-      item.nsn_items.forEach(nsn_item => {
-        const individualItem = document.createElement('div');
-        individualItem.classList.add('item');
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          const individualItem = document.createElement('div');
+          individualItem.classList.add('item');
 
-        const card_upper = document.createElement('div');
-        card_upper.classList.add('card_upper');
-        individualItem.appendChild(card_upper);
+          const card_upper = document.createElement('div');
+          card_upper.classList.add('card_upper');
+          individualItem.appendChild(card_upper);
 
-        const card_upper_left = document.createElement('div');
-        card_upper_left.classList.add('card_upper_left');
-        card_upper.appendChild(card_upper_left);
+          const card_upper_left = document.createElement('div');
+          card_upper_left.classList.add('card_upper_left');
+          card_upper.appendChild(card_upper_left);
 
-        const card_upper_right = document.createElement('div');
-        card_upper_right.classList.add('card_upper_right');
-        card_upper.appendChild(card_upper_right);
+          const card_upper_right = document.createElement('div');
+          card_upper_right.classList.add('card_upper_right');
+          card_upper.appendChild(card_upper_right);
 
-        const item_image = document.createElement('image-with-fallback');
-        item_image.classList.add('item_image');
-        item_image.setAttribute('image-src', `photos/${nsn_item.nsn}.jpg`);
-        item_image.setAttribute('fallback-src', `photos/default.jpg`);
-        card_upper_right.appendChild(item_image);
+          const item_image = document.createElement('image-with-fallback');
+          item_image.classList.add('item_image');
+          item_image.setAttribute('image-src', `photos/${nsn_item.nsn}.jpg`);
+          item_image.setAttribute('fallback-src', `photos/default.jpg`);
+          card_upper_right.appendChild(item_image);
 
-        const common_name_container = document.createElement('div');
-        common_name_container.classList.add('common_name_container');
-        card_upper_left.appendChild(common_name_container);
+          const common_name_container = document.createElement('div');
+          common_name_container.classList.add('common_name_container');
+          card_upper_left.appendChild(common_name_container);
 
+          const common_name_edit = document.createElement('button');
+          common_name_edit.classList.add('common_name_edit_button');
 
-        const common_name_edit = document.createElement('button');
-        common_name_edit.classList.add('common_name_edit_button');
+          //Pencil Icon for edit button
+          const svgNS = 'http://www.w3.org/2000/svg';
+          const svg = document.createElementNS(svgNS, 'svg');
+          svg.setAttribute('xmlns', svgNS);
+          svg.setAttribute('width', '24');
+          svg.setAttribute('height', '24');
+          svg.setAttribute('viewBox', '0 0 24 24');
 
-        //Pencil Icon for edit button
-        const svgNS = "http://www.w3.org/2000/svg";
-        const svg = document.createElementNS(svgNS, "svg");
-        svg.setAttribute("xmlns", svgNS);
-        svg.setAttribute("width", "24");
-        svg.setAttribute("height", "24");
-        svg.setAttribute("viewBox", "0 0 24 24");
+          const path_pencil_icon = document.createElementNS(svgNS, 'path');
+          path_pencil_icon.setAttribute(
+            'd',
+            'M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z',
+          );
 
-        const path_pencil_icon = document.createElementNS(svgNS, "path");
-        path_pencil_icon.setAttribute("d", "M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z");
+          //Check mark icon for the edit button
+          const svg_check_icon = document.createElementNS(svgNS, 'svg');
+          svg_check_icon.setAttribute('xmlns', svgNS);
+          svg_check_icon.setAttribute('viewBox', '0 0 24 24');
+          svg_check_icon.setAttribute('width', '24');
+          svg_check_icon.setAttribute('height', '24');
 
-        //Check mark icon for the edit button
-        const svg_check_icon = document.createElementNS(svgNS, "svg");
-        svg_check_icon.setAttribute("xmlns", svgNS);
-        svg_check_icon.setAttribute("viewBox", "0 0 24 24");
-        svg_check_icon.setAttribute("width", "24");
-        svg_check_icon.setAttribute("height", "24");
+          const path_check = document.createElementNS(svgNS, 'path');
+          path_check.setAttribute(
+            'd',
+            'm2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56',
+          );
+          path_check.setAttribute('fill', 'white');
 
-        const path_check = document.createElementNS(svgNS, "path");
-        path_check.setAttribute("d", "m2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56");
-        path_check.setAttribute("fill", "white");  
+          if (!item.common_name) {
+            const common_name = document.createElement('input');
+            common_name.classList.add('common_name');
+            common_name.placeholder = 'Common Name';
+            svg_check_icon.appendChild(path_check);
+            common_name_edit.appendChild(svg_check_icon);
 
+            common_name.addEventListener('keydown', function (event) {
+              if (event.key === 'Enter') {
+                const commonNameInput = common_name.value;
+                item.common_name = commonNameInput;
 
-        if (!item.common_name) {
-          const common_name = document.createElement('input');
-          common_name.classList.add('common_name');
-          common_name.placeholder = 'Common Name';
-          svg_check_icon.appendChild(path_check);
-          common_name_edit.appendChild(svg_check_icon);
+                const pTagCommonName = document.createElement('p');
+                pTagCommonName.classList.add('pTagCommonName');
+                pTagCommonName.textContent = commonNameInput;
 
-          common_name.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-              const commonNameInput = common_name.value;
-              item.common_name = commonNameInput;
+                common_name_container.innerHTML = '';
+                common_name_container.appendChild(pTagCommonName);
 
-              const pTagCommonName = document.createElement('p');
-              pTagCommonName.classList.add('pTagCommonName');
-              pTagCommonName.textContent = commonNameInput; 
+                svg.appendChild(path_pencil_icon);
+                common_name_edit.appendChild(svg);
+                common_name_container.appendChild(common_name_edit);
+              }
+            });
 
-              common_name_container.innerHTML = '';
-              common_name_container.appendChild(pTagCommonName);
-              
-              svg.appendChild(path_pencil_icon);
-              common_name_edit.appendChild(svg);
-              common_name_container.appendChild(common_name_edit);          
+            common_name_container.appendChild(common_name);
+            common_name_container.appendChild(common_name_edit);
+          } else {
+            const pTagCommonName = document.createElement('p');
+            pTagCommonName.classList.add('pTagCommonName');
+            pTagCommonName.textContent = item.common_name;
+            common_name_container.appendChild(pTagCommonName);
 
-            }
+            svg.appendChild(path_pencil_icon);
+            common_name_edit.appendChild(svg);
+            common_name_container.appendChild(common_name_edit);
+          }
+
+          //MPO Description
+          const name = document.createElement('div');
+          name.classList.add('name');
+          name.textContent = `${
+            item.mpo_description ? item.mpo_description : 'No MPO'
+          }`;
+          card_upper_left.appendChild(name);
+
+          // Header for this NSN item
+          const header = document.createElement('div');
+          header.id = 'header';
+          header.classList.add('nsn_item_header');
+
+          const nsn_num = document.createElement('span');
+          nsn_num.textContent = nsn_item.nsn;
+          header.appendChild(nsn_num);
+
+          const nsn_description = document.createElement('span');
+          nsn_description.textContent = nsn_item.nsn_description;
+          header.appendChild(nsn_description);
+
+          const item_quantity = document.createElement('span');
+          item_quantity.textContent = `Qty: ${nsn_item.quantity}`;
+          header.appendChild(item_quantity);
+
+          card_upper_left.appendChild(header);
+
+          const group_name_and_inputs = document.createElement('div');
+          group_name_and_inputs.classList.add('group_name');
+          header.appendChild(group_name_and_inputs);
+
+          const card_lower = document.createElement('div');
+          card_lower.classList.add('card_lower');
+          individualItem.appendChild(card_lower);
+
+          const lower_card_padding = document.createElement('div');
+          lower_card_padding.classList.add('lower_card_padding');
+          card_lower.appendChild(lower_card_padding);
+
+          const left_padding = document.createElement('div');
+          lower_card_padding.appendChild(left_padding);
+
+          const on_hand = document.createElement('div');
+          on_hand.classList.add('on_hand');
+          on_hand.textContent = 'On Hand?';
+          lower_card_padding.appendChild(on_hand);
+
+          const right_padding = document.createElement('div');
+          lower_card_padding.appendChild(right_padding);
+
+          const lower_card_header = document.createElement('div');
+          lower_card_header.classList.add('lower_card_header');
+          card_lower.appendChild(lower_card_header);
+
+          const lower_card_sn = document.createElement('span');
+          lower_card_sn.classList.add('lower_card_sn');
+          lower_card_sn.textContent = 'SN:';
+          lower_card_header.appendChild(lower_card_sn);
+
+          const yes_check_header = document.createElement('div');
+          yes_check_header.classList.add('checkbox_header');
+          lower_card_header.appendChild(yes_check_header);
+
+          const yes_response = document.createElement('span');
+          yes_response.textContent = 'Yes';
+          yes_check_header.appendChild(yes_response);
+
+          const no_check_header = document.createElement('div');
+          no_check_header.classList.add('checkbox_header');
+          lower_card_header.appendChild(no_check_header);
+
+          const no_response = document.createElement('span');
+          no_response.textContent = 'No';
+          no_check_header.appendChild(no_response);
+
+          const general_individual_cont = document.createElement('div');
+          general_individual_cont.classList.add('general_individual');
+          lower_card_header.appendChild(general_individual_cont);
+
+          const lower_card_general = document.createElement('span');
+          lower_card_general.classList.add('lower_card_sn');
+          lower_card_general.textContent = 'General Box';
+          general_individual_cont.appendChild(lower_card_general);
+
+          const lower_card_individual = document.createElement('span');
+          lower_card_individual.classList.add('lower_card_sn');
+          lower_card_individual.textContent = 'Individual Box';
+          general_individual_cont.appendChild(lower_card_individual);
+
+          // Insert the serial numbers for this NSN item
+          nsn_item.serial_numbers.forEach(serial_number => {
+            const serial_number_element = document.createElement('div');
+            serial_number_element.classList.add('serialNumber');
+
+            const serial_number_ = document.createElement('div');
+            serial_number_.classList.add('serial');
+            serial_number_.textContent = serial_number.serial_number;
+            serial_number_element.appendChild(serial_number_);
+
+            const yes_check_box = document.createElement('input');
+            yes_check_box.type = 'checkbox';
+            yes_check_box.classList.add('on_hand_checkboxes');
+            serial_number_element.appendChild(yes_check_box);
+
+            const no_check_box = document.createElement('input');
+            no_check_box.type = 'checkbox';
+            no_check_box.classList.add('on_hand_checkboxes');
+            serial_number_element.appendChild(no_check_box);
+
+            //Event listener if no is checked then a modal is opened
+            //to add a comment about the item.
+            const dialog = document.createElement('dialog');
+            dialog.classList.add('missing_reason_modal');
+
+            const input_box = document.createElement('textarea');
+            input_box.classList.add('missing_reason_input');
+            input_box.rows = 10;
+            input_box.cols = 60;
+            input_box.placeholder = 'Enter missing reason';
+
+            const ok_button = document.createElement('button');
+            ok_button.classList.add('btn2062');
+            ok_button.textContent = 'OK';
+
+            dialog.appendChild(input_box);
+            dialog.appendChild(ok_button);
+            document.body.appendChild(dialog);
+
+            // Event Listener for Checkbox
+            no_check_box.addEventListener('change', function () {
+              if (no_check_box.checked) {
+                // Show dialog as modal
+                dialog.showModal();
+              } else {
+                serial_number.missing_reason = null; // Clear reason if unchecked
+              }
+            });
+
+            // Event Listener for OK Button
+            ok_button.addEventListener('click', function () {
+              serial_number.missing_reason = input_box.value; // Save the comment
+              dialog.close(); // Close the dialog
+              input_box.value = ''; // Clear input
+            });
+
+            const container = document.createElement('div');
+            container.classList.add('selectList');
+            serial_number_element.appendChild(container);
+
+            const box_serial = document.createElement('select');
+            box_serial.classList.add('boxDropdown');
+            box_serial.id = 'box_serial';
+            container.appendChild(box_serial);
+
+            const serial = document.createElement('select');
+            serial.id = 'serial';
+            container.appendChild(serial);
+
+            const box_value = document.createElement('option');
+            box_value.value = '';
+            box_value.textContent = `--`;
+            box_serial.appendChild(box_value);
+
+            const value = document.createElement('option');
+            value.value = '';
+            value.textContent = `--`;
+            serial.appendChild(value);
+
+            card_lower.appendChild(serial_number_element);
+
+            box_serial.addEventListener('change', event => {
+              serial_number.assignment = box_serial.value;
+            });
+
+            serial.addEventListener('change', event => {
+              serial_number.assignment = serial.value;
+            });
+
+            boxes_list.forEach(box => {
+              const option_html = `<option ${
+                serial_number.assignment === box.name && box.name !== null
+                  ? 'selected'
+                  : ''
+              } value="${box.name}">${box.name}    ${
+                box.role !== null ? '(' + box.name + ')' : ''
+              }</option>`;
+              box_serial.insertAdjacentHTML('beforeend', option_html);
+            });
+
+            roles.forEach(person => {
+              const option_html = `<option ${
+                serial_number.assignment === person.role && person.role !== null
+                  ? 'selected'
+                  : ''
+              } value="${person.role}">${person.name}    ${
+                person.role !== null ? '(' + person.role + ')' : ''
+              }</option>`;
+              serial.insertAdjacentHTML('beforeend', option_html);
+            });
           });
-
-          common_name_container.appendChild(common_name);
-          common_name_container.appendChild(common_name_edit);          
-        } else {
-          const pTagCommonName = document.createElement('p');
-          pTagCommonName.classList.add('pTagCommonName');
-          pTagCommonName.textContent = item.common_name; 
-          common_name_container.appendChild(pTagCommonName);
-
-          svg.appendChild(path_pencil_icon);
-          common_name_edit.appendChild(svg);
-          common_name_container.appendChild(common_name_edit);          
-        }
-
-        //MPO Description
-        const name = document.createElement('div');
-        name.classList.add('name');
-        name.textContent = `${
-item.mpo_description ? item.mpo_description : 'No MPO'
-}`;
-        card_upper_left.appendChild(name);
-
-        // Header for this NSN item
-        const header = document.createElement('div');
-        header.id = 'header';
-        header.classList.add('nsn_item_header');
-
-        const nsn_num = document.createElement('span');
-        nsn_num.textContent = nsn_item.nsn;
-        header.appendChild(nsn_num);
-
-        const nsn_description = document.createElement('span');
-        nsn_description.textContent = nsn_item.nsn_description;
-        header.appendChild(nsn_description);
-
-        const item_quantity = document.createElement('span');
-        item_quantity.textContent = `Qty: ${nsn_item.quantity}`;
-        header.appendChild(item_quantity);
-
-        card_upper_left.appendChild(header);
-
-        const group_name_and_inputs = document.createElement('div');
-        group_name_and_inputs.classList.add('group_name');
-        header.appendChild(group_name_and_inputs);
-
-        const card_lower = document.createElement('div');
-        card_lower.classList.add('card_lower');
-        individualItem.appendChild(card_lower);
-
-        const lower_card_padding = document.createElement('div');
-        lower_card_padding.classList.add('lower_card_padding');
-        card_lower.appendChild(lower_card_padding);
-
-        const left_padding = document.createElement('div');
-        lower_card_padding.appendChild(left_padding);
-
-        const on_hand = document.createElement('div');
-        on_hand.classList.add('on_hand');
-        on_hand.textContent = 'On Hand?';
-        lower_card_padding.appendChild(on_hand);
-
-        const right_padding = document.createElement('div');
-        lower_card_padding.appendChild(right_padding);
-
-        const lower_card_header = document.createElement('div');
-        lower_card_header.classList.add('lower_card_header');
-        card_lower.appendChild(lower_card_header);
-
-        const lower_card_sn = document.createElement('span');
-        lower_card_sn.classList.add('lower_card_sn');
-        lower_card_sn.textContent = 'SN:';
-        lower_card_header.appendChild(lower_card_sn);
-
-        const yes_check_header = document.createElement('div');
-        yes_check_header.classList.add('checkbox_header');
-        lower_card_header.appendChild(yes_check_header);
-
-        const yes_response = document.createElement('span');
-        yes_response.textContent = 'Yes';
-        yes_check_header.appendChild(yes_response);
-
-        const no_check_header = document.createElement('div');
-        no_check_header.classList.add('checkbox_header');
-        lower_card_header.appendChild(no_check_header);
-
-        const no_response = document.createElement('span');
-        no_response.textContent = 'No';
-        no_check_header.appendChild(no_response);
-
-        const general_individual_cont = document.createElement('div');
-        general_individual_cont.classList.add('general_individual');
-        lower_card_header.appendChild(general_individual_cont);
-
-        const lower_card_general = document.createElement('span');
-        lower_card_general.classList.add('lower_card_sn');
-        lower_card_general.textContent = 'General Box';
-        general_individual_cont.appendChild(lower_card_general);
-
-        const lower_card_individual = document.createElement('span');
-        lower_card_individual.classList.add('lower_card_sn');
-        lower_card_individual.textContent = 'Individual Box';
-        general_individual_cont.appendChild(lower_card_individual);
-
-        // Insert the serial numbers for this NSN item
-        nsn_item.serial_numbers.forEach(serial_number => {
-          const serial_number_element = document.createElement('div');
-          serial_number_element.classList.add('serialNumber');
-
-          const serial_number_ = document.createElement('div');
-          serial_number_.classList.add('serial');
-          serial_number_.textContent = serial_number.serial_number;
-          serial_number_element.appendChild(serial_number_);
-
-          const yes_check_box = document.createElement('input');
-          yes_check_box.type = "checkbox";
-          yes_check_box.classList.add('on_hand_checkboxes');
-          serial_number_element.appendChild(yes_check_box);
-
-          const no_check_box = document.createElement('input');
-          no_check_box.type = "checkbox";
-          no_check_box.classList.add('on_hand_checkboxes');
-          serial_number_element.appendChild(no_check_box);
-
-          //Event listener if no is checked then a modal is opened
-          //to add a comment about the item.
-          const dialog = document.createElement('dialog');
-          dialog.classList.add('missing_reason_modal');
-          
-          const input_box = document.createElement('textarea');
-          input_box.classList.add('missing_reason_input');
-          input_box.rows = 10;
-          input_box.cols = 60; 
-          input_box.placeholder = "Enter missing reason";
-
-          const ok_button = document.createElement('button');
-          ok_button.classList.add('btn2062');
-          ok_button.textContent = "OK";
-
-          dialog.appendChild(input_box);
-          dialog.appendChild(ok_button);
-          document.body.appendChild(dialog);
-
-          // Event Listener for Checkbox
-          no_check_box.addEventListener('change', function () {
-            if (no_check_box.checked) {
-              // Show dialog as modal
-              dialog.showModal();
-            } else {
-              serial_number.missing_reason = null; // Clear reason if unchecked
-            }
-          });
-
-          // Event Listener for OK Button
-          ok_button.addEventListener('click', function () {
-            serial_number.missing_reason = input_box.value; // Save the comment
-            dialog.close(); // Close the dialog
-            input_box.value = ""; // Clear input
-          });
-
-
-          const container = document.createElement('div');
-          container.classList.add('selectList');
-          serial_number_element.appendChild(container);
-
-          const box_serial = document.createElement('select');
-          box_serial.classList.add('boxDropdown');
-          box_serial.id = 'box_serial';
-          container.appendChild(box_serial);
-
-          const serial = document.createElement('select');
-          serial.id = 'serial';
-          container.appendChild(serial);
-
-          const box_value = document.createElement('option');
-          box_value.value = '';
-          box_value.textContent = `--`;
-          box_serial.appendChild(box_value);
-
-          const value = document.createElement('option');
-          value.value = '';
-          value.textContent = `--`;
-          serial.appendChild(value);
-
-          card_lower.appendChild(serial_number_element);
-
-          box_serial.addEventListener('change', event => {
-            serial_number.assignment = box_serial.value;
-          });
-
-          serial.addEventListener('change', event => {
-            serial_number.assignment = serial.value;
-          });
-
-          boxes_list.forEach(box => {
-            const option_html = `<option ${
-serial_number.assignment === box.name && box.name !== null
-? 'selected'
-: ''
-} value="${box.name}">${box.name}    ${
-box.role !== null ? '(' + box.name + ')' : ''
-}</option>`;
-            box_serial.insertAdjacentHTML('beforeend', option_html);
-          });
-
-          roles.forEach(person => {
-            const option_html = `<option ${
-serial_number.assignment === person.role && person.role !== null
-? 'selected'
-: ''
-} value="${person.role}">${person.name}    ${
-person.role !== null ? '(' + person.role + ')' : ''
-}</option>`;
-            serial.insertAdjacentHTML('beforeend', option_html);
-          });
+          root.appendChild(individualItem);
         });
-        root.appendChild(individualItem);
       });
-    });
-  }
+    }
 
-  /**
+    /**
      * Build the 'boxes' view last based on global 'items' list.
      * Any unassigned items will not be populated into the list.
      * This list is a subset of items.
      * @param role_list {String[]} - Roles to include in generated list, if null all roles are included
      * @returns boxes - Mapping of roles to items assigned to those roles
      */
-  function build_boxes(role_list) {
-    if (!role_list) {
-      role_list = roles;
-    }
-
-    let role_symbols = role_list.map(a => a.role);
-
-    // A map of key 'role name' => value 'item' & serial_number(s)
-    // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
-    const boxes = new Map();
-
-    // Loop through the entire items list, we need to boil down to each serial number
-    // and determine who that serial number is assigned to, then filters further to
-    // check first that the item is assigned at all, and that the role is in our role_list
-    items.forEach(item => {
-      item.nsn_items.forEach(nsn_item => {
-        nsn_item.serial_numbers.forEach(serial_number => {
-          if (
-            serial_number.assignment !== null &&
-              role_symbols.includes(serial_number.assignment)
-          ) {
-            // First grab the role object, set that as the key for our map
-            const role = role_list.filter(
-              role => role.role === serial_number.assignment,
-            )[0];
-            // Get our blank array so we can pushback on it
-            if (!boxes.has(role)) {
-              boxes.set(role, []);
-            }
-
-            boxes.get(role).push({
-              common_name: item.common_name,
-              mpo_description: item.mpo_description,
-              nsn_description: nsn_item.nsn_description,
-              nsn: nsn_item.nsn,
-              serial_number: serial_number.serial_number,
-            });
-          }
-        });
-      });
-    });
-
-    return boxes;
-  }
-
-  /**
-     * Build the 'boxes' view last based on global 'items' list.
-     * Any unassigned items will not be populated into the list.
-     * This list is a subset of items.
-     * @param role_list {String[]} - Roles to include in generated list, if null all roles are included
-     * @returns boxes - Mapping of roles to items assigned to those roles
-     */
-  function build_individual_boxes(individual_boxes_list) {
-    if (!individual_boxes_list) {
-      individual_boxes_list = boxes_list;
-    }
-
-    let box_names = individual_boxes_list.map(box => box.name);
-
-    // A map of key 'role name' => value 'item' & serial_number(s)
-    // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
-    const boxes = new Map();
-
-    // Loop through the entire items list, we need to boil down to each serial number
-    // and determine who that serial number is assigned to, then filters further to
-    // check first that the item is assigned at all, and that the role is in our role_list
-    items.forEach(item => {
-      item.nsn_items.forEach(nsn_item => {
-        nsn_item.serial_numbers.forEach(serial_number => {
-          if (
-            serial_number.assignment !== null &&
-              box_names.includes(serial_number.assignment)
-          ) {
-            // First grab the role object, set that as the key for our map
-            const box = individual_boxes_list.filter(
-              box => box.name === serial_number.assignment,
-            )[0];
-            // Get our blank array so we can pushback on it
-            if (!boxes.has(box)) {
-              boxes.set(box, []);
-            }
-
-            boxes.get(box).push({
-              mpo_description: item.mpo_description,
-              nsn_description: nsn_item.nsn_description,
-              nsn: nsn_item.nsn,
-              serial_number: serial_number.serial_number,
-            });
-          }
-        });
-      });
-    });
-
-    return boxes;
-  }
-
-  function render_boxes(role_list = null) {
-    document.getElementById('boxes').innerHTML = '';
-    boxes = build_boxes(role_list);
-
-    boxes.forEach((value, key, map) => {
-      // Group common items, so that their serial numbers appear together
-      const grouped = Object.groupBy(
-        value,
-        ({ mpo_description }) => mpo_description,
-      );
-
-      const individualBox = document.createElement('details');
-      individualBox.classList.add('individualBox');
-
-      const header = document.createElement('summary');
-      header.classList.add('boxHeader');
-      header.insertAdjacentHTML(
-        'beforeend',
-        `<h3>${key.name} (${key.role})</h3>`,
-      );
-
-      const rightGrouping = document.createElement('div');
-      rightGrouping.classList.add('rightGrouping');
-      rightGrouping.insertAdjacentHTML(
-        'beforeend',
-        `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>`,
-      );
-      header.appendChild(rightGrouping);
-
-      individualBox.appendChild(header);
-
-      for (const [key, value] of Object.entries(grouped)) {
-        const serials = value.map(({ serial_number }) => serial_number);
-        const assignment = value[0];
-        const lineItem = document.createElement('div');
-        lineItem.classList.add('line_item');
-
-        lineItem.insertAdjacentHTML(
-          'beforeend',
-          `<span>${
-assignment.common_name
-? assignment.common_name
-: assignment.mpo_description
-}</span>`,
-        );
-        lineItem.insertAdjacentHTML(
-          'beforeend',
-          `<span>${serials.join(', ')}</span>`,
-        );
-        const item_image = document.createElement('image-with-fallback');
-        item_image.classList.add('item_image');
-        item_image.setAttribute('image-src', `photos/${assignment.nsn}.jpg`);
-        item_image.setAttribute('fallback-src', `photos/default.jpg`);
-        item_image.style.justifySelf = 'end';
-        lineItem.appendChild(item_image);
-
-        individualBox.appendChild(lineItem);
+    function build_boxes(role_list) {
+      if (!role_list) {
+        role_list = roles;
       }
 
-      document.getElementById('boxes').appendChild(individualBox);
-    });
-  }
+      let role_symbols = role_list.map(a => a.role);
 
-  function render_individual_boxes(role_list = null) {
-    const delete_list = [];
+      // A map of key 'role name' => value 'item' & serial_number(s)
+      // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
+      const boxes = new Map();
 
-    document.getElementById('individualBoxes').innerHTML = '';
-    boxes = build_individual_boxes(role_list);
+      // Loop through the entire items list, we need to boil down to each serial number
+      // and determine who that serial number is assigned to, then filters further to
+      // check first that the item is assigned at all, and that the role is in our role_list
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            if (
+              serial_number.assignment !== null &&
+              role_symbols.includes(serial_number.assignment)
+            ) {
+              // First grab the role object, set that as the key for our map
+              const role = role_list.filter(
+                role => role.role === serial_number.assignment,
+              )[0];
+              // Get our blank array so we can pushback on it
+              if (!boxes.has(role)) {
+                boxes.set(role, []);
+              }
 
-    boxes.forEach((value, key, map) => {
-      const wrapperDiv = document.createElement('div');
-      wrapperDiv.classList.add('wrapperDiv');
+              boxes.get(role).push({
+                common_name: item.common_name,
+                mpo_description: item.mpo_description,
+                nsn_description: nsn_item.nsn_description,
+                nsn: nsn_item.nsn,
+                serial_number: serial_number.serial_number,
+              });
+            }
+          });
+        });
+      });
 
-      const individualBox = document.createElement('details');
-      individualBox.classList.add('individualBox');
-      wrapperDiv.appendChild(individualBox);
+      return boxes;
+    }
 
-      const header = document.createElement('summary');
-      header.classList.add('boxHeader');
-      header.insertAdjacentHTML('beforeend', `<h3>${key.name}</h3>`);
+    /**
+     * Build the 'boxes' view last based on global 'items' list.
+     * Any unassigned items will not be populated into the list.
+     * This list is a subset of items.
+     * @param role_list {String[]} - Roles to include in generated list, if null all roles are included
+     * @returns boxes - Mapping of roles to items assigned to those roles
+     */
+    function build_individual_boxes(individual_boxes_list) {
+      if (!individual_boxes_list) {
+        individual_boxes_list = boxes_list;
+      }
 
-      const rightGrouping = document.createElement('div');
-      rightGrouping.classList.add('rightGrouping');
-      rightGrouping.insertAdjacentHTML(
-        'beforeend',
-        `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      let box_names = individual_boxes_list.map(box => box.name);
+
+      // A map of key 'role name' => value 'item' & serial_number(s)
+      // [{role: 'E1', [{item: {...}, serial_numbers: [431, 412]}, ...]}, ...]
+      const boxes = new Map();
+
+      // Loop through the entire items list, we need to boil down to each serial number
+      // and determine who that serial number is assigned to, then filters further to
+      // check first that the item is assigned at all, and that the role is in our role_list
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            if (
+              serial_number.assignment !== null &&
+              box_names.includes(serial_number.assignment)
+            ) {
+              // First grab the role object, set that as the key for our map
+              const box = individual_boxes_list.filter(
+                box => box.name === serial_number.assignment,
+              )[0];
+              // Get our blank array so we can pushback on it
+              if (!boxes.has(box)) {
+                boxes.set(box, []);
+              }
+
+              boxes.get(box).push({
+                mpo_description: item.mpo_description,
+                nsn_description: nsn_item.nsn_description,
+                nsn: nsn_item.nsn,
+                serial_number: serial_number.serial_number,
+              });
+            }
+          });
+        });
+      });
+
+      return boxes;
+    }
+
+    function render_boxes(role_list = null) {
+      document.getElementById('boxes').innerHTML = '';
+      boxes = build_boxes(role_list);
+
+      boxes.forEach((value, key, map) => {
+        // Group common items, so that their serial numbers appear together
+        const grouped = Object.groupBy(
+          value,
+          ({ mpo_description }) => mpo_description,
+        );
+
+        const individualBox = document.createElement('details');
+        individualBox.classList.add('individualBox');
+
+        const header = document.createElement('summary');
+        header.classList.add('boxHeader');
+        header.insertAdjacentHTML(
+          'beforeend',
+          `<h3>${key.name} (${key.role})</h3>`,
+        );
+
+        const rightGrouping = document.createElement('div');
+        rightGrouping.classList.add('rightGrouping');
+        rightGrouping.insertAdjacentHTML(
+          'beforeend',
+          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>`,
-      );
-      header.appendChild(rightGrouping);
-
-      individualBox.appendChild(header);
-
-      value.forEach(assignment => {
-        const lineItem = document.createElement('div');
-        lineItem.style.display = 'flex';
-        lineItem.style.justifyContent = 'space-between';
-
-        lineItem.insertAdjacentHTML(
-          'beforeend',
-          `<span>${
-assignment.mpo_description ? assignment.mpo_description : ''
-}</span>`,
         );
-        lineItem.insertAdjacentHTML(
-          'beforeend',
-          `<span>${assignment.nsn_description}</span>`,
-        );
-        lineItem.insertAdjacentHTML(
-          'beforeend',
-          `<span>${assignment.serial_number}</span>`,
-        );
+        header.appendChild(rightGrouping);
 
-        individualBox.appendChild(lineItem);
-      });
+        individualBox.appendChild(header);
 
-      const checkbox = document.createElement('input');
-      checkbox.classList.add('checkbox');
-      checkbox.type = 'checkbox';
-      const pos = delete_list.length;
-      delete_list.push(false);
-      checkbox.addEventListener('change', () => {
-        delete_list[pos] = checkbox.checked;
-      });
-      wrapperDiv.appendChild(checkbox);
+        for (const [key, value] of Object.entries(grouped)) {
+          const serials = value.map(({ serial_number }) => serial_number);
+          const assignment = value[0];
+          const lineItem = document.createElement('div');
+          lineItem.classList.add('line_item');
 
-      document.getElementById('individualBoxes').appendChild(wrapperDiv);
-    });
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${
+              assignment.common_name
+                ? assignment.common_name
+                : assignment.mpo_description
+            }</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${serials.join(', ')}</span>`,
+          );
+          const item_image = document.createElement('image-with-fallback');
+          item_image.classList.add('item_image');
+          item_image.setAttribute('image-src', `photos/${assignment.nsn}.jpg`);
+          item_image.setAttribute('fallback-src', `photos/default.jpg`);
+          item_image.style.justifySelf = 'end';
+          lineItem.appendChild(item_image);
 
-    const delete_button = document.getElementById('deleteSelected');
-    delete_button.addEventListener(
-      'click',
-      () => {
-        const names = [];
-        for (i = 0; i < delete_list.length; i++) {
-          if (delete_list[i]) {
-            names.push(boxes_list[i].name);
-          }
+          individualBox.appendChild(lineItem);
         }
-        return delete_gun_box(names);
-      },
-      { once: true },
-    );
-  }
 
-  function delete_gun_box(names) {
-    if (
-      !names ||
+        document.getElementById('boxes').appendChild(individualBox);
+      });
+    }
+
+    function render_individual_boxes(role_list = null) {
+      const delete_list = [];
+
+      document.getElementById('individualBoxes').innerHTML = '';
+      boxes = build_individual_boxes(role_list);
+
+      boxes.forEach((value, key, map) => {
+        const wrapperDiv = document.createElement('div');
+        wrapperDiv.classList.add('wrapperDiv');
+
+        const individualBox = document.createElement('details');
+        individualBox.classList.add('individualBox');
+        wrapperDiv.appendChild(individualBox);
+
+        const header = document.createElement('summary');
+        header.classList.add('boxHeader');
+        header.insertAdjacentHTML('beforeend', `<h3>${key.name}</h3>`);
+
+        const rightGrouping = document.createElement('div');
+        rightGrouping.classList.add('rightGrouping');
+        rightGrouping.insertAdjacentHTML(
+          'beforeend',
+          `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`,
+        );
+        header.appendChild(rightGrouping);
+
+        individualBox.appendChild(header);
+
+        value.forEach(assignment => {
+          const lineItem = document.createElement('div');
+          lineItem.style.display = 'flex';
+          lineItem.style.justifyContent = 'space-between';
+
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${
+              assignment.mpo_description ? assignment.mpo_description : ''
+            }</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${assignment.nsn_description}</span>`,
+          );
+          lineItem.insertAdjacentHTML(
+            'beforeend',
+            `<span>${assignment.serial_number}</span>`,
+          );
+
+          individualBox.appendChild(lineItem);
+        });
+
+        const checkbox = document.createElement('input');
+        checkbox.classList.add('checkbox');
+        checkbox.type = 'checkbox';
+        const pos = delete_list.length;
+        delete_list.push(false);
+        checkbox.addEventListener('change', () => {
+          delete_list[pos] = checkbox.checked;
+        });
+        wrapperDiv.appendChild(checkbox);
+
+        document.getElementById('individualBoxes').appendChild(wrapperDiv);
+      });
+
+      const delete_button = document.getElementById('deleteSelected');
+      delete_button.addEventListener(
+        'click',
+        () => {
+          const names = [];
+          for (i = 0; i < delete_list.length; i++) {
+            if (delete_list[i]) {
+              names.push(boxes_list[i].name);
+            }
+          }
+          return delete_gun_box(names);
+        },
+        { once: true },
+      );
+    }
+
+    function delete_gun_box(names) {
+      if (
+        !names ||
         names.length === 0 ||
         !boxes_list.some(box => names.includes(box.name))
-    ) {
-      toggle_page('individual_boxes_page_');
-      return;
-    }
-
-    items.forEach(item => {
-      item.nsn_items.forEach(nsn_item => {
-        nsn_item.serial_numbers.forEach(serial_number => {
-          if (names.includes(serial_number.assignment)) {
-            serial_number.assignment = '';
-          }
-        });
-      });
-    });
-
-    boxes_list = boxes_list.filter(box => !names.includes(box.name));
-
-    toggle_page('individual_boxes_page_');
-  }
-
-  let teamNumberVariable = '0000';
-
-  function updateTeamNumber() {
-    // Get all elements with ID teamNumber across pages
-    const teamNumberElements = document.querySelectorAll('#teamNumber');
-    teamNumberElements.forEach(element => {
-      element.textContent = `${teamNumberVariable}`;
-    });
-  }
-
-  // Pre-populate roles/names, this will come from the start screen later
-  let roles = [
-    { name: 'None', role: 'A' },
-    { name: 'Tony', role: 'Z' },
-    { name: 'Joel', role: 'W' },
-    { name: 'James', role: 'F' },
-    { name: 'Chuck', role: 'B1' },
-    { name: 'Hayden', role: 'B2' },
-    { name: 'Forrest', role: 'C1' },
-    { name: 'Jordan', role: 'C2' },
-    { name: 'Eli', role: 'D1' },
-    { name: 'Tommy', role: 'D2' },
-    { name: 'Paul', role: 'E1' },
-    { name: 'Rhyan', role: 'E2' },
-  ];
-
-  let boxes_list = [];
-
-  //Show team member name inputs on start page
-  function renderTeamMembersOnStartPage() {
-    let name_count = 0;
-    roles.forEach(person => {
-      if (name_count < 6) {
-        const column1 = document.getElementById('teamMembersColumn1');
-        const roleAndName = document.createElement('div');
-        roleAndName.classList.add('roleAndName');
-
-        const roleStartPage = document.createElement('span');
-        roleStartPage.classList.add('roleStartPage');
-        roleStartPage.textContent = `${person.role}`;
-        roleAndName.appendChild(roleStartPage);
-
-        const nameStartPage = document.createElement('input');
-        nameStartPage.classList.add('nameStartPage');
-        nameStartPage.placeholder = 'Enter Name';
-        roleAndName.appendChild(nameStartPage);
-
-        column1.appendChild(roleAndName);
-        name_count += 1;
-      } else {
-        const column2 = document.getElementById('teamMembersColumn2');
-        const roleAndName = document.createElement('div');
-        roleAndName.classList.add('roleAndName');
-
-        const roleStartPage = document.createElement('span');
-        roleStartPage.classList.add('roleStartPage');
-        roleStartPage.textContent = `${person.role}`;
-        roleAndName.appendChild(roleStartPage);
-
-        const nameStartPage = document.createElement('input');
-        nameStartPage.classList.add('nameStartPage');
-        nameStartPage.placeholder = 'Enter Name';
-        roleAndName.appendChild(nameStartPage);
-
-        column2.appendChild(roleAndName);
-      }
-    });
-  }
-
-  renderTeamMembersOnStartPage();
-
-  function renderTeamMembersLsit() {
-    const dropDown = document.getElementById('namesList');
-    dropDown.innerHTML = '';
-
-    roles.forEach(person => {
-      if (person.role != null) {
-        dropDown.insertAdjacentHTML(
-          'beforeend',
-          `<div class="namesAndRoles"><p class="dropdown_name">${person.name}</p><p class="role">${person.role}</p></div>`,
-        );
-      }
-    });
-  }
-
-  const modal = document.getElementById('editTeamModal');
-  const openModal = document.getElementById('editTeam');
-  const closeModal = document.getElementById('closeModal');
-
-  //openModal.addEventListener("click", () => {
-  //modal.showModal();
-  //});
-
-  function render_edit_team_list(role_list) {
-    roles.forEach(person => {
-      document
-        .getElementById('nameInputs')
-        .insertAdjacentHTML(
-          'afterbegin',
-          `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
-        );
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.close();
-    });
-  }
-
-  render_edit_team_list(roles);
-
-  function updateNamesList(event, form) {
-    event.preventDefault();
-
-    const nameInputs = document.getElementById('nameInputs');
-    const inputs = Array.from(
-      nameInputs.querySelectorAll('input.editName'),
-    ).map(element => element.value);
-
-    for (let i = 0; i <= inputs.length; i++) {
-      if (inputs[i]) {
-        roles[i].name = inputs[i];
-      }
-    }
-
-    toggle_page('main_page', items);
-  }
-
-  continueButton.addEventListener('click', function () {
-    let continueButton = document.getElementById('continueButton');
-
-    const nameInputs = document.getElementById('teamMembersContainer');
-    const inputs = Array.from(
-      nameInputs.querySelectorAll('input.nameStartPage'),
-    ).map(element => element.value);
-
-    for (let i = 0; i <= inputs.length; i++) {
-      if (inputs[i]) {
-        roles[i].name = inputs[i];
-      }
-    }
-  });
-
-  document
-    .getElementById('blank')
-    .addEventListener('change', function (event) {
-      if (
-        event.target.files.length > 0 &&
-          event.target.files[0].type === 'application/pdf'
       ) {
-        document.getElementById('upload2062Button').classList.add('uploaded');
+        toggle_page('individual_boxes_page_');
+        return;
       }
-    });
 
-  // continueButton.addEventListener('click', function () {
-  //   pdf_file = document.getElementById('blank').files[0];
-
-  //   readXlsxFile(excelInput1.files[0]).then(function (data) {
-  //     let parsedRows1 = parseItems(data1);
-  //     parsedRows1.forEach(item_as_rows => {
-  //       itemObjects.push(new item(item_as_rows));
-
-  //     });
-  //   });
-
-  //   readXlsxFile(excelInput2.files[0]).then(function (data) {
-  //     let parsedRow2 = parseItems(data2);
-  //     parsedRows2.forEach(item_as_rows => {
-  //       itemObjects.push(new item(item_as_rows));
-  //     });
-  //   });
-
-  //   items = itemObjects.slice();
-
-  //     // render_list(document.getElementById("inventoryList"), items);
-  //     toggle_page('main_page', items);
-  //   });
-  // });
-
-  // Setup out start screen
-
-  let items = [];
-  let pdf_file;
-
-  continueButton.addEventListener('click', function () {
-    let teamNumStartPage = document.getElementById('teamNumberStartPage');
-
-    if (teamNumStartPage.value != '') {
-      teamNumberVariable = teamNumStartPage.value;
-    }
-
-    updateTeamNumber();
-
-    let continueButton = document.getElementById('continueButton');
-    const itemObjects = [];
-
-    pdf_file = document.getElementById('blank').files[0];
-
-    Promise.all([
-      readXlsxFile(excelInput1.files[0]), // Read first file
-      readXlsxFile(excelInput2.files[0]), // Read second file
-    ])
-      .then(function ([data1, data2]) {
-        let parsedRows1 = parseItems(data1);
-        parsedRows1.forEach(item_as_rows => {
-          itemObjects.push(new item(item_as_rows));
-        });
-
-        let parsedRows2 = parseItems(data2);
-        parsedRows2.forEach(item_as_rows => {
-          itemObjects.push(new item(item_as_rows));
-        });
-
-        // After both files are processed, update the items array
-        items = itemObjects.slice();
-
-        toggle_page('main_page', items);
-      })
-      .catch(function (error) {
-        console.error('Error reading Excel files:', error);
-      });
-  });
-
-  function addBoxes() {
-    const boxName = document.getElementById('newBox').value;
-    boxes_list.push({ name: boxName, role: null });
-    document.getElementById('newBox').value = '';
-
-    toggle_page('main_page', items);
-  }
-
-  function roles_checklist() {
-    const boxes = build_boxes(null);
-    const fromToModal = document.getElementById('fromTo');
-    const roleCheckBoxes = document.getElementById('roleCheckBoxes');
-    roleCheckBoxes.innerHTML = '';
-
-    Array.from(boxes.keys()).forEach(key => {
-      const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
-
-      roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
-    });
-
-    fromToModal.showModal();
-  }
-
-  function boxes_checklist() {
-    const boxes = build_individual_boxes(null);
-    const fromToModal = document.getElementById('fromToIndividual');
-    const roleCheckBoxes = document.getElementById(
-      'roleCheckBoxesIndividual',
-    );
-    roleCheckBoxes.innerHTML = '';
-
-    Array.from(boxes.keys()).forEach(key => {
-      const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
-
-      roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
-    });
-
-    fromToModal.showModal();
-  }
-
-  function generate_2062(event, form) {
-    event.preventDefault();
-
-    const included_roles = Array.from(form.elements)
-    .map(element => element.name)
-    .filter(name => name.startsWith('checkbox'))
-    .filter(name => form.elements[name].checked)
-    .map(name => name.slice(8))
-    .map(name => roles.find(element => element.role === name));
-    const boxes = build_boxes(included_roles);
-
-    const item_mappings = new Map();
-
-    const names = included_roles.map(role => role.name);
-
-    included_roles.forEach(role => {
-      const individual_mapping = new Map();
-      boxes.get(role).forEach(item => {
-        if (item_mappings.has(item.nsn)) {
-          item_mappings.get(item.nsn).push(item.serial_number);
-          if (!individual_mapping.has(item.nsn)) {
-            individual_mapping.set(item.nsn, [item.serial_number]);
-          } else {
-            individual_mapping.get(item.nsn).push(item.serial_number);
-          }
-        } else {
-          item_mappings.set(item.nsn, [item.serial_number]);
-          individual_mapping.set(item.nsn, [item.serial_number]);
-        }
-      });
-      generate_pdfs(
-        form.elements['from'].value,
-        role.name,
-        individual_mapping,
-      );
-    });
-    generate_pdfs(
-      form.elements['from'].value,
-      form.elements['to'].value,
-      item_mappings,
-    );
-  }
-
-  function generate_2062_gunboxes(event, form) {
-    event.preventDefault();
-
-    const included_roles = Array.from(form.elements)
-    .map(element => element.name)
-    .filter(name => name.startsWith('checkbox'))
-    .filter(name => form.elements[name].checked)
-    .map(name => name.slice(8))
-    .map(name => boxes_list.find(element => element.name === name));
-    const boxes = build_individual_boxes(included_roles);
-
-    const item_mappings = new Map();
-
-    const names = included_roles.map(role => role.name);
-
-    included_roles.forEach(role => {
-      const individual_mapping = new Map();
-      boxes.get(role).forEach(item => {
-        if (item_mappings.has(item.nsn)) {
-          item_mappings.get(item.nsn).push(item.serial_number);
-          if (!individual_mapping.has(item.nsn)) {
-            individual_mapping.set(item.nsn, [item.serial_number]);
-          } else {
-            individual_mapping.get(item.nsn).push(item.serial_number);
-          }
-        } else {
-          item_mappings.set(item.nsn, [item.serial_number]);
-          individual_mapping.set(item.nsn, [item.serial_number]);
-        }
-      });
-      generate_pdfs(
-        form.elements['from'].value,
-        role.name,
-        individual_mapping,
-      );
-    });
-    generate_pdfs(
-      form.elements['from'].value,
-      form.elements['to'].value,
-      item_mappings,
-    );
-  }
-
-  function generate_pdfs(from, to, item_mappings) {
-    pdf_file.arrayBuffer().then(pdfBytes => {
-      const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
-        const f = pdf_form.getForm();
-        //
-        //           let fields = f.getFields();
-        //           fields.forEach(f => {
-        //           });
-        //
-        // From and To Fields
-        const from_field = f.getTextField('FROM');
-        from_field.setFontSize(10);
-        from_field.setText(from);
-        const to_field = f.getTextField('TO');
-        to_field.setFontSize(10);
-        to_field.setText(to);
-
-        const pub_date = f.getTextField('PUBLICATION DATE');
-        pub_date.setFontSize(10);
-        let date = new Date().toLocaleDateString();
-        pub_date.setText(date);
-
-        if (item_mappings.size > 16) {
-          console.error('Too many items you idiot!');
-        }
-        let i = 1;
-        item_mappings.forEach((v, k, m) => {
-          const stock_number = f.getTextField(`STOCKNUMBER aRow${i}`);
-          stock_number.setFontSize(10);
-          stock_number.setText(k.toString());
-
-          const serial_numbers = f.getTextField(`ITEM DESCRIPTION bRow${i}`);
-          serial_numbers.enableMultiline;
-          serial_numbers.setAlignment(PDFLib.TextAlignment.Left);
-          serial_numbers.disableScrolling();
-          serial_numbers.setFontSize(8);
-          serial_numbers.setText('SNs: ' + v.join(', '));
-
-          const qty_auth = f.getTextField(`QTY AUTH fRow${i}`);
-          qty_auth.setFontSize(12);
-          qty_auth.setText(v.length.toString());
-
-          const qty_a = f.getTextField(`ARow${i}`);
-          qty_a.setFontSize(12);
-          qty_a.setText(v.length.toString());
-          i += 1;
-        });
-
-        // Saving the PDF
-        pdf_form.save().then(output_bytes => {
-          const blob = new Blob([output_bytes], {
-            type: 'application/pdf',
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            if (names.includes(serial_number.assignment)) {
+              serial_number.assignment = '';
+            }
           });
-          const url = URL.createObjectURL(blob);
-          window.open(url, '');
         });
       });
-    });
-  }
 
-  function save_to_local_storage() {
-    // Show confirmation popup
-    const confirmationPopup = document.getElementById('confirmationPopup');
-    confirmationPopup.showModal();
+      boxes_list = boxes_list.filter(box => !names.includes(box.name));
 
-    // Handle Yes button click
-    document
-      .getElementById('confirmYes')
-      .addEventListener('click', function () {
-        // Save settings to local storage
-        localStorage.setItem('items', JSON.stringify(items));
-        localStorage.setItem('roles', JSON.stringify(roles));
-        localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
-
-        // Hide confirmation popup
-        confirmationPopup.close();
-
-        // Show "Settings saved" notification
-        const notification = document.getElementById('notificationSaved');
-        notification.style.opacity = '1';
-
-        // Hide notification after 1.5 seconds
-        setTimeout(() => {
-          notification.style.opacity = '0';
-        }, 1500);
-      });
-
-    // Handle No button click
-    document
-      .getElementById('confirmNo')
-      .addEventListener('click', function () {
-        // Just hide the confirmation popup without saving
-        confirmationPopup.close();
-      });
-  }
-
-  function load_from_local_storage() {
-    const savedItems = localStorage.getItem('items');
-    const saved_roles = localStorage.getItem('roles');
-    const saved_boxes = localStorage.getItem('boxes_list');
-    if (savedItems && saved_roles && saved_boxes) {
-      items = JSON.parse(savedItems);
-      roles = JSON.parse(saved_roles);
-      boxes_list = JSON.parse(saved_boxes);
-      toggle_page('main_page', items);
+      toggle_page('individual_boxes_page_');
     }
-    // Show notification
-    const notification = document.getElementById('notificationUploaded');
-    notification.style.opacity = '1';
 
-    // Hide notification after 1.5 seconds
-    setTimeout(() => {
-      notification.style.opacity = '0';
-    }, 1000);
-  }
+    let teamNumberVariable = '0000';
 
-  function export_to_json() {
-    const blob = new Blob([JSON.stringify(items)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'property_book.json';
-    a.click();
-  }
-
-  function stay_go_list() {
-    let stay_go_data = [];
-    items.forEach(item => {
-      item.nsn_items.forEach(nsn_item => {
-        nsn_item.serial_numbers.forEach(serial_number => {
-          stay_go_data.push([
-            {
-              value: !!item.mpo_description ? item.mpo_description : '',
-              type: String,
-            },
-            {
-              value: !!nsn_item.nsn_description
-                ? nsn_item.nsn_description
-                : '',
-              type: String,
-            },
-            {
-              value: !!serial_number ? `${serial_number.serial_number}` : '',
-              type: String,
-            },
-            {
-              value: !!serial_number.assignment ? 'GO' : 'STAY',
-              type: String,
-              backgroundColor: !!serial_number.assignment
-                ? '#00FF00'
-                : '#FF0000',
-              color: !!serial_number.assignment ? '#000000' : '#FFFFFF',
-            },
-          ]);
-        });
+    function updateTeamNumber() {
+      // Get all elements with ID teamNumber across pages
+      const teamNumberElements = document.querySelectorAll('#teamNumber');
+      teamNumberElements.forEach(element => {
+        element.textContent = `${teamNumberVariable}`;
       });
-    });
+    }
 
-    const headers = [
-      {
-        value: 'MPO',
-        fontWeight: 'bold',
-      },
-      {
-        value: 'NSN',
-        fontWeight: 'bold',
-      },
-      {
-        value: 'SERIAL NUMBER',
-        fontWeight: 'bold',
-      },
-      {
-        value: 'STAY/GO',
-        fontWeight: 'bold',
-      },
+    // Pre-populate roles/names, this will come from the start screen later
+    let roles = [
+      { name: 'None', role: 'A' },
+      { name: 'Tony', role: 'Z' },
+      { name: 'Joel', role: 'W' },
+      { name: 'James', role: 'F' },
+      { name: 'Chuck', role: 'B1' },
+      { name: 'Hayden', role: 'B2' },
+      { name: 'Forrest', role: 'C1' },
+      { name: 'Jordan', role: 'C2' },
+      { name: 'Eli', role: 'D1' },
+      { name: 'Tommy', role: 'D2' },
+      { name: 'Paul', role: 'E1' },
+      { name: 'Rhyan', role: 'E2' },
     ];
 
-    writeXlsxFile([headers, ...stay_go_data], {
-      fileName: 'something.xlsx',
-      stickyRowsCount: 1,
-    }).then();
-  }
+    let boxes_list = [];
 
-  load_from_local_storage();
+    //Show team member name inputs on start page
+    function renderTeamMembersOnStartPage() {
+      let name_count = 0;
+      roles.forEach(person => {
+        if (name_count < 6) {
+          const column1 = document.getElementById('teamMembersColumn1');
+          const roleAndName = document.createElement('div');
+          roleAndName.classList.add('roleAndName');
+
+          const roleStartPage = document.createElement('span');
+          roleStartPage.classList.add('roleStartPage');
+          roleStartPage.textContent = `${person.role}`;
+          roleAndName.appendChild(roleStartPage);
+
+          const nameStartPage = document.createElement('input');
+          nameStartPage.classList.add('nameStartPage');
+          nameStartPage.placeholder = 'Enter Name';
+          roleAndName.appendChild(nameStartPage);
+
+          column1.appendChild(roleAndName);
+          name_count += 1;
+        } else {
+          const column2 = document.getElementById('teamMembersColumn2');
+          const roleAndName = document.createElement('div');
+          roleAndName.classList.add('roleAndName');
+
+          const roleStartPage = document.createElement('span');
+          roleStartPage.classList.add('roleStartPage');
+          roleStartPage.textContent = `${person.role}`;
+          roleAndName.appendChild(roleStartPage);
+
+          const nameStartPage = document.createElement('input');
+          nameStartPage.classList.add('nameStartPage');
+          nameStartPage.placeholder = 'Enter Name';
+          roleAndName.appendChild(nameStartPage);
+
+          column2.appendChild(roleAndName);
+        }
+      });
+    }
+
+    renderTeamMembersOnStartPage();
+
+    function renderTeamMembersLsit() {
+      const dropDown = document.getElementById('namesList');
+      dropDown.innerHTML = '';
+
+      roles.forEach(person => {
+        if (person.role != null) {
+          dropDown.insertAdjacentHTML(
+            'beforeend',
+            `<div class="namesAndRoles"><p class="dropdown_name">${person.name}</p><p class="role">${person.role}</p></div>`,
+          );
+        }
+      });
+    }
+
+    const modal = document.getElementById('editTeamModal');
+    const openModal = document.getElementById('editTeam');
+    const closeModal = document.getElementById('closeModal');
+
+    //openModal.addEventListener("click", () => {
+    //modal.showModal();
+    //});
+
+    function render_edit_team_list(role_list) {
+      roles.forEach(person => {
+        document
+          .getElementById('nameInputs')
+          .insertAdjacentHTML(
+            'afterbegin',
+            `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
+          );
+      });
+
+      closeModal.addEventListener('click', () => {
+        modal.close();
+      });
+    }
+
+    render_edit_team_list(roles);
+
+    function updateNamesList(event, form) {
+      event.preventDefault();
+
+      const nameInputs = document.getElementById('nameInputs');
+      const inputs = Array.from(
+        nameInputs.querySelectorAll('input.editName'),
+      ).map(element => element.value);
+
+      for (let i = 0; i <= inputs.length; i++) {
+        if (inputs[i]) {
+          roles[i].name = inputs[i];
+        }
+      }
+
+      toggle_page('main_page', items);
+    }
+
+    continueButton.addEventListener('click', function () {
+      let continueButton = document.getElementById('continueButton');
+
+      const nameInputs = document.getElementById('teamMembersContainer');
+      const inputs = Array.from(
+        nameInputs.querySelectorAll('input.nameStartPage'),
+      ).map(element => element.value);
+
+      for (let i = 0; i <= inputs.length; i++) {
+        if (inputs[i]) {
+          roles[i].name = inputs[i];
+        }
+      }
+    });
+
+    document
+      .getElementById('blank')
+      .addEventListener('change', function (event) {
+        if (
+          event.target.files.length > 0 &&
+          event.target.files[0].type === 'application/pdf'
+        ) {
+          document.getElementById('upload2062Button').classList.add('uploaded');
+        }
+      });
+
+    // continueButton.addEventListener('click', function () {
+    //   pdf_file = document.getElementById('blank').files[0];
+
+    //   readXlsxFile(excelInput1.files[0]).then(function (data) {
+    //     let parsedRows1 = parseItems(data1);
+    //     parsedRows1.forEach(item_as_rows => {
+    //       itemObjects.push(new item(item_as_rows));
+
+    //     });
+    //   });
+
+    //   readXlsxFile(excelInput2.files[0]).then(function (data) {
+    //     let parsedRow2 = parseItems(data2);
+    //     parsedRows2.forEach(item_as_rows => {
+    //       itemObjects.push(new item(item_as_rows));
+    //     });
+    //   });
+
+    //   items = itemObjects.slice();
+
+    //     // render_list(document.getElementById("inventoryList"), items);
+    //     toggle_page('main_page', items);
+    //   });
+    // });
+
+    // Setup out start screen
+
+    let items = [];
+    let pdf_file;
+
+    continueButton.addEventListener('click', function () {
+      let teamNumStartPage = document.getElementById('teamNumberStartPage');
+
+      if (teamNumStartPage.value != '') {
+        teamNumberVariable = teamNumStartPage.value;
+      }
+
+      updateTeamNumber();
+
+      let continueButton = document.getElementById('continueButton');
+      const itemObjects = [];
+
+      pdf_file = document.getElementById('blank').files[0];
+
+      Promise.all([
+        readXlsxFile(excelInput1.files[0]), // Read first file
+        readXlsxFile(excelInput2.files[0]), // Read second file
+      ])
+        .then(function ([data1, data2]) {
+          let parsedRows1 = parseItems(data1);
+          parsedRows1.forEach(item_as_rows => {
+            itemObjects.push(new item(item_as_rows));
+          });
+
+          let parsedRows2 = parseItems(data2);
+          parsedRows2.forEach(item_as_rows => {
+            itemObjects.push(new item(item_as_rows));
+          });
+
+          // After both files are processed, update the items array
+          items = itemObjects.slice();
+
+          toggle_page('main_page', items);
+        })
+        .catch(function (error) {
+          console.error('Error reading Excel files:', error);
+        });
+    });
+
+    function addBoxes() {
+      const boxName = document.getElementById('newBox').value;
+      boxes_list.push({ name: boxName, role: null });
+      document.getElementById('newBox').value = '';
+
+      toggle_page('main_page', items);
+    }
+
+    function roles_checklist() {
+      const boxes = build_boxes(null);
+      const fromToModal = document.getElementById('fromTo');
+      const roleCheckBoxes = document.getElementById('roleCheckBoxes');
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function boxes_checklist() {
+      const boxes = build_individual_boxes(null);
+      const fromToModal = document.getElementById('fromToIndividual');
+      const roleCheckBoxes = document.getElementById(
+        'roleCheckBoxesIndividual',
+      );
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function generate_2062(event, form) {
+      event.preventDefault();
+
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('checkbox'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(8))
+        .map(name => roles.find(element => element.role === name));
+      const boxes = build_boxes(included_roles);
+
+      const item_mappings = new Map();
+
+      const names = included_roles.map(role => role.name);
+
+      included_roles.forEach(role => {
+        const individual_mapping = new Map();
+        boxes.get(role).forEach(item => {
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            } else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
+          }
+        });
+        generate_pdfs(
+          form.elements['from'].value,
+          role.name,
+          individual_mapping,
+        );
+      });
+      generate_pdfs(
+        form.elements['from'].value,
+        form.elements['to'].value,
+        item_mappings,
+      );
+    }
+
+    function generate_2062_gunboxes(event, form) {
+      event.preventDefault();
+
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('checkbox'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(8))
+        .map(name => boxes_list.find(element => element.name === name));
+      const boxes = build_individual_boxes(included_roles);
+
+      const item_mappings = new Map();
+
+      const names = included_roles.map(role => role.name);
+
+      included_roles.forEach(role => {
+        const individual_mapping = new Map();
+        boxes.get(role).forEach(item => {
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            } else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
+          }
+        });
+        generate_pdfs(
+          form.elements['from'].value,
+          role.name,
+          individual_mapping,
+        );
+      });
+      generate_pdfs(
+        form.elements['from'].value,
+        form.elements['to'].value,
+        item_mappings,
+      );
+    }
+
+    function generate_pdfs(from, to, item_mappings) {
+      pdf_file.arrayBuffer().then(pdfBytes => {
+        const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
+          const f = pdf_form.getForm();
+          //
+          //           let fields = f.getFields();
+          //           fields.forEach(f => {
+          //           });
+          //
+          // From and To Fields
+          const from_field = f.getTextField('FROM');
+          from_field.setFontSize(10);
+          from_field.setText(from);
+          const to_field = f.getTextField('TO');
+          to_field.setFontSize(10);
+          to_field.setText(to);
+
+          const pub_date = f.getTextField('PUBLICATION DATE');
+          pub_date.setFontSize(10);
+          let date = new Date().toLocaleDateString();
+          pub_date.setText(date);
+
+          if (item_mappings.size > 16) {
+            console.error('Too many items you idiot!');
+          }
+          let i = 1;
+          item_mappings.forEach((v, k, m) => {
+            const stock_number = f.getTextField(`STOCKNUMBER aRow${i}`);
+            stock_number.setFontSize(10);
+            stock_number.setText(k.toString());
+
+            const serial_numbers = f.getTextField(`ITEM DESCRIPTION bRow${i}`);
+            serial_numbers.enableMultiline;
+            serial_numbers.setAlignment(PDFLib.TextAlignment.Left);
+            serial_numbers.disableScrolling();
+            serial_numbers.setFontSize(8);
+            serial_numbers.setText('SNs: ' + v.join(', '));
+
+            const qty_auth = f.getTextField(`QTY AUTH fRow${i}`);
+            qty_auth.setFontSize(12);
+            qty_auth.setText(v.length.toString());
+
+            const qty_a = f.getTextField(`ARow${i}`);
+            qty_a.setFontSize(12);
+            qty_a.setText(v.length.toString());
+            i += 1;
+          });
+
+          // Saving the PDF
+          pdf_form.save().then(output_bytes => {
+            const blob = new Blob([output_bytes], {
+              type: 'application/pdf',
+            });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '');
+          });
+        });
+      });
+    }
+
+    function save_to_local_storage() {
+      // Show confirmation popup
+      const confirmationPopup = document.getElementById('confirmationPopup');
+      confirmationPopup.showModal();
+
+      // Handle Yes button click
+      document
+        .getElementById('confirmYes')
+        .addEventListener('click', function () {
+          // Save settings to local storage
+          localStorage.setItem('items', JSON.stringify(items));
+          localStorage.setItem('roles', JSON.stringify(roles));
+          localStorage.setItem('boxes_list', JSON.stringify(boxes_list));
+
+          // Hide confirmation popup
+          confirmationPopup.close();
+
+          // Show "Settings saved" notification
+          const notification = document.getElementById('notificationSaved');
+          notification.style.opacity = '1';
+
+          // Hide notification after 1.5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+          }, 1500);
+        });
+
+      // Handle No button click
+      document
+        .getElementById('confirmNo')
+        .addEventListener('click', function () {
+          // Just hide the confirmation popup without saving
+          confirmationPopup.close();
+        });
+    }
+
+    function load_from_local_storage() {
+      const savedItems = localStorage.getItem('items');
+      const saved_roles = localStorage.getItem('roles');
+      const saved_boxes = localStorage.getItem('boxes_list');
+      if (savedItems && saved_roles && saved_boxes) {
+        items = JSON.parse(savedItems);
+        roles = JSON.parse(saved_roles);
+        boxes_list = JSON.parse(saved_boxes);
+        toggle_page('main_page', items);
+      }
+      // Show notification
+      const notification = document.getElementById('notificationUploaded');
+      notification.style.opacity = '1';
+
+      // Hide notification after 1.5 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+      }, 1000);
+    }
+
+    function export_to_json() {
+      const blob = new Blob([JSON.stringify(items)], {
+        type: 'application/json',
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'property_book.json';
+      a.click();
+    }
+
+    function stay_go_list() {
+      let stay_go_data = [];
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            stay_go_data.push([
+              {
+                value: !!item.mpo_description ? item.mpo_description : '',
+                type: String,
+              },
+              {
+                value: !!nsn_item.nsn_description
+                  ? nsn_item.nsn_description
+                  : '',
+                type: String,
+              },
+              {
+                value: !!serial_number ? `${serial_number.serial_number}` : '',
+                type: String,
+              },
+              {
+                value: !!serial_number.assignment ? 'GO' : 'STAY',
+                type: String,
+                backgroundColor: !!serial_number.assignment
+                  ? '#00FF00'
+                  : '#FF0000',
+                color: !!serial_number.assignment ? '#000000' : '#FFFFFF',
+              },
+            ]);
+          });
+        });
+      });
+
+      const headers = [
+        {
+          value: 'MPO',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'NSN',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'SERIAL NUMBER',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'STAY/GO',
+          fontWeight: 'bold',
+        },
+      ];
+
+      writeXlsxFile([headers, ...stay_go_data], {
+        fileName: 'something.xlsx',
+        stickyRowsCount: 1,
+      }).then();
+    }
+
+    load_from_local_storage();
   </script>
 </html>
