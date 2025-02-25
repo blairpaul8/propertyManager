@@ -388,7 +388,7 @@ image-with-fallback::part(image) {
   max-width: 100px;
 }
 .line_item > image-with-fallback::part(image):hover {
-  scale:250%;
+  scale: 250%;
 }
 .group_name {
   display: flex;
@@ -653,8 +653,7 @@ dialog::backdrop {
 }
 
 .boxDropDown {
-  max-width: max-content;
-  width: 100%
+  min-width: 95px;
 }
 .wrapperDiv {
   width: 100%;
