@@ -100,6 +100,7 @@ body {
 .teamMembersContainer {
   display: flex;
   flex-direction: row;
+  margin-bottom: 2rem;
 }
 .teamMembersColumn1 {
   display: flex;
@@ -367,10 +368,9 @@ body {
   border-radius: 1rem;
   color: #455d7a;
   padding: 0.5rem;
-  box-shadow: 0 0 7.5px rgb(0, 0, 0.25); 
+  box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   background-color: #222;
   margin-right: 0.25rem;
-
 }
 .item_image {
   border-radius: 5px;
@@ -534,7 +534,6 @@ details[open] summary .icons {
   flex-direction: column;
 }
 .btn2062 {
-  margin-top: 2rem;
   border: 2px solid #000;
   padding-inline: 1rem;
   padding-block: 0.75rem;
@@ -544,6 +543,9 @@ details[open] summary .icons {
   width: max-content;
 }
 #upload2062Button.uploaded {
+  background-color: #54ac54;
+}
+#upload1750Button.uploaded {
   background-color: #54ac54;
 }
 .inputExcelWrapper {
