@@ -61,6 +61,23 @@
         <button type="submit">Generate 2062</button>
       </form>
     </dialog>
+    <dialog id="fromToIndividual1750" class="fromTo">
+      <form
+        id="fromToFormIndividual1750"
+        class="fromToForm"
+        onsubmit="generate_1750_gunboxes(event, this)"
+      >
+        <div
+          id="roleCheckBoxesIndividual1750"
+          class="roleCheckBoxesIndividual"
+        ></div>
+        <div>
+          <label for="packedBy"> Packed By: </label>
+          <input type="text" name="packedBy" id="to" value="" />
+        </div>
+        <button type="submit">Generate 1750</button>
+      </form>
+    </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
@@ -81,6 +98,12 @@
             >Blank 2062
           </label>
           <input id="blank" style="visibility: hidden" type="file" />
+        </div>
+        <div class="fileInput">
+          <label for="blank1750" id="upload1750Button" class="btn2062"
+            >Blank 1750
+          </label>
+          <input id="blank1750" style="visibility: hidden" type="file" />
         </div>
         <div class="fileInputs">
           <div class="fileInputContainer">
@@ -405,6 +428,13 @@ the list as soon as they type as there are no network requests to slow things do
             onclick="boxes_checklist()"
           >
             Generate Master 2062
+          </button>
+          <button
+            id="generateMasterButtonIndividual1750"
+            class="generateMasterButton"
+            onclick="boxes_checklist_1750()"
+          >
+            Generate 1750
           </button>
           <button id="deleteSelected" class="generateMasterButton">
             Delete Selected
@@ -1685,6 +1715,17 @@ the list as soon as they type as there are no network requests to slow things do
         }
       });
 
+    document
+      .getElementById('blank1750')
+      .addEventListener('change', function (event) {
+        if (
+          event.target.files.length > 0 &&
+          event.target.files[0].type === 'application/pdf'
+        ) {
+          document.getElementById('upload1750Button').classList.add('uploaded');
+        }
+      });
+
     // continueButton.addEventListener('click', function () {
     //   pdf_file = document.getElementById('blank').files[0];
 
@@ -1728,6 +1769,7 @@ the list as soon as they type as there are no network requests to slow things do
       const itemObjects = [];
 
       pdf_file = document.getElementById('blank').files[0];
+      file_1750 = document.getElementById('blank1750').files[0];
 
       Promise.all([
         readXlsxFile(excelInput1.files[0]), // Read first file
@@ -1789,6 +1831,23 @@ the list as soon as they type as there are no network requests to slow things do
         const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
 
         roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function boxes_checklist_1750() {
+      const boxes = build_individual_boxes(null);
+      const fromToModal = document.getElementById('fromToIndividual1750');
+      const roleCheckBoxes = document.getElementById(
+        'roleCheckBoxesIndividual1750',
+      );
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const radio = `<div><label>${key.name} <input type="radio" name="radio${key.name}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', radio);
       });
 
       fromToModal.showModal();
@@ -1878,6 +1937,54 @@ the list as soon as they type as there are no network requests to slow things do
         form.elements['to'].value,
         item_mappings,
       );
+    }
+
+    function generate_1750_gunboxes(event, form) {
+      event.preventDefault();
+
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('radio'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(5))
+        .map(name => boxes_list.find(element => element.name === name));
+      const boxes = build_individual_boxes(included_roles);
+
+      const item_mappings = new Map();
+
+      const names = included_roles.map(role => role.name);
+
+      included_roles.forEach(role => {
+        const individual_mapping = new Map();
+        boxes.get(role).forEach(item => {
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            } else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
+          }
+        });
+        console.log('About to generate pdf');
+        const packed_by = form.elements['packedBy'];
+        const box_name = role.name;
+        const box_contents = individual_mapping;
+
+        file_1750.arrayBuffer().then(pdfBytes => {
+          const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
+            const f = pdf_form.getForm();
+
+            let fields = f.getFields();
+            fields.forEach(f => {
+              console.log(f.getName());
+            });
+          });
+        });
+      });
     }
 
     function generate_pdfs(from, to, item_mappings) {
