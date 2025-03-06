@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -61,6 +61,23 @@
         <button type="submit">Generate 2062</button>
       </form>
     </dialog>
+    <dialog id="fromToIndividual1750" class="fromTo">
+      <form
+        id="fromToFormIndividual1750"
+        class="fromToForm"
+        onsubmit="generate_1750_gunboxes(event, this)"
+      >
+        <div
+          id="roleCheckBoxesIndividual1750"
+          class="roleCheckBoxesIndividual"
+        ></div>
+        <div>
+          <label for="packedBy"> Packed By: </label>
+          <input type="text" name="packedBy" id="to" value="" />
+        </div>
+        <button type="submit">Generate 1750</button>
+      </form>
+    </dialog>
     <div id="startPage" class="startPage">
       <div class="addExcelFile">
         <div id="teamNumberContainer" class="teamNumberContainer">
@@ -81,6 +98,12 @@
             >Blank 2062
           </label>
           <input id="blank" style="visibility: hidden" type="file" />
+        </div>
+        <div class="fileInput">
+          <label for="blank1750" id="upload1750Button" class="btn2062"
+            >Blank 1750
+          </label>
+          <input id="blank1750" style="visibility: hidden" type="file" />
         </div>
         <div class="fileInputs">
           <div class="fileInputContainer">
@@ -181,14 +204,14 @@
               height="24px"
               viewBox="0 -960 960 960"
               width="24px"
-              fill="#e8eaed"
+              fill="#fff"
             >
               <path
                 d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
               />
             </svg>
             <!-- I don't think we even need a search button, we can just filter
-                             the list as soon as they type as there are no network requests to slow things down -->
+the list as soon as they type as there are no network requests to slow things down -->
           </button>
         </div>
         <div class="teamMembers">
@@ -265,6 +288,12 @@
             >
               Stay Go List
             </button>
+            <button
+              class="boxesPageButton"
+              onclick="(() => {inventory_report()})()"
+            >
+              Inventory Report
+            </button>
           </div>
           <div class="settingsWrapper">
             <button
@@ -328,7 +357,7 @@
               />
             </svg>
             <!-- I don't think we even need a search button, we can just filter
-                 the list as soon as they type as there are no network requests to slow things down -->
+the list as soon as they type as there are no network requests to slow things down -->
           </button>
         </div>
         <div class="teamMembers">
@@ -380,7 +409,7 @@
               />
             </svg>
             <!-- I don't think we even need a search button, we can just filter
-                 the list as soon as they type as there are no network requests to slow things down -->
+the list as soon as they type as there are no network requests to slow things down -->
           </button>
         </div>
         <div class="teamMembers">
@@ -399,6 +428,13 @@
             onclick="boxes_checklist()"
           >
             Generate Master 2062
+          </button>
+          <button
+            id="generateMasterButtonIndividual1750"
+            class="generateMasterButton"
+            onclick="boxes_checklist_1750()"
+          >
+            Generate 1750
           </button>
           <button id="deleteSelected" class="generateMasterButton">
             Delete Selected
@@ -610,18 +646,21 @@
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][1],
               assignment: null,
+              missing_reason: null,
             });
           }
           if (nsn_item_row[i][5]) {
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][5],
               assignment: null,
+              missing_reason: null,
             });
           }
           if (nsn_item_row[i][10]) {
             this.serial_numbers.push({
               serial_number: nsn_item_row[i][10],
               assignment: null,
+              missing_reason: null,
             });
           }
         }
@@ -970,33 +1009,77 @@
           item_image.setAttribute('fallback-src', `photos/default.jpg`);
           card_upper_right.appendChild(item_image);
 
+          const common_name_container = document.createElement('div');
+          common_name_container.classList.add('common_name_container');
+          card_upper_left.appendChild(common_name_container);
+
+          const common_name_edit = document.createElement('button');
+          common_name_edit.classList.add('common_name_edit_button');
+
+          //Pencil Icon for edit button
+          const svgNS = 'http://www.w3.org/2000/svg';
+          const svg = document.createElementNS(svgNS, 'svg');
+          svg.setAttribute('xmlns', svgNS);
+          svg.setAttribute('width', '24');
+          svg.setAttribute('height', '24');
+          svg.setAttribute('viewBox', '0 0 24 24');
+
+          const path_pencil_icon = document.createElementNS(svgNS, 'path');
+          path_pencil_icon.setAttribute(
+            'd',
+            'M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z',
+          );
+
+          //Check mark icon for the edit button
+          const svg_check_icon = document.createElementNS(svgNS, 'svg');
+          svg_check_icon.setAttribute('xmlns', svgNS);
+          svg_check_icon.setAttribute('viewBox', '0 0 24 24');
+          svg_check_icon.setAttribute('width', '24');
+          svg_check_icon.setAttribute('height', '24');
+
+          const path_check = document.createElementNS(svgNS, 'path');
+          path_check.setAttribute(
+            'd',
+            'm2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56',
+          );
+          path_check.setAttribute('fill', 'white');
+
           if (!item.common_name) {
             const common_name = document.createElement('input');
             common_name.classList.add('common_name');
             common_name.placeholder = 'Common Name';
+            svg_check_icon.appendChild(path_check);
+            common_name_edit.appendChild(svg_check_icon);
 
             common_name.addEventListener('keydown', function (event) {
               if (event.key === 'Enter') {
-                // Get the input value
                 const commonNameInput = common_name.value;
                 item.common_name = commonNameInput;
 
-                // Create a <p> tag to replace the input field
                 const pTagCommonName = document.createElement('p');
                 pTagCommonName.classList.add('pTagCommonName');
-                pTagCommonName.textContent = commonNameInput; // Use item.commonName or the input value
+                pTagCommonName.textContent = commonNameInput;
 
-                // Replace the input field with the <p> tag
-                card_upper_left.replaceChild(pTagCommonName, common_name);
+                common_name_container.innerHTML = '';
+                common_name_container.appendChild(pTagCommonName);
+
+                svg.appendChild(path_pencil_icon);
+                common_name_edit.appendChild(svg);
+                common_name_container.appendChild(common_name_edit);
               }
             });
 
-            card_upper_left.appendChild(common_name);
+            common_name_container.appendChild(common_name);
+            common_name_container.appendChild(common_name_edit);
           } else {
             const pTagCommonName = document.createElement('p');
             pTagCommonName.classList.add('pTagCommonName');
-            pTagCommonName.textContent = item.common_name; // Use item.commonName or the input value
-            card_upper_left.appendChild(pTagCommonName);
+            pTagCommonName.textContent = item.common_name;
+            common_name_container.appendChild(pTagCommonName);
+
+            svg.appendChild(path_pencil_icon);
+            common_name_edit.appendChild(svg);
+            common_name_container.appendChild(common_name_edit);
           }
 
           //MPO Description
@@ -1034,6 +1117,21 @@
           card_lower.classList.add('card_lower');
           individualItem.appendChild(card_lower);
 
+          const lower_card_padding = document.createElement('div');
+          lower_card_padding.classList.add('lower_card_padding');
+          card_lower.appendChild(lower_card_padding);
+
+          const left_padding = document.createElement('div');
+          lower_card_padding.appendChild(left_padding);
+
+          const on_hand = document.createElement('div');
+          on_hand.classList.add('on_hand');
+          on_hand.textContent = 'On Hand?';
+          lower_card_padding.appendChild(on_hand);
+
+          const right_padding = document.createElement('div');
+          lower_card_padding.appendChild(right_padding);
+
           const lower_card_header = document.createElement('div');
           lower_card_header.classList.add('lower_card_header');
           card_lower.appendChild(lower_card_header);
@@ -1042,6 +1140,22 @@
           lower_card_sn.classList.add('lower_card_sn');
           lower_card_sn.textContent = 'SN:';
           lower_card_header.appendChild(lower_card_sn);
+
+          const yes_check_header = document.createElement('div');
+          yes_check_header.classList.add('checkbox_header');
+          lower_card_header.appendChild(yes_check_header);
+
+          const yes_response = document.createElement('span');
+          yes_response.textContent = 'Yes';
+          yes_check_header.appendChild(yes_response);
+
+          const no_check_header = document.createElement('div');
+          no_check_header.classList.add('checkbox_header');
+          lower_card_header.appendChild(no_check_header);
+
+          const no_response = document.createElement('span');
+          no_response.textContent = 'No';
+          no_check_header.appendChild(no_response);
 
           const general_individual_cont = document.createElement('div');
           general_individual_cont.classList.add('general_individual');
@@ -1066,6 +1180,52 @@
             serial_number_.classList.add('serial');
             serial_number_.textContent = serial_number.serial_number;
             serial_number_element.appendChild(serial_number_);
+
+            const yes_check_box = document.createElement('input');
+            yes_check_box.type = 'checkbox';
+            yes_check_box.classList.add('on_hand_checkboxes');
+            serial_number_element.appendChild(yes_check_box);
+
+            const no_check_box = document.createElement('input');
+            no_check_box.type = 'checkbox';
+            no_check_box.classList.add('on_hand_checkboxes');
+            serial_number_element.appendChild(no_check_box);
+
+            //Event listener if no is checked then a modal is opened
+            //to add a comment about the item.
+            const dialog = document.createElement('dialog');
+            dialog.classList.add('missing_reason_modal');
+
+            const input_box = document.createElement('textarea');
+            input_box.classList.add('missing_reason_input');
+            input_box.rows = 10;
+            input_box.cols = 60;
+            input_box.placeholder = 'Enter missing reason';
+
+            const ok_button = document.createElement('button');
+            ok_button.classList.add('btn2062');
+            ok_button.textContent = 'OK';
+
+            dialog.appendChild(input_box);
+            dialog.appendChild(ok_button);
+            document.body.appendChild(dialog);
+
+            // Event Listener for Checkbox
+            no_check_box.addEventListener('change', function () {
+              if (no_check_box.checked) {
+                // Show dialog as modal
+                dialog.showModal();
+              } else {
+                serial_number.missing_reason = null; // Clear reason if unchecked
+              }
+            });
+
+            // Event Listener for OK Button
+            ok_button.addEventListener('click', function () {
+              serial_number.missing_reason = input_box.value; // Save the comment
+              dialog.close(); // Close the dialog
+              input_box.value = ''; // Clear input
+            });
 
             const container = document.createElement('div');
             container.classList.add('selectList');
@@ -1256,8 +1416,8 @@
         rightGrouping.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>`,
+<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -1318,8 +1478,8 @@
         rightGrouping.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>`,
+<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -1481,7 +1641,7 @@
         if (person.role != null) {
           dropDown.insertAdjacentHTML(
             'beforeend',
-            `<div class="namesAndRoles"><p class="name">${person.name}</p><p class="role">${person.role}</p></div>`,
+            `<div class="namesAndRoles"><p class="dropdown_name">${person.name}</p><p class="role">${person.role}</p></div>`,
           );
         }
       });
@@ -1555,6 +1715,17 @@
         }
       });
 
+    document
+      .getElementById('blank1750')
+      .addEventListener('change', function (event) {
+        if (
+          event.target.files.length > 0 &&
+          event.target.files[0].type === 'application/pdf'
+        ) {
+          document.getElementById('upload1750Button').classList.add('uploaded');
+        }
+      });
+
     // continueButton.addEventListener('click', function () {
     //   pdf_file = document.getElementById('blank').files[0];
 
@@ -1598,6 +1769,7 @@
       const itemObjects = [];
 
       pdf_file = document.getElementById('blank').files[0];
+      file_1750 = document.getElementById('blank1750').files[0];
 
       Promise.all([
         readXlsxFile(excelInput1.files[0]), // Read first file
@@ -1659,6 +1831,23 @@
         const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
 
         roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
+      });
+
+      fromToModal.showModal();
+    }
+
+    function boxes_checklist_1750() {
+      const boxes = build_individual_boxes(null);
+      const fromToModal = document.getElementById('fromToIndividual1750');
+      const roleCheckBoxes = document.getElementById(
+        'roleCheckBoxesIndividual1750',
+      );
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const radio = `<div><label>${key.name} <input type="radio" name="radio${key.name}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', radio);
       });
 
       fromToModal.showModal();
@@ -1748,6 +1937,54 @@
         form.elements['to'].value,
         item_mappings,
       );
+    }
+
+    function generate_1750_gunboxes(event, form) {
+      event.preventDefault();
+
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('radio'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(5))
+        .map(name => boxes_list.find(element => element.name === name));
+      const boxes = build_individual_boxes(included_roles);
+
+      const item_mappings = new Map();
+
+      const names = included_roles.map(role => role.name);
+
+      included_roles.forEach(role => {
+        const individual_mapping = new Map();
+        boxes.get(role).forEach(item => {
+          if (item_mappings.has(item.nsn)) {
+            item_mappings.get(item.nsn).push(item.serial_number);
+            if (!individual_mapping.has(item.nsn)) {
+              individual_mapping.set(item.nsn, [item.serial_number]);
+            } else {
+              individual_mapping.get(item.nsn).push(item.serial_number);
+            }
+          } else {
+            item_mappings.set(item.nsn, [item.serial_number]);
+            individual_mapping.set(item.nsn, [item.serial_number]);
+          }
+        });
+        console.log('About to generate pdf');
+        const packed_by = form.elements['packedBy'];
+        const box_name = role.name;
+        const box_contents = individual_mapping;
+
+        file_1750.arrayBuffer().then(pdfBytes => {
+          const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
+            const f = pdf_form.getForm();
+
+            let fields = f.getFields();
+            fields.forEach(f => {
+              console.log(f.getName());
+            });
+          });
+        });
+      });
     }
 
     function generate_pdfs(from, to, item_mappings) {
@@ -1930,11 +2167,76 @@
       ];
 
       writeXlsxFile([headers, ...stay_go_data], {
-        fileName: 'something.xlsx',
+        fileName: 'stay_go_list.xlsx',
         stickyRowsCount: 1,
       }).then();
     }
 
+    function inventory_report() {
+      let stay_go_data = [];
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            stay_go_data.push([
+              {
+                value: !!item.mpo_description ? item.mpo_description : '',
+                type: String,
+              },
+              {
+                value: !!nsn_item.nsn_description
+                  ? nsn_item.nsn_description
+                  : '',
+                type: String,
+              },
+              {
+                value: !!serial_number ? `${serial_number.serial_number}` : '',
+                type: String,
+              },
+              {
+                value: !!serial_number.missing_reason ? 'NO' : 'YES',
+                type: String,
+                backgroundColor: !!serial_number.missing_reason
+                  ? '#FF0000'
+                  : '#00FF00',
+                color: !!serial_number.missing_reason ? '#000000' : '#000000',
+              },
+              {
+                value: !!serial_number.missing_reason ? serial_number.missing_reason : '',
+                type: String,
+              },
+            ]);
+          });
+        });
+      });
+
+      const headers = [
+        {
+          value: 'MPO',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'NSN',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'SERIAL NUMBER',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'On Hand Y/N',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'Reason',
+          fontWeight: 'bold',
+        },
+      ];
+
+      writeXlsxFile([headers, ...stay_go_data], {
+        fileName: 'inventory_report.xlsx',
+        stickyRowsCount: 1,
+      }).then();
+    }
     load_from_local_storage();
   </script>
 </html>
