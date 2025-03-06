@@ -265,6 +265,12 @@ the list as soon as they type as there are no network requests to slow things do
             >
               Stay Go List
             </button>
+            <button
+              class="boxesPageButton"
+              onclick="(() => {inventory_report()})()"
+            >
+              Inventory Report
+            </button>
           </div>
           <div class="settingsWrapper">
             <button
@@ -2054,11 +2060,76 @@ the list as soon as they type as there are no network requests to slow things do
       ];
 
       writeXlsxFile([headers, ...stay_go_data], {
-        fileName: 'something.xlsx',
+        fileName: 'stay_go_list.xlsx',
         stickyRowsCount: 1,
       }).then();
     }
 
+    function inventory_report() {
+      let stay_go_data = [];
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn_item => {
+          nsn_item.serial_numbers.forEach(serial_number => {
+            stay_go_data.push([
+              {
+                value: !!item.mpo_description ? item.mpo_description : '',
+                type: String,
+              },
+              {
+                value: !!nsn_item.nsn_description
+                  ? nsn_item.nsn_description
+                  : '',
+                type: String,
+              },
+              {
+                value: !!serial_number ? `${serial_number.serial_number}` : '',
+                type: String,
+              },
+              {
+                value: !!serial_number.missing_reason ? 'NO' : 'YES',
+                type: String,
+                backgroundColor: !!serial_number.missing_reason
+                  ? '#FF0000'
+                  : '#00FF00',
+                color: !!serial_number.missing_reason ? '#000000' : '#000000',
+              },
+              {
+                value: !!serial_number.missing_reason ? serial_number.missing_reason : '',
+                type: String,
+              },
+            ]);
+          });
+        });
+      });
+
+      const headers = [
+        {
+          value: 'MPO',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'NSN',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'SERIAL NUMBER',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'On Hand Y/N',
+          fontWeight: 'bold',
+        },
+        {
+          value: 'Reason',
+          fontWeight: 'bold',
+        },
+      ];
+
+      writeXlsxFile([headers, ...stay_go_data], {
+        fileName: 'inventory_report.xlsx',
+        stickyRowsCount: 1,
+      }).then();
+    }
     load_from_local_storage();
   </script>
 </html>
