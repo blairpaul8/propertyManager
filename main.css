@@ -1,35 +1,47 @@
 body {
-  background: #222;
+  background: rgb(48, 48, 48);
   max-width: 100vw;
   font-family: sans-serif;
   overflow: hidden;
 }
 .editTeamModal {
-  width: 200px;
   border-radius: 10px;
-  background-color: #666;
+  background-color: #222;
+  border: none;
+}
+
+.editNamesList > .role {
+  padding-left: 0.25rem;
+  color: #fff;
 }
 .editNamesList {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 .editName {
   border-radius: 10px;
   border: none;
   margin-top: 5px;
 }
+
+.nameInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  align-items: center;
+}
 .closeModal {
-  display: flex;
-  justify-content: center;
-  width: 125px;
-  border: none;
   padding: 10px;
-  background-color: #455d7a;
+  background-color: #222;
+  border: 1px solid #fff;
+  color: #fff;
   cursor: pointer;
   border-radius: 10px;
   margin-block: 0.5rem;
   font-size: 1.25em;
+  grid-column: span 2;
 }
 .topBar {
   display: flex;
@@ -88,6 +100,7 @@ body {
 .teamMembersContainer {
   display: flex;
   flex-direction: row;
+  margin-bottom: 2rem;
 }
 .teamMembersColumn1 {
   display: flex;
@@ -126,10 +139,9 @@ body {
   margin-right: 1rem;
 }
 .searchBar button {
-  border: none;
   padding: 10px;
-  background-color: #455d7a;
-  color: #fff;
+  background: none;
+  border: 1px solid white;
   cursor: pointer;
   border-radius: 10px;
   margin-block: 0.5rem;
@@ -151,7 +163,6 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 200px;
-  box-shadow: 0 0 5px rgb(0, 0, 0.25);
   font-family: sans-serif;
   flex: 1;
 }
@@ -174,23 +185,21 @@ body {
   text-align: center;
 }
 .editTeamMembers:hover {
-  background-color: #333;
 }
 .membersDropDown {
   background-color: #222;
-  font-size: 1.5em;
-  color: #455d7a;
-  padding: 16px;
+  color: #fff;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  width: 100%;
 }
 .teamNames {
   display: none;
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #666;
+  background-color: #fff;
   border-radius: 5px;
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -203,8 +212,7 @@ body {
   border-radius: 10px;
 }
 .teamMembers:hover .membersDropDown {
-  background-color: #666;
-  border-radius: 10px;
+  scale: 105%;
 }
 .sidebar {
   display: flex;
@@ -237,7 +245,7 @@ body {
   border-radius: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
   font-size: 1.25em;
-  color: #455d7a;
+  color: #fffff;
   cursor: pointer;
   width: 100%;
 }
@@ -248,8 +256,8 @@ body {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: #000;
-  background-color: gray;
+  color: #fff;
+  background-color: #222;
   cursor: pointer;
   width: 100%;
 }
@@ -260,8 +268,8 @@ body {
   padding: 5%;
   border-radius: 0.5rem;
   font-size: 1.25em;
-  color: #000;
-  background-color: gray;
+  color: #fff;
+  background-color: #222;
   cursor: pointer;
   width: 100%;
 }
@@ -286,12 +294,12 @@ body {
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 10px;
+  align-items: center;
 }
 .inputLabel {
-  margin-top: 10px;
   margin-right: 10px;
   font-size: 1.2em;
-  color: #455d7a;
+  color: #ffffff;
   vertical-align: bottom;
 }
 .newBox {
@@ -306,7 +314,8 @@ body {
   border: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: #455d7a;
+  background-color: #222;
+  border: solid 1px white;
   color: #fff;
   vertical-align: bottom;
 }
@@ -340,27 +349,52 @@ body {
   flex-direction: column;
 }
 
-.lower_card_header {
-  display: flex;
-  flex-direction: row;
+.lower_card_padding {
+  display: grid;
+  grid-template-columns: 2fr 2fr 6fr;
   justify-content: space-between;
   width: 100%;
+
+}
+
+.on_hand {
+  display: flex;
+  text-align: center;
+  justify-self: center;
+  color: #8a8a8a;
+}
+
+.lower_card_header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 6fr;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.checkbox_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 100%;
+
 }
 
 .general_individual {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 15px;
 }
 .item {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   color: #455d7a;
   padding: 0.5rem;
   box-shadow: 0 0 7.5px rgb(0, 0, 0.25);
-  background-color: #333;
+  background-color: #222;
   margin-right: 0.25rem;
 }
 .item_image {
@@ -405,27 +439,62 @@ image-with-fallback::part(image) {
   height: min-content;
   width: 100%;
 }
+
+.common_name_container {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.common_name_edit_button {
+  padding: 5px;
+  background: none;
+  border: 1px solid white;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.common_name_edit_button svg path {
+  fill: white;
+}
 .common_name {
-  font-size: 24px;
-  border: 2px solid #d3d3d3;
+  font-size: 18px;
+  border: 2px solid white;
   width: 50%;
   border-radius: 0.5rem;
   cursor: not-allowed;
-  background-color: #d3d3d3;
+  background-color: white;
 }
 .pTagCommonName {
   color: #fff;
-  font-size: 24px;
+  font-size: 18px;
   margin-block-start: 0;
   margin-block-end: 0;
   font-weight: 700;
 }
 .serialNumber {
   display: grid;
-  grid-template-columns: 6fr 2fr;
+  grid-template-columns: 2fr 1fr 1fr 6fr;
   align-items: end;
   padding-block: 0.2rem;
   padding-inline: 0.1rem;
+}
+
+.yes_check_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  color: white;
+}
+
+.missing_reason_modal {
+  border-radius: 2rem;
+  background-color: #8a8a8a;
+}
+
+
+.missing_reason_input {
+  display: block;
+  margin-bottom: 10px;
 }
 .serialNumber:first-child {
   border-top-left-radius: 0.25rem;
@@ -436,10 +505,10 @@ image-with-fallback::part(image) {
   border-bottom-right-radius: 0.25rem;
 }
 .serialNumber:nth-child(odd) {
-  background: #454545;
+  background: #282828;
 }
 .serialNumber:nth-child(even) {
-  background: #333;
+  background: #222;
 }
 .header {
   gap: 5px;
@@ -508,7 +577,6 @@ details[open] summary .icons {
   flex-direction: column;
 }
 .btn2062 {
-  margin-top: 2rem;
   border: 2px solid #000;
   padding-inline: 1rem;
   padding-block: 0.75rem;
@@ -518,6 +586,9 @@ details[open] summary .icons {
   width: max-content;
 }
 #upload2062Button.uploaded {
+  background-color: #54ac54;
+}
+#upload1750Button.uploaded {
   background-color: #54ac54;
 }
 .inputExcelWrapper {
@@ -707,4 +778,19 @@ dialog::backdrop {
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1000;
+}
+
+.lower_card_sn {
+  color: #8a8a8a;
+}
+
+.sfoda {
+  color: #fff;
+}
+
+.dropdown_name {
+  color: #000;
+}
+
+.search_button {
 }
