@@ -8,7 +8,7 @@
   teams property book ask your supply NCO for an updated copy and have then convert it 
   to excel in Adobe. 
 
-  !!!Important once you have the excel file the cells need to be formatted to text. This is
+  *** Important once you have the excel file the cells need to be formatted to text. This is
   done by the following steps:
     1. Open file in excel
     2. Select all cells
@@ -24,7 +24,7 @@
     - names and team number
 
   2. Upload the provided blank 2062 and 1750. (NOTE: Must be done every time website is opened)
-      - !!!Must use provided 2062/1750 files not all PDFs are the same!!!!
+      - Must use provided 2062/1750 files not all PDFs are the same
 
   3. Upload at least one property book file (Note: must be in excel format.)
 
