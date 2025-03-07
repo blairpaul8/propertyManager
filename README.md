@@ -41,6 +41,12 @@
 box. Additionally, items can be searched for at the top by LIN and MPO description or by 
 serial number.
 
+Common Name: This text field can be filled out to put in a common name for items so they can be referenced
+by this name. Otherwise the default value for the name is MPO description or NSN. 
+
+  - Example: PVS-31's show up as BINOCULAR NIGHT VISION SYSTEM: (BNVS). It is useful to fill out the common names
+  as you use the program and once they are saved those names can be uploaded.
+
   Important note: On the left side bar there is a "Save Settings" button this should be used 
 frequently so that equipment assignments are not lost. Also, this enables you to upload all
 the settings if the website is closed by using the "Upload Settings" button.

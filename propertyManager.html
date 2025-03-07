@@ -1053,8 +1053,8 @@ the list as soon as they type as there are no network requests to slow things do
             const common_name = document.createElement('input');
             common_name.classList.add('common_name');
             common_name.placeholder = 'Common Name';
-            svg_check_icon.appendChild(path_check);
-            common_name_edit.appendChild(svg_check_icon);
+            //svg_check_icon.appendChild(path_check);
+            //common_name_edit.appendChild(svg_check_icon);
 
             common_name.addEventListener('keydown', function (event) {
               if (event.key === 'Enter') {
@@ -1068,23 +1068,23 @@ the list as soon as they type as there are no network requests to slow things do
                 common_name_container.innerHTML = '';
                 common_name_container.appendChild(pTagCommonName);
 
-                svg.appendChild(path_pencil_icon);
-                common_name_edit.appendChild(svg);
-                common_name_container.appendChild(common_name_edit);
+                //svg.appendChild(path_pencil_icon);
+                //common_name_edit.appendChild(svg);
+                //common_name_container.appendChild(common_name_edit);
               }
             });
 
             common_name_container.appendChild(common_name);
-            common_name_container.appendChild(common_name_edit);
+            //common_name_container.appendChild(common_name_edit);
           } else {
             const pTagCommonName = document.createElement('p');
             pTagCommonName.classList.add('pTagCommonName');
             pTagCommonName.textContent = item.common_name;
             common_name_container.appendChild(pTagCommonName);
 
-            svg.appendChild(path_pencil_icon);
-            common_name_edit.appendChild(svg);
-            common_name_container.appendChild(common_name_edit);
+            //svg.appendChild(path_pencil_icon);
+            //common_name_edit.appendChild(svg);
+//            common_name_container.appendChild(common_name_edit);
           }
 
           //MPO Description
