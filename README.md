@@ -14,7 +14,7 @@
     2. Select all cells
     3. Select Format
       - Format cells from the drop down 
-    4. Under category select "Text" and press ok.
+    4. Under category select "Text" and press okay.
 
   If this isn't done excel will drop leading zeros on serial numbers that begin with 0.
 
@@ -26,14 +26,14 @@
   2. Upload the provided blank 2062 and 1750. (NOTE: Must be done every time website is opened)
       - !!!Must use provided 2062/1750 files not all PDFs are the same!!!!
 
-  3. Upload at least one property book file (Note. must be in excel format.)
+  3. Upload at least one property book file (Note: must be in excel format.)
 
   4. Press "continue" 
 
 
 ## Main Page 
 
-    From the main page you can make all the assignments to build out gun boxes or general
+  From the main page you can make all the assignments to build out gun boxes or general
 box. Additionally, items can be searched for at the top by LIN and MPO description or by 
 serial number.
 
