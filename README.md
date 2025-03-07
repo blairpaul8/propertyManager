@@ -10,10 +10,14 @@
 
   *** Important once you have the excel file the cells need to be formatted to text. This is
   done by the following steps:
+
     1. Open file in excel
+
     2. Select all cells
+
     3. Select Format
       - Format cells from the drop down 
+
     4. Under category select "Text" and press okay.
 
   If this isn't done excel will drop leading zeros on serial numbers that begin with 0.
