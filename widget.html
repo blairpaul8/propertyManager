@@ -373,14 +373,14 @@ the list as soon as they type as there are no network requests to slow things do
           <button
             id="generateMasterButtonIndividual"
             class="generateMasterButton"
-            onclick="boxes_checklist()"
+            onclick="roles_checklist()"
           >
             Generate Master 2062
           </button>
           <button
             id="generateMasterButtonIndividual1750"
             class="generateMasterButton"
-            onclick="boxes_checklist_1750()"
+            onclick="roles_checklist_1750()"
           >
             Generate 1750
           </button>
@@ -1885,6 +1885,23 @@ the list as soon as they type as there are no network requests to slow things do
       fromToModal.showModal();
     }
 
+    function roles_checklist_1750() {
+      const boxes = build_boxes(null);
+      const fromToModal = document.getElementById('fromToIndividual1750');
+      const roleCheckBoxes = document.getElementById(
+        'roleCheckBoxesIndividual1750',
+      );
+      roleCheckBoxes.innerHTML = '';
+
+      Array.from(boxes.keys()).forEach(key => {
+        const radio = `<div><label>${key.name} (${key.role}) <input type="radio" name="radio${key.name}"/></label></div>`;
+
+        roleCheckBoxes.insertAdjacentHTML('beforeend', radio);
+      });
+
+      fromToModal.showModal();
+    }
+
     function boxes_checklist_1750() {
       const boxes = build_individual_boxes(null);
       const fromToModal = document.getElementById('fromToIndividual1750');
@@ -1988,6 +2005,40 @@ the list as soon as they type as there are no network requests to slow things do
       );
     }
 
+    function generate_1750_individual(event, form) {
+      const included_roles = Array.from(form.elements)
+        .map(element => element.name)
+        .filter(name => name.startsWith('radio'))
+        .filter(name => form.elements[name].checked)
+        .map(name => name.slice(5))
+        .map(name => name.split(' ')[0])
+        .map(name => roles.find(element => element.name === name));
+      const boxes = build_boxes(included_roles);
+
+      const names = included_roles.map(role => role.name);
+      const box_name = names[0];
+
+      const box_items = [];
+
+      const [first_val] = boxes.values();
+      const items_arr = first_val;
+      console.log(items_arr);
+      console.log(`Does this work? ${items_arr}`);
+
+      items_arr.forEach(item => {
+        box_items.push({
+          common_name: item.common_name,
+          nsn_number: item.nsn,
+          serial_number: item.serial_number,
+        });
+      });
+
+      const grouped = Object.groupBy(box_items, ({ nsn_number }) => nsn_number);
+      const packed_by = form.elements['packedBy'].value;
+
+      generate_1750(packed_by, box_name, grouped);
+    }
+
     function generate_1750_gunboxes(event, form) {
       event.preventDefault();
 
@@ -1996,7 +2047,11 @@ the list as soon as they type as there are no network requests to slow things do
         .filter(name => name.startsWith('radio'))
         .filter(name => form.elements[name].checked)
         .map(name => name.slice(5))
-        .map(name => boxes_list.find(element => element.name === name));
+        .map(name => boxes_list.find(element => element.name === name))
+        .filter(name => name !== null && name !== undefined);
+      if (included_roles.length === 0) {
+        return generate_1750_individual(event, form);
+      }
       const boxes = build_individual_boxes(included_roles);
 
       const item_mappings = new Map();
@@ -2095,10 +2150,6 @@ the list as soon as they type as there are no network requests to slow things do
           const f = pdf_form.getForm();
 
           const fields = f.getFields();
-          fields.forEach(field => {
-            const name = field.getName();
-            console.log(`${name}`);
-          });
           // From and To Fields
           const from_field = f.getTextField('PACKED_BY');
           from_field.setFontSize(10);
@@ -2365,6 +2416,6 @@ the list as soon as they type as there are no network requests to slow things do
         stickyRowsCount: 1,
       }).then();
     }
-    load_from_local_storage();
+    // load_from_local_storage();
   </script>
 </html>
