@@ -73,7 +73,7 @@
         ></div>
         <div>
           <label for="packedBy"> Packed By: </label>
-          <input type="text" name="packedBy" id="to" value="" />
+          <input type="text" name="packedBy" id="packedBy" value="" />
         </div>
         <button type="submit">Generate 1750</button>
       </form>
@@ -1409,8 +1409,8 @@ the list as soon as they type as there are no network requests to slow things do
         rightGrouping.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>`,
+    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -1471,8 +1471,8 @@ the list as soon as they type as there are no network requests to slow things do
         rightGrouping.insertAdjacentHTML(
           'beforeend',
           `<svg class="icons" data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>`,
+    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>`,
         );
         header.appendChild(rightGrouping);
 
@@ -1947,38 +1947,28 @@ the list as soon as they type as there are no network requests to slow things do
       const item_mappings = new Map();
 
       const names = included_roles.map(role => role.name);
+      const box_name = names[0];
 
-      included_roles.forEach(role => {
-        const individual_mapping = new Map();
-        boxes.get(role).forEach(item => {
-          if (item_mappings.has(item.nsn)) {
-            item_mappings.get(item.nsn).push(item.serial_number);
-            if (!individual_mapping.has(item.nsn)) {
-              individual_mapping.set(item.nsn, [item.serial_number]);
-            } else {
-              individual_mapping.get(item.nsn).push(item.serial_number);
+      const box_items = [];
+
+      items.forEach(item => {
+        item.nsn_items.forEach(nsn => {
+          nsn.serial_numbers.forEach(sn => {
+            if (sn.assignment === box_name) {
+              box_items.push({
+                common_name: item.common_name,
+                nsn_number: nsn.nsn,
+                serial_number: sn.serial_number,
+              });
             }
-          } else {
-            item_mappings.set(item.nsn, [item.serial_number]);
-            individual_mapping.set(item.nsn, [item.serial_number]);
-          }
-        });
-        console.log('About to generate pdf');
-        const packed_by = form.elements['packedBy'];
-        const box_name = role.name;
-        const box_contents = individual_mapping;
-
-        file_1750.arrayBuffer().then(pdfBytes => {
-          const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
-            const f = pdf_form.getForm();
-
-            let fields = f.getFields();
-            fields.forEach(f => {
-              console.log(f.getName());
-            });
           });
         });
       });
+
+      const grouped = Object.groupBy(box_items, ({ nsn_number }) => nsn_number);
+      const packed_by = form.elements['packedBy'].value;
+
+      generate_1750(packed_by, box_name, grouped);
     }
 
     function generate_pdfs(from, to, item_mappings) {
@@ -2041,7 +2031,10 @@ the list as soon as they type as there are no network requests to slow things do
       });
     }
 
-    function generate_1750(from, to, item_mappings) {
+    function generate_1750(from, box_name, item_mappings) {
+      console.log(from);
+      console.log(box_name);
+      console.log(item_mappings);
       blank_1750.arrayBuffer().then(pdfBytes => {
         const pdfForm = PDFLib.PDFDocument.load(pdfBytes).then(pdf_form => {
           const f = pdf_form.getForm();
@@ -2057,12 +2050,35 @@ the list as soon as they type as there are no network requests to slow things do
           from_field.setText(from);
           const to_field = f.getTextField('Number_boxes');
           to_field.setFontSize(10);
-          to_field.setText('52');
+          to_field.setText('1');
+          const end_item = f.getTextField('3_END_ITEM');
+          end_item.setText(box_name);
 
           const pub_date = f.getTextField('4_DATE');
           pub_date.setFontSize(10);
           let date = new Date().toLocaleDateString();
           pub_date.setText(date);
+
+          let i = 1;
+          const item_map = new Map(Object.entries(item_mappings));
+          item_map.forEach((v, k, m) => {
+            console.log(v);
+            const item_name =
+              v[0].common_name !== '' ? v[0].common_name : v[0].nsn_number;
+            const serial_numbers = v
+              .map(assignment => assignment.serial_number)
+              .join(', ');
+
+            const num_field = f.getTextField(`box_${i}`);
+            const content_field = f.getTextField(`contents_${i}`);
+            const count_field = f.getTextField(`unit_${i}`);
+
+            num_field.setText(`${i}`);
+            content_field.setFontSize(8);
+            content_field.setText(`${item_name}: ${serial_numbers}`);
+            count_field.setText(`${v.length}`);
+            i++;
+          });
 
           // if (item_mappings.size > 16) {
           //   console.error('Too many items you idiot!');
