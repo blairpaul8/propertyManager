@@ -2022,8 +2022,6 @@ the list as soon as they type as there are no network requests to slow things do
 
       const [first_val] = boxes.values();
       const items_arr = first_val;
-      console.log(items_arr);
-      console.log(`Does this work? ${items_arr}`);
 
       items_arr.forEach(item => {
         box_items.push({
@@ -2178,39 +2176,15 @@ the list as soon as they type as there are no network requests to slow things do
             const num_field = f.getTextField(`box_${i}`);
             const content_field = f.getTextField(`contents_${i}`);
             const count_field = f.getTextField(`unit_${i}`);
+            const total_field = f.getTextField(`total_${i}`);
 
             num_field.setText(`${i}`);
             content_field.setFontSize(8);
             content_field.setText(`${item_name}: ${serial_numbers}`);
             count_field.setText(`${v.length}`);
+            total_field.setText(`${v.length}`);
             i++;
           });
-
-          // if (item_mappings.size > 16) {
-          //   console.error('Too many items you idiot!');
-          // }
-          // let i = 1;
-          // item_mappings.forEach((v, k, m) => {
-          //   const stock_number = f.getTextField(`STOCKNUMBER aRow${i}`);
-          //   stock_number.setFontSize(10);
-          //   stock_number.setText(k.toString());
-          //
-          //   const serial_numbers = f.getTextField(`ITEM DESCRIPTION bRow${i}`);
-          //   serial_numbers.enableMultiline;
-          //   serial_numbers.setAlignment(PDFLib.TextAlignment.Left);
-          //   serial_numbers.disableScrolling();
-          //   serial_numbers.setFontSize(8);
-          //   serial_numbers.setText('SNs: ' + v.join(', '));
-          //
-          //   const qty_auth = f.getTextField(`QTY AUTH fRow${i}`);
-          //   qty_auth.setFontSize(12);
-          //   qty_auth.setText(v.length.toString());
-          //
-          //   const qty_a = f.getTextField(`ARow${i}`);
-          //   qty_a.setFontSize(12);
-          //   qty_a.setText(v.length.toString());
-          //   i += 1;
-          // });
 
           // Saving the PDF
           pdf_form.save().then(output_bytes => {
