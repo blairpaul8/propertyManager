@@ -949,27 +949,20 @@ the list as soon as they type as there are no network requests to slow things do
 
       if (input.length !== 0) {
         items.forEach(item => {
-          const compare_against =
-            item.mpo_description ??
-            '' +
-              item.common_name +
-              item.nsn_items.map(nsn => {
-                return nsn.serial_numbers
-                  .map(sns => {
-                    return sns.serial_number;
-                  })
-                  .join(' ');
-              });
-          if (item === items[0]) {
-            console.log(compare_against);
-          }
+          const description = item.mpo_description ?? '';
+          const common_name = item.common_name ?? '';
+          const serial_numbers = item.nsn_items.map(nsn => {
+            return nsn.serial_numbers
+              .map(sns => {
+                return sns.serial_number;
+              })
+              .join(' ');
+          });
+          const compare_against = description + common_name + serial_numbers;
           const distance =
             input.length < 3
               ? digram_comparison(input, compare_against.toUpperCase())
               : trigram_comparison(input, compare_against.toUpperCase());
-          if (item.common_name === 'm4') {
-            console.log({ item: item, score: distance });
-          }
           if (distance >= relativeThreshold) {
             searchResults.push({ item: item, score: distance });
           }
