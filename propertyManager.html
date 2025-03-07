@@ -1704,7 +1704,7 @@ the list as soon as they type as there are no network requests to slow things do
     //});
 
     function render_edit_team_list(role_list) {
-      roles.forEach(person => {
+      roles.toReversed().forEach(person => {
         document
           .getElementById('nameInputs')
           .insertAdjacentHTML(
