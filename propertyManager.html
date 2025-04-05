@@ -1161,49 +1161,16 @@ the list as soon as they type as there are no network requests to slow things do
           'm2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56',
         );
         path_check.setAttribute('fill', 'white');
-
-        if (!nsn_item.common_name) {
-          console.log(nsn_item.nsn);
-          const mapped_common_name = common_name_map.get(nsn_item.nsn);
-          console.log(mapped_common_name);
-          if (mapped_common_name && mapped_common_name != "") {
-            item.common_name = mapped_common_name;
+        
+        if (nsn_item.common_name && nsn_item.common_name !== "") {
             const pTagCommonName = document.createElement('p');
             pTagCommonName.classList.add('pTagCommonName');
-            pTagCommonName.textContent = mapped_common_name;
+            pTagCommonName.textContent = nsn_item.common_name;
 
             common_name_container.innerHTML = '';
             common_name_container.appendChild(pTagCommonName);
-          }
-          else {
-
-            const common_name = document.createElement('input');
-            common_name.classList.add('common_name');
-            common_name.placeholder = 'Common Name';
-            //svg_check_icon.appendChild(path_check);
-            //common_name_edit.appendChild(svg_check_icon);
-
-            common_name.addEventListener('keydown', function (event) {
-              if (event.key === 'Enter') {
-                const commonNameInput = common_name.value;
-                item.common_name = commonNameInput;
-
-                const pTagCommonName = document.createElement('p');
-                pTagCommonName.classList.add('pTagCommonName');
-                pTagCommonName.textContent = commonNameInput;
-
-                common_name_container.innerHTML = '';
-                common_name_container.appendChild(pTagCommonName);
-
-                //svg.appendChild(path_pencil_icon);
-                //common_name_edit.appendChild(svg);
-                //common_name_container.appendChild(common_name_edit);
-              }
-            });
-            common_name_container.appendChild(common_name);
-          }
-
         }
+
 
         //MPO Description
         const name = document.createElement('div');
@@ -1457,12 +1424,13 @@ person.role !== null ? '(' + person.role + ')' : ''
             }
 
             boxes.get(role).push({
-              common_name: item.common_name,
               mpo_description: item.mpo_description,
               nsn_description: nsn_item.nsn_description,
               nsn: nsn_item.nsn,
               serial_number: serial_number.serial_number,
+              common_name: nsn_item.common_name
             });
+            console.log(boxes);
           }
         });
       });
@@ -1513,6 +1481,7 @@ person.role !== null ? '(' + person.role + ')' : ''
               nsn_description: nsn_item.nsn_description,
               nsn: nsn_item.nsn,
               serial_number: serial_number.serial_number,
+              common_name: nsn_item.common_name
             });
           }
         });
@@ -1964,6 +1933,20 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
         // After both files are processed, update the items array
         items = itemObjects.slice();
+        
+        //Set all common names for nsn_tems
+        items.forEach(item => {
+          item.nsn_items.forEach(nsn_item => {
+            const mapped_common_name = common_name_map.get(nsn_item.nsn);
+            if (mapped_common_name && mapped_common_name !== "") {
+              nsn_item.common_name = mapped_common_name;
+            }
+            else {
+              nsn_item.common_name = "No Common Name";
+            }
+      });
+  });
+
 
         toggle_page('main_page', items);
       })
@@ -1971,6 +1954,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
         console.error('Error reading Excel files:', error);
       });
   });
+
 
   function addBoxes() {
     const boxName = document.getElementById('newBox').value;
@@ -2045,7 +2029,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
     fromToModal.showModal();
   }
-
+  
   function generate_2062(event, form) {
     event.preventDefault();
 
@@ -2064,16 +2048,17 @@ assignment.mpo_description ? assignment.mpo_description : ''
     included_roles.forEach(role => {
       const individual_mapping = new Map();
       boxes.get(role).forEach(item => {
-        if (item_mappings.has(item.nsn)) {
-          item_mappings.get(item.nsn).push(item.serial_number);
-          if (!individual_mapping.has(item.nsn)) {
-            individual_mapping.set(item.nsn, [item.serial_number]);
+        console.log(item.common_name);
+        if (item_mappings.has(item.common_name)) {
+          item_mappings.get(item.common_name).push(item.serial_number);
+          if (!individual_mapping.has(item.common_name)) {
+            individual_mapping.set(item.common_name, [item.serial_number]);
           } else {
-            individual_mapping.get(item.nsn).push(item.serial_number);
+            individual_mapping.get(item.common_name).push(item.serial_number);
           }
         } else {
-          item_mappings.set(item.nsn, [item.serial_number]);
-          individual_mapping.set(item.nsn, [item.serial_number]);
+          item_mappings.set(item.common_name, [item.serial_number]);
+          individual_mapping.set(item.common_name, [item.serial_number]);
         }
       });
       generate_pdfs(
@@ -2107,16 +2092,17 @@ assignment.mpo_description ? assignment.mpo_description : ''
     included_roles.forEach(role => {
       const individual_mapping = new Map();
       boxes.get(role).forEach(item => {
-        if (item_mappings.has(item.nsn)) {
-          item_mappings.get(item.nsn).push(item.serial_number);
-          if (!individual_mapping.has(item.nsn)) {
-            individual_mapping.set(item.nsn, [item.serial_number]);
+        console.log(item.common_name);
+        if (item_mappings.has(item.common_name)) {
+          item_mappings.get(item.common_name).push(item.serial_number);
+          if (!individual_mapping.has(item.common_name)) {
+            individual_mapping.set(item.common_name, [item.serial_number]);
           } else {
-            individual_mapping.get(item.nsn).push(item.serial_number);
+            individual_mapping.get(item.common_name).push(item.serial_number);
           }
         } else {
-          item_mappings.set(item.nsn, [item.serial_number]);
-          individual_mapping.set(item.nsn, [item.serial_number]);
+          item_mappings.set(item.common_name, [item.serial_number]);
+          individual_mapping.set(item.common_name, [item.serial_number]);
         }
       });
       generate_pdfs(
@@ -2152,7 +2138,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
     items_arr.forEach(item => {
       box_items.push({
-        common_name: item.common_name,
+        common_name: nsn_item.common_name,
         nsn_number: item.nsn,
         serial_number: item.serial_number,
       });
@@ -2191,7 +2177,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
         nsn.serial_numbers.forEach(sn => {
           if (sn.assignment === box_name) {
             box_items.push({
-              common_name: item.common_name,
+              common_name: nsn_item.common_name,
               nsn_number: nsn.nsn,
               serial_number: sn.serial_number,
             });
