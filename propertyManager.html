@@ -624,7 +624,7 @@ the list as soon as they type as there are no network requests to slow things do
     if (currentItem.length > 0) {
       items.push(currentItem);
     }
-
+    console.log(items);
     return items;
   }
 
@@ -647,7 +647,7 @@ the list as soon as they type as there are no network requests to slow things do
       this.ciic = nsn_item_row[1][7];
       this.dla = nsn_item_row[1][8];
       this.buom = nsn_item_row[1][9];
-      this.quantity = nsn_item_row[1][13];
+      this.quantity = nsn_item_row.length === 14 ? nsn_item_row[1][13] : nsn_item_row[1][12];
       this.common_name = "";
 
       for (let i = 3; i < nsn_item_row.length; i++) {
@@ -670,9 +670,9 @@ the list as soon as they type as there are no network requests to slow things do
             missing_reason: null,
           });
         }
-        if (nsn_item_row[i][10]) {
+        if (nsn_item_row.length === 14 ? nsn_item_row[i][10] : nsn_item_row[i][9]) {
           this.serial_numbers.push({
-            serial_number: nsn_item_row[i][10],
+            serial_number: nsn_item_row.length === 14 ? nsn_item_row[i][10] : nsn_item_row[i][9],
             assignment: null,
             missing_reason: null,
           });
