@@ -679,6 +679,14 @@ the list as soon as they type as there are no network requests to slow things do
         }
       }
 
+      while (this.serial_numbers.length < this.quantity) {
+        this.serial_numbers.push({
+          serial_number: "No_Serial_Number",
+          assignment: null,
+          missing_reason: null,
+        });
+      }
+
       // Prevents new fields from being added in the future, acts more like a struct
       Object.seal(this);
     }
@@ -846,115 +854,116 @@ the list as soon as they type as there are no network requests to slow things do
   let delta_property = ['NA1519', 'S05058'];
 
   const common_name_map = new Map([
-    ["5855016188462", ["PVS-31"]],
-    ["7010016813712", ["Fox Computer"]],
-    ["1240014107418", ["M25 Binocular"]],
-    ["5810016444375", ["SKL"]],
-    ["1005013820953", ["M4"]],
-    ["5810015938026", ["KG-250X"]],
-    ["5820016092342", ["AN/PRC 152A"]],
-    ["5820016236066", ["AN/PRC 137H"]],
-    ["5820016850718", ["AN/PRC 167"]],
-    ["5820016235737", ["137H Kit Bag"]],
-    ["5895016299400", []],
-    ["6665015522704", []],
-    ["5855016465962", ["STORM"]],
-    ["6210015376769", ["Lighting Kit"]],
-    ["1240015904552", []],
-    ["1010015572542", ["M320A1"]],
-    ["1240016639471", []],
-    ["1005011277510", ["M249 SAW"]],
-    ["5820016092302", ["152A Kit Bag"]],
-    ["1005015030141", ["M240 Tripod"]],
-    ["5855014320524", ["PVS-14"]],
-    ["1005015495837", ["M240L"]],
-    ["5855015346449", ["PSQ-20"]],
-    ["5855016030486", ["PSQ-20"]],
-    ["6515015469366", ["Vital Sign Monitor"]],
-    ["5821016686762", ["OSRVT"]],
-    ["1005016617317", ["SIG M17"]],
-    ["5820015644845", ["SIG Processor Group"]],
-    ["1005131197703", ["MK17 MOD0"]],
-    ["1005015882913", ["M2010"]],
-    ["5820014830566", ["PSC-5"]],
-    ["1005014692133", ["M107 .50 cal"]],
-    ["5820015353667", ["RT-1523 ASIP Radio"]],
-    ["1005015342841", ["M110"]],
-    ["6515014350050", ["Suction Apparatus"]],
-    ["6650015495838", []],
-    ["5855015679243", ["PVS-30"]],
-    ["1550015389256", []],
-    ["1005012951832", ["Shotgun"]],
-    ["1240014116350", []],
-    ["5821016577641", ["Video Terminal (OSRVT)"]],
-    ["5180002932875", ["Carpenter Tool Kit"]],
-    ["5180000645178", ["Electrical Tool Kit"]],
-    ["4910013659304", ["Vehicle Towbar"]],
-    ["1005016017458", []],
-    ["1240016027986", []],
-    ["6130015845315", ["117G Power Adapter"]],
-    ["1240014126608", ["Trijicon ACOG"]],
-    ["603501D046983", []],
-    ["589501C953977", ["SLINGSHOT"]],
-    ["702101C927232", []],
-    ["5855016188462", ["PVS-31"]],
-    ["5411015224821", []],
-    ["5840006911798", ["UPS System"]],
-    ["5855015330996", []],
-    ["5855015330996", []],
-    ["585501C927249", ["X300"]],
-    ["5855016408290", []],
-    ["5855015330940", ["PVS-24"]],
-    ["5855015997164", ["LA-5"]],
-    ["5855015959294", []],
-    ["585501X900027", []],
-    ["5855015112614", []],
-    ["5855016043925", []],
-    ["5855015330557", []],
-    ["5855015026414", []],
-    ["5855016800712", ["LA-23"]],
-    ["5855014748904", ["PVS-17A"]],
-    ["5855015315726", []],
-    ["5855016308075", []],
-    ["5860015046186", []],
-    ["5860016172324", []],
-    ["589501D041337", []],
-    ["5895016627959", ["MPK Kit"]],
-    ["6230015902739", ["Surfire Rifle Light"]],
-    ["665501D051864", ["Harris Amplifier"]],
-    ["666001D051970", []],
-    ["6720016685840", []],
-    ["7021016319931", []],
-    ["7021016793258", ["GETAC S410"]],
-    ["703001D040057", []],
-    ["1240016556247", []],
-    ["1240016456222", []],
-    ["1240016456222", []],
-    ["1240015907763", []],
-    ["1240016785336", []],
-    ["124001D120088", []],
-    ["124001D127447", []],
-    ["124001T001012", ["Leupold Mark 6 Scope"]],
-    ["1240016813209", []],
-    ["1240016813581", ["SIG 1-6"]],
-    ["1240015879345", ["EOTECH"]],
-    ["1240015818976", []],
-    ["1240016864791", ["M320 EOTECH"]],
-    ["1240015899332", []],
-    ["1240015917601", []],
-    ["1240015455813", []],
-    ["1240015455813", []],
-    ["1095015432189", ["STUN GUN"]],
-    ["431001C119585", ["Air Compressor"]],
-    ["5855015531162", ["PAS-23"]],
-    ["5810016082278", ["TKL"]],
-    ["1005016933616", []],
-    ["1005016805221", ["MRAD"]],
-    ["1005016933608", []],
-    ["1005016542796", ["GLock 19"]],
-    ["1005015982682", ["MK17 Suppressor"]],
-    ["1005015996997", ["Surfire Supressor"]],
-    ["1005016041555", []]
+    ["5855016188462", "PVS-31"],
+    ["7010016813712", "Fox Computer"],
+    ["1240014107418", "M25 Binocular"],
+    ["5810016444375", "SKL"],
+    ["1005013820953", "M4"],
+    ["5810015938026", "KG-250X"],
+    ["5820016092342", "AN/PRC 152A"],
+    ["5820016236066", "AN/PRC 137H"],
+    ["5820016850718", "AN/PRC 167"],
+    ["5820016235737", "137H Kit Bag"],
+    ["5895016299400", ""],
+    ["5895016299400", ""],
+    ["6665015522704", ""],
+    ["5855016465962", "STORM"],
+    ["6210015376769", "Lighting Kit"],
+    ["1240015904552", ""],
+    ["1010015572542", "M320A1"],
+    ["1240016639471", ""],
+    ["1005011277510", "M249 SAW"],
+    ["5820016092302", "152A Kit Bag"],
+    ["1005015030141", "M240 Tripod"],
+    ["5855014320524", "PVS-14"],
+    ["1005015495837", "M240L"],
+    ["5855015346449", "PSQ-20"],
+    ["5855016030486", "PSQ-20"],
+    ["6515015469366", "Vital Sign Monitor"],
+    ["5821016686762", "OSRVT"],
+    ["1005016617317", "SIG M17"],
+    ["5820015644845", "SIG Processor Group"],
+    ["1005131197703", "MK17 MOD0"],
+    ["1005015882913", "M2010"],
+    ["5820014830566", "PSC-5"],
+    ["1005014692133", "M107 .50 cal"],
+    ["5820015353667", "RT-1523 ASIP Radio"],
+    ["1005015342841", "M110"],
+    ["6515014350050", "Suction Apparatus"],
+    ["6650015495838", ""],
+    ["5855015679243", "PVS-30"],
+    ["1550015389256", ""],
+    ["1005012951832", "Shotgun"],
+    ["1240014116350", ""],
+    ["5821016577641", "Video Terminal (OSRVT)"],
+    ["5180002932875", "Carpenter Tool Kit"],
+    ["5180000645178", "Electrical Tool Kit"],
+    ["4910013659304", "Vehicle Towbar"],
+    ["1005016017458", ""],
+    ["1240016027986", ""],
+    ["6130015845315", "117G Power Adapter"],
+    ["1240014126608", "Trijicon ACOG"],
+    ["603501D046983", ""],
+    ["589501C953977", "SLINGSHOT"],
+    ["702101C927232", ""],
+    ["5855016188462", "PVS-31"],
+    ["5411015224821", ""],
+    ["5840006911798", "UPS System"],
+    ["5855015330996", ""],
+    ["5855015330996", ""],
+    ["585501C927249", "X300"],
+    ["5855016408290", ""],
+    ["5855015330940", "PVS-24"],
+    ["5855015997164", "LA-5"],
+    ["5855015959294", ""],
+    ["585501X900027", ""],
+    ["5855015112614", ""],
+    ["5855016043925", ""],
+    ["5855015330557", ""],
+    ["5855015026414", ""],
+    ["5855016800712", "LA-23"],
+    ["5855014748904", "PVS-17A"],
+    ["5855015315726", ""],
+    ["5855016308075", ""],
+    ["5860015046186", ""],
+    ["5860016172324", ""],
+    ["589501D041337", ""],
+    ["5895016627959", ""],
+    ["6230015902739", "Surfire Rifle Light"],
+    ["665501D051864", "Harris Amplifier"],
+    ["666001D051970", ""],
+    ["6720016685840", ""],
+    ["7021016319931", ""],
+    ["7021016793258", "GETAC S410"],
+    ["703001D040057", ""],
+    ["1240016556247", ""],
+    ["1240016456222", ""],
+    ["1240016456222", ""],
+    ["1240015907763", ""],
+    ["1240016785336", ""],
+    ["124001D120088", ""],
+    ["124001D127447", ""],
+    ["124001T001012", "Leupold Mark 6 Scope"],
+    ["1240016813209", ""],
+    ["1240016813581", "SIG 1-6"],
+    ["1240015879345", "Old Brown EOTECH"],
+    ["1240015818976", ""],
+    ["1240016864791", "M320 EOTECH"],
+    ["1240015899332", ""],
+    ["1240015917601", ""],
+    ["1240015455813", ""],
+    ["1240015455813", ""],
+    ["1095015432189", "STUN GUN"],
+    ["431001C119585", "Air Compressor"],
+    ["5855015531162", "PAS-23"],
+    ["5810016082278", "TKL"],
+    ["1005016933616", ""],
+    ["1005016805221", "MRAD"],
+    ["1005016933608", ""],
+    ["1005016542796", "GLock 19"],
+    ["1005015982682", "MK17 Suppressor"],
+    ["1005015996997", "Surfire Supressor"],
+    ["1005016041555", ""]
   ]);
 
 
@@ -1161,14 +1170,14 @@ the list as soon as they type as there are no network requests to slow things do
           'm2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56',
         );
         path_check.setAttribute('fill', 'white');
-        
-        if (nsn_item.common_name && nsn_item.common_name !== "") {
-            const pTagCommonName = document.createElement('p');
-            pTagCommonName.classList.add('pTagCommonName');
-            pTagCommonName.textContent = nsn_item.common_name;
 
-            common_name_container.innerHTML = '';
-            common_name_container.appendChild(pTagCommonName);
+        if (nsn_item.common_name && nsn_item.common_name !== "") {
+          const pTagCommonName = document.createElement('p');
+          pTagCommonName.classList.add('pTagCommonName');
+          pTagCommonName.textContent = nsn_item.common_name;
+
+          common_name_container.innerHTML = '';
+          common_name_container.appendChild(pTagCommonName);
         }
 
 
@@ -1313,7 +1322,7 @@ item.mpo_description ? item.mpo_description : 'No MPO'
           no_check_box.addEventListener('change', function () {
             if (no_check_box.checked) {
               // Show dialog as modal
-              dialog.showModal();
+              dialog<owModal();
             } else {
               serial_number.missing_reason = null;
             }
@@ -1375,7 +1384,7 @@ box.role !== null ? '(' + box.name + ')' : ''
 serial_number.assignment === person.role && person.role !== null
 ? 'selected'
 : ''
-} value="${person.role}">${person.name}    ${
+} value="${person.role}">${person.name.replace(/_/g,' ')}    ${
 person.role !== null ? '(' + person.role + ')' : ''
 }</option>`;
             serial.insertAdjacentHTML('beforeend', option_html);
@@ -1516,7 +1525,7 @@ person.role !== null ? '(' + person.role + ')' : ''
       header.classList.add('boxHeader');
       header.insertAdjacentHTML(
         'beforeend',
-        `<h3>${key.name} (${key.role})</h3>`,
+        `<h3>${key.name.replace(/_/g,' ')} (${key.role})</h3>`,
       );
       gun_box_list.push(key.role);
 
@@ -1615,7 +1624,7 @@ assignment.common_name
 
       const header = document.createElement('summary');
       header.classList.add('boxHeader');
-      header.insertAdjacentHTML('beforeend', `<h3>${key.name}</h3>`);
+      header.insertAdjacentHTML('beforeend', `<h3>${key.name.replace(/_/g,' ')}</h3>`);
 
       const rightGrouping = document.createElement('div');
       rightGrouping.classList.add('rightGrouping');
@@ -1785,7 +1794,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
       if (person.role != null) {
         dropDown.insertAdjacentHTML(
           'beforeend',
-          `<div class="namesAndRoles"><p class="dropdown_name">${person.name}</p><p class="role">${person.role}</p></div>`,
+          `<div class="namesAndRoles"><p class="dropdown_name">${person.name.replace(/_/g,' ')}</p><p class="role">${person.role}</p></div>`,
         );
       }
     });
@@ -1805,7 +1814,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
         .getElementById('nameInputs')
         .insertAdjacentHTML(
           'afterbegin',
-          `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name}"</><p class="role">${person.role}</p></div>`,
+          `<div class="editNamesList"><input type="text" class="editName" placeholder="${person.name.replace(/_/g,' ')}"</><p class="role">${person.role}</p></div>`,
         );
     });
 
@@ -1826,7 +1835,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
     for (let i = 0; i <= inputs.length; i++) {
       if (inputs[i]) {
-        roles[i].name = inputs[i];
+        roles[i].name = inputs[i].replace(/ /g, '_');
       }
     }
 
@@ -1933,7 +1942,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
         // After both files are processed, update the items array
         items = itemObjects.slice();
-        
+
         //Set all common names for nsn_tems
         items.forEach(item => {
           item.nsn_items.forEach(nsn_item => {
@@ -1944,8 +1953,8 @@ assignment.mpo_description ? assignment.mpo_description : ''
             else {
               nsn_item.common_name = "No Common Name";
             }
-      });
-  });
+          });
+        });
 
 
         toggle_page('main_page', items);
@@ -1971,7 +1980,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
     roleCheckBoxes.innerHTML = '';
 
     Array.from(boxes.keys()).forEach(key => {
-      const checkbox = `<div><label>${key.name} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
+      const checkbox = `<div><label>${key.name.replace(/_/g, ' ')} (${key.role}) <input type="checkbox" name="checkbox${key.role}"/></label></div>`;
 
       roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
     });
@@ -1988,7 +1997,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
     roleCheckBoxes.innerHTML = '';
 
     Array.from(boxes.keys()).forEach(key => {
-      const checkbox = `<div><label>${key.name} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
+      const checkbox = `<div><label>${key.name.replace(/_/g,' ')} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
 
       roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
     });
@@ -2005,9 +2014,9 @@ assignment.mpo_description ? assignment.mpo_description : ''
     roleCheckBoxes.innerHTML = '';
 
     Array.from(boxes.keys()).forEach(key => {
-      const radio = `<div><label>${key.name} (${key.role}) <input type="radio" name="radio${key.name}"/></label></div>`;
+      const checkbox = `<div><label>${key.name.replace(/_/g,' ')} <input type="checkbox" name="checkbox${key.name}"/></label></div>`;
 
-      roleCheckBoxes.insertAdjacentHTML('beforeend', radio);
+      roleCheckBoxes.insertAdjacentHTML('beforeend', checkbox);
     });
 
     fromToModal.showModal();
@@ -2022,14 +2031,14 @@ assignment.mpo_description ? assignment.mpo_description : ''
     roleCheckBoxes.innerHTML = '';
 
     Array.from(boxes.keys()).forEach(key => {
-      const radio = `<div><label>${key.name} <input type="radio" name="radio${key.name}"/></label></div>`;
+      const radio = `<div><label>${key.name.replace(/_/g,' ')} <input type="radio" name="radio${key.name}"/></label></div>`;
 
       roleCheckBoxes.insertAdjacentHTML('beforeend', radio);
     });
 
     fromToModal.showModal();
   }
-  
+
   function generate_2062(event, form) {
     event.preventDefault();
 
@@ -2121,33 +2130,34 @@ assignment.mpo_description ? assignment.mpo_description : ''
   function generate_1750_individual(event, form) {
     const included_roles = Array.from(form.elements)
     .map(element => element.name)
-    .filter(name => name.startsWith('radio'))
+    .filter(name => name.startsWith('checkbox'))
     .filter(name => form.elements[name].checked)
-    .map(name => name.slice(5))
+    .map(name => name.slice(8))
     .map(name => name.split(' ')[0])
     .map(name => roles.find(element => element.name === name));
     const boxes = build_boxes(included_roles);
 
-    const names = included_roles.map(role => role.name);
-    const box_name = names[0];
+    included_roles.forEach(role =>{
 
-    const box_items = [];
+      const box_items = [];
 
-    const [first_val] = boxes.values();
-    const items_arr = first_val;
+      const first_val = boxes.get(role);
+      const items_arr = first_val;
 
-    items_arr.forEach(item => {
-      box_items.push({
-        common_name: nsn_item.common_name,
-        nsn_number: item.nsn,
-        serial_number: item.serial_number,
+      items_arr.forEach(item => {
+        box_items.push({
+          common_name: item.common_name,
+          nsn_number: item.nsn,
+          serial_number: item.serial_number,
+        });
       });
+
+      const grouped = Object.groupBy(box_items, ({ nsn_number }) => nsn_number);
+      const packed_by = form.elements['packedBy'].value;
+
+      generate_1750(packed_by, role.name, grouped);
     });
 
-    const grouped = Object.groupBy(box_items, ({ nsn_number }) => nsn_number);
-    const packed_by = form.elements['packedBy'].value;
-
-    generate_1750(packed_by, box_name, grouped);
   }
 
   function generate_1750_gunboxes(event, form) {
@@ -2155,9 +2165,9 @@ assignment.mpo_description ? assignment.mpo_description : ''
 
     const included_roles = Array.from(form.elements)
     .map(element => element.name)
-    .filter(name => name.startsWith('radio'))
+    .filter(name => name.startsWith('checkbox'))
     .filter(name => form.elements[name].checked)
-    .map(name => name.slice(5))
+    .map(name => name.slice(8))
     .map(name => boxes_list.find(element => element.name === name))
     .filter(name => name !== null && name !== undefined);
     if (included_roles.length === 0) {
@@ -2207,7 +2217,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
         from_field.setText(from);
         const to_field = f.getTextField('TO');
         to_field.setFontSize(10);
-        to_field.setText(to);
+        to_field.setText(to.replace(/_/g,' '));
 
         const pub_date = f.getTextField('PUBLICATION DATE');
         pub_date.setFontSize(10);
@@ -2269,7 +2279,7 @@ assignment.mpo_description ? assignment.mpo_description : ''
         to_field.setFontSize(10);
         to_field.setText('1');
         const end_item = f.getTextField('3_END_ITEM');
-        end_item.setText(box_name);
+        end_item.setText(box_name.replace(/_/g,' '));
 
         const pub_date = f.getTextField('4_DATE');
         pub_date.setFontSize(10);
